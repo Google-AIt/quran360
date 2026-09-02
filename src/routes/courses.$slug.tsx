@@ -150,6 +150,8 @@ function Page() {
       <h1 className="mt-3 font-display text-3xl font-bold text-primary-deep sm:text-4xl">{course.title}</h1>
       <p className="mt-3 max-w-3xl leading-9 text-muted-foreground">{course.description}</p>
 
+      <BagObjectives className="mt-8" />
+
       <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_340px]">
         <div>
           {lesson ? (
