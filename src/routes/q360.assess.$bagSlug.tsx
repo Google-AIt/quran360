@@ -59,6 +59,9 @@ function Page() {
   const [rater, setRater] = useState<string>("self");
   const [scores, setScores] = useState<Record<string, number>>({});
   const [saved, setSaved] = useState<Assessment[]>([]);
+  const [raterAvgs, setRaterAvgs] = useState<Record<string, number>>({});
+  const [copied, setCopied] = useState("");
+
   const [busy, setBusy] = useState(false);
   const [msg, setMsg] = useState("");
 
