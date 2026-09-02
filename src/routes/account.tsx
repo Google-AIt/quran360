@@ -43,17 +43,24 @@ function Page() {
     if (!session) {
       setRoles([]);
       setMyCourses([]);
+      setMyCerts([]);
       setStats({ courses: 0, percent: 0, certificates: 0, q360: 0 });
       return;
     }
     const uid = session.user.id;
     void (async () => {
-      const [{ data: r }, { data: enr }, { count: certs }, { count: q }] = await Promise.all([
+      const [{ data: r }, { data: enr }, { data: certRows }, { count: q }] = await Promise.all([
         supabase.from("user_roles").select("role").eq("user_id", uid),
         supabase.from("enrollments").select("progress, courses(id, slug, title)").eq("user_id", uid),
-        supabase.from("certificates").select("id", { count: "exact", head: true }).eq("user_id", uid),
+        supabase
+          .from("certificates")
+          .select("id, certificate_number, program_title, issued_at")
+          .eq("user_id", uid)
+          .order("issued_at", { ascending: false }),
         supabase.from("q360_assessments").select("id", { count: "exact", head: true }).eq("user_id", uid),
       ]);
+      const certs = (certRows ?? []).length;
+      setMyCerts(certRows ?? []);
       setRoles((r ?? []).map((x) => x.role as string));
       const rows = (enr ?? []).flatMap((e) => {
         const c = e.courses as unknown as { id: string; slug: string; title: string } | null;
