@@ -1,5 +1,6 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { getBag } from "@/lib/public.functions";
+import { bagImage } from "@/lib/bag-images";
 
 export const Route = createFileRoute("/bags/$slug")({
   loader: async ({ params }) => {
@@ -44,11 +45,20 @@ function Page() {
   const { bag, steps, course, questions } = Route.useLoaderData();
   return (
     <div className="mx-auto max-w-6xl px-4 py-16">
-      <div className="rounded-3xl bg-hero p-8 text-primary-foreground md:p-12">
-        <p className="ayah text-2xl text-gold">{bag.verse}</p>
-        <p className="mt-1 text-sm text-primary-foreground/70">{bag.verse_reference}</p>
-        <h1 className="mt-5 font-display text-4xl font-bold">{bag.title}</h1>
-        {bag.summary && <p className="mt-4 max-w-3xl leading-9 text-primary-foreground/85">{bag.summary}</p>}
+      <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr] lg:items-stretch">
+        <div className="rounded-3xl bg-hero p-8 text-primary-foreground md:p-12">
+          <p className="ayah text-2xl text-gold">{bag.verse}</p>
+          <p className="mt-1 text-sm text-primary-foreground/70">{bag.verse_reference}</p>
+          <h1 className="mt-5 font-display text-4xl font-bold">{bag.title}</h1>
+          {bag.summary && <p className="mt-4 max-w-3xl leading-9 text-primary-foreground/85">{bag.summary}</p>}
+        </div>
+        {bagImage(bag.slug) && (
+          <img
+            src={bagImage(bag.slug)}
+            alt={`غلاف حقيبة ${bag.title}`}
+            className="h-full w-full rounded-3xl border border-border object-cover"
+          />
+        )}
       </div>
 
       <div className="mt-10 grid gap-4 md:grid-cols-3">

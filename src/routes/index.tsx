@@ -10,6 +10,7 @@ import {
   Sparkles,
 } from "lucide-react";
 import { getBags, getSettings, getStories } from "@/lib/public.functions";
+import { bagImage } from "@/lib/bag-images";
 
 const homeQuery = queryOptions({
   queryKey: ["home"],
@@ -195,14 +196,24 @@ function Home() {
               key={bag.id}
               to="/bags/$slug"
               params={{ slug: bag.slug }}
-              className="group rounded-2xl border border-border bg-card p-6 transition-shadow hover:shadow-soft"
+              className="group overflow-hidden rounded-2xl border border-border bg-card transition-shadow hover:shadow-soft"
             >
+              {bagImage(bag.slug) && (
+                <img
+                  src={bagImage(bag.slug)}
+                  alt={`غلاف حقيبة ${bag.title}`}
+                  loading="lazy"
+                  className="aspect-[16/10] w-full object-cover"
+                />
+              )}
+              <div className="p-6">
               <p className="ayah text-lg text-primary">{bag.verse}</p>
               <h3 className="mt-3 font-display text-lg font-bold text-primary-deep">{bag.title}</h3>
               <p className="mt-2 line-clamp-2 text-sm leading-7 text-muted-foreground">{bag.summary}</p>
               <span className="mt-4 inline-flex items-center gap-1 text-sm text-primary">
                 تفاصيل الحقيبة <ArrowLeft className="size-4 transition-transform group-hover:-translate-x-1" />
               </span>
+              </div>
             </Link>
           ))}
         </div>
