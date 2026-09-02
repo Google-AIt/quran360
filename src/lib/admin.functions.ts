@@ -83,9 +83,16 @@ export const updateSetting = createServerFn({ method: "POST" })
   })
   .handler(async ({ data, context }) => {
     await requireAdmin(context.supabase, context.userId);
+    // العمود jsonb: نحاول تحليل القيمة كـJSON (أرقام/نصوص مقتبسة)، وإلا نخزنها كنص.
+    let value: unknown = data.value;
+    try {
+      value = JSON.parse(data.value);
+    } catch {
+      /* تبقى نصًا */
+    }
     const { error } = await context.supabase
       .from("settings")
-      .update({ value: data.value })
+      .update({ value: value as never })
       .eq("key", data.key);
     if (error) throw new Error("تعذّر حفظ الإعداد");
     return { ok: true };
