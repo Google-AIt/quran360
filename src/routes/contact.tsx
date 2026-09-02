@@ -1,14 +1,24 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { MessageCircle, Send } from "lucide-react";
 import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import { PageHero, SectionTitle } from "@/components/site/PageHero";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
     meta: [
       { title: "تواصل معنا | القرآن خطوة بخطوة" },
-      { name: "description", content: "تواصل مع فريق منصة القرآن خطوة بخطوة: دعم فني، تسجيل مدرسة، طلب شراكة، الانضمام كميسّر، والأسئلة الشائعة." },
+      {
+        name: "description",
+        content:
+          "تواصل مع فريق منصة القرآن خطوة بخطوة: دعم فني، تسجيل مدرسة، طلب شراكة، الانضمام كميسّر، والأسئلة الشائعة.",
+      },
       { property: "og:title", content: "تواصل معنا" },
-      { property: "og:description", content: "نسعد بخدمة الأفراد والمدارس والجهات: استفسارات، شراكات، وتسجيل المدارس." },
+      {
+        property: "og:description",
+        content: "نسعد بخدمة الأفراد والمدارس والجهات: استفسارات، شراكات، وتسجيل المدارس.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
@@ -73,11 +83,17 @@ function Page() {
   const needsOrg = topic === "school" || topic === "partnership";
 
   return (
-    <div className="mx-auto max-w-4xl px-4 py-16">
-      <h1 className="font-display text-4xl font-bold text-primary-deep">تواصل معنا</h1>
-      <p className="mt-4 leading-9 text-muted-foreground">
-        نسعد باستقبال استفسارات الأفراد والمدارس والجهات التعليمية، وطلبات الشراكة والانضمام إلى فريق الميسّرين.
-      </p>
+    <div className="mx-auto max-w-5xl px-4 py-10 md:py-16">
+      <PageHero
+        eyebrow="نحن هنا لخدمتك"
+        title="تواصل معنا"
+        description="نسعد باستقبال استفسارات الأفراد والمدارس والجهات التعليمية، وطلبات الشراكة والانضمام إلى فريق الميسّرين."
+      >
+        <div className="flex items-center gap-3 rounded-2xl border border-primary-foreground/15 bg-primary-foreground/10 p-4 text-sm text-primary-foreground/80">
+          <MessageCircle className="size-5 text-gold" />
+          اختر موضوع رسالتك وسيرشدك النموذج إلى الحقول المناسبة.
+        </div>
+      </PageHero>
 
       <form
         className="mt-8 space-y-4"
@@ -122,8 +138,16 @@ function Page() {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
-          <input name="name" placeholder="الاسم" className="w-full rounded-xl border border-input bg-background px-4 py-3" />
-          <input name="email" placeholder="البريد الإلكتروني" className="w-full rounded-xl border border-input bg-background px-4 py-3" />
+          <input
+            name="name"
+            placeholder="الاسم"
+            className="w-full rounded-xl border border-input bg-background px-4 py-3"
+          />
+          <input
+            name="email"
+            placeholder="البريد الإلكتروني"
+            className="w-full rounded-xl border border-input bg-background px-4 py-3"
+          />
         </div>
         {needsOrg && (
           <input
@@ -132,18 +156,34 @@ function Page() {
             className="w-full rounded-xl border border-input bg-background px-4 py-3"
           />
         )}
-        <textarea name="message" rows={6} placeholder="رسالتك" className="w-full rounded-xl border border-input bg-background px-4 py-3" />
+        <textarea
+          name="message"
+          rows={6}
+          placeholder="رسالتك"
+          className="w-full rounded-xl border border-input bg-background px-4 py-3"
+        />
         {errors.length > 0 && (
           <ul className="rounded-xl bg-destructive/10 p-4 text-sm text-destructive">
-            {errors.map((e) => <li key={e}>{e}</li>)}
+            {errors.map((e) => (
+              <li key={e}>{e}</li>
+            ))}
           </ul>
         )}
-        {sent && <p className="rounded-xl bg-secondary p-4 text-sm text-primary-deep">تم استلام رسالتك، وسنتواصل معك قريبًا بإذن الله.</p>}
-        <button className="rounded-xl bg-primary px-8 py-3 font-medium text-primary-foreground">إرسال</button>
+        {sent && (
+          <p className="rounded-xl bg-secondary p-4 text-sm text-primary-deep">
+            تم استلام رسالتك، وسنتواصل معك قريبًا بإذن الله.
+          </p>
+        )}
+        <Button type="submit" size="lg">
+          <Send /> إرسال
+        </Button>
       </form>
 
       <section className="mt-16">
-        <h2 className="font-display text-2xl font-bold text-primary-deep">الأسئلة الشائعة</h2>
+        <SectionTitle
+          title="الأسئلة الشائعة"
+          subtitle="إجابات سريعة عن الحقائب والدورات والمدارس وقياس الأثر."
+        />
         <div className="mt-5 divide-y divide-border overflow-hidden rounded-2xl border border-border bg-card">
           {faqs.map(([q, a], i) => (
             <div key={q}>
@@ -156,7 +196,9 @@ function Page() {
                 {q}
                 <span className="text-muted-foreground">{openFaq === i ? "−" : "+"}</span>
               </button>
-              {openFaq === i && <p className="px-5 pb-5 text-sm leading-8 text-muted-foreground">{a}</p>}
+              {openFaq === i && (
+                <p className="px-5 pb-5 text-sm leading-8 text-muted-foreground">{a}</p>
+              )}
             </div>
           ))}
         </div>

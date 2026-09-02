@@ -1,12 +1,14 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { ShoppingBag } from "lucide-react";
 import { getBags, getProducts } from "@/lib/public.functions";
 import { bagImage } from "@/lib/bag-images";
 import { productImage } from "@/lib/product-images";
 import { contentFor, categoryLabels } from "@/lib/product-content";
 import { useCart } from "@/lib/cart";
 import { toast } from "sonner";
-import { Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+import { PageHero, SectionTitle } from "@/components/site/PageHero";
 
 const q = queryOptions({
   queryKey: ["store"],
@@ -18,7 +20,11 @@ export const Route = createFileRoute("/store")({
   head: () => ({
     meta: [
       { title: "المتجر | حقائب ودورات وعضويات القرآن خطوة بخطوة" },
-      { name: "description", content: "متجر المنصة: الدورات الإلكترونية، عضوية المتدرب والميسّر، تأهيل الميسّرين، Q360، وبرامج المدارس." },
+      {
+        name: "description",
+        content:
+          "متجر المنصة: الدورات الإلكترونية، عضوية المتدرب والميسّر، تأهيل الميسّرين، Q360، وبرامج المدارس.",
+      },
       { property: "og:title", content: "متجر القرآن خطوة بخطوة" },
       { property: "og:description", content: "اشترِ الدورات والعضويات وخدمة قياس الأثر Q360." },
     ],
@@ -40,44 +46,41 @@ function Page() {
   const { products, bags } = data;
   const { add, count } = useCart();
   return (
-    <div className="mx-auto max-w-7xl px-4 py-16">
-      <header className="rounded-3xl border border-border bg-card/60 p-8 md:p-12">
-        <span className="inline-flex rounded-full bg-gold-soft px-4 py-1 text-xs font-medium text-accent-foreground">
-          متجر المنصة
-        </span>
-        <h1 className="mt-4 font-display text-4xl font-bold text-primary-deep">حقائب وبرامج للتدريب على تطبيق القرآن</h1>
-        <p className="mt-4 max-w-3xl leading-9 text-muted-foreground">
-          كل منتج هنا مبني على المنهجية التطبيقية: تصحيح التصور الذهني للآية، ثم ربط المتدرب بالمهارة المحددة فيها، ثم
-          خطوات عملية محددة تُنفَّذ ويُقاس أثرها. الأسعار بالريال السعودي.
-        </p>
-        <Link
-          to="/cart"
-          className="mt-6 inline-flex rounded-xl bg-primary px-6 py-2.5 text-sm font-medium text-primary-foreground"
-        >
-          عرض السلة{count > 0 ? ` (${count})` : ""}
-        </Link>
-
-        <ol className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+    <div className="mx-auto max-w-7xl px-4 py-10 md:py-16">
+      <PageHero
+        eyebrow="متجر القرآن خطوة بخطوة"
+        title="اختر مسارك نحو قرآنٍ يمشي على الأرض"
+        description="منتجات تدريبية أصيلة تجمع بين الآية، والمهارة، والتطبيق، وقياس الأثر. اختر الحقيبة أو البرنامج الذي يلامس احتياجك وابدأ بخطوة واضحة."
+        actions={
+          <Button asChild size="lg">
+            <Link to="/cart">
+              <ShoppingBag /> عرض السلة{count > 0 ? ` (${count})` : ""}
+            </Link>
+          </Button>
+        }
+      >
+        <ol className="grid gap-4 border-t border-primary-foreground/20 pt-6 sm:grid-cols-2 lg:grid-cols-4">
           {steps.map((s) => (
-            <li key={s.n} className="flex gap-4">
-              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-primary font-display text-lg font-bold text-primary-foreground">
+            <li key={s.n} className="flex gap-3">
+              <span className="flex size-10 shrink-0 items-center justify-center rounded-xl bg-gold font-display text-sm font-bold text-accent-foreground">
                 {s.n}
               </span>
               <span>
-                <span className="block font-display text-sm font-bold text-primary-deep">{s.t}</span>
-                <span className="mt-1 block text-xs leading-6 text-muted-foreground">{s.d}</span>
+                <span className="block font-display text-sm font-bold">{s.t}</span>
+                <span className="mt-1 block text-xs leading-6 text-primary-foreground/70">
+                  {s.d}
+                </span>
               </span>
             </li>
           ))}
         </ol>
-      </header>
+      </PageHero>
 
       <section className="mt-16">
-        <h2 className="font-display text-2xl font-bold text-primary-deep">الحقائب القرآنية</h2>
-        <p className="mt-2 max-w-3xl text-sm leading-7 text-muted-foreground">
-          حقائب تدريبية تتبع طريقة مبتكرة: إضاءة تشرح مفهوم الآية وصورها الذهنية، ثم تدريب على خطوات عملية محددة توصل
-          إلى نتائج مباشرة، لنكون قرآنًا يمشي على الأرض.
-        </p>
+        <SectionTitle
+          title="الحقائب القرآنية"
+          subtitle="ابدأ من الآية الأقرب إلى احتياجك، وانتقل معها من فهم المعنى إلى ممارسة السلوك."
+        />
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {bags.map((b) => (
             <Link
@@ -91,24 +94,30 @@ function Page() {
                   src={bagImage(b.slug)}
                   alt={`غلاف حقيبة ${b.title}`}
                   loading="lazy"
+                  width={1200}
+                  height={750}
                   className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
                 />
               )}
               <div className="p-6">
                 <h3 className="font-display text-lg font-bold text-primary-deep">{b.title}</h3>
-                <p className="mt-2 line-clamp-2 text-sm leading-7 text-muted-foreground">{b.summary}</p>
-                <span className="mt-4 inline-block text-sm font-medium text-primary">تفاصيل الحقيبة ←</span>
+                <p className="mt-2 line-clamp-2 text-sm leading-7 text-muted-foreground">
+                  {b.summary}
+                </p>
+                <span className="mt-4 inline-block text-sm font-medium text-primary">
+                  تفاصيل الحقيبة ←
+                </span>
               </div>
             </Link>
           ))}
         </div>
       </section>
 
-      <section className="mt-20">
-        <h2 className="font-display text-2xl font-bold text-primary-deep">الدورات والعضويات والخدمات</h2>
-        <p className="mt-2 max-w-3xl text-sm leading-7 text-muted-foreground">
-          اختر ما يناسبك: دورة مفردة، عضوية سنوية، تأهيل واعتماد ميسّر، أو قياس أثر Q360 وبرامج المدارس.
-        </p>
+      <section className="mt-20 border-t border-border pt-16">
+        <SectionTitle
+          title="الدورات والعضويات والخدمات"
+          subtitle="مسارات مرنة للأفراد والميسّرين والمدارس، مصممة لترافقك من أول خطوة حتى الأثر."
+        />
         <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           {products.map((p) => {
             const c = contentFor(p.slug);
@@ -138,15 +147,21 @@ function Page() {
                   <span className="w-fit rounded-full bg-secondary px-3 py-1 text-xs text-secondary-foreground">
                     {categoryLabels[p.category] ?? p.category}
                   </span>
-                  <h3 className="mt-3 font-display text-lg font-bold text-primary-deep">{p.title}</h3>
-                  <p className="mt-2 text-sm leading-7 text-muted-foreground">{c?.tagline ?? p.description}</p>
+                  <h3 className="mt-3 font-display text-lg font-bold text-primary-deep">
+                    {p.title}
+                  </h3>
+                  <p className="mt-2 text-sm leading-7 text-muted-foreground">
+                    {c?.tagline ?? p.description}
+                  </p>
                   {c && (
                     <>
                       <p className="mt-3 text-xs leading-6 text-muted-foreground">{c.audience}</p>
                       <ul className="mt-4 space-y-2 text-sm leading-6 text-foreground/80">
                         {c.includes.map((it) => (
                           <li key={it} className="flex gap-2">
-                            <span aria-hidden className="mt-1 text-primary">✦</span>
+                            <span aria-hidden className="mt-1 text-primary">
+                              ✦
+                            </span>
                             <span>{it}</span>
                           </li>
                         ))}
@@ -159,9 +174,12 @@ function Page() {
                   <div className="mt-6 flex flex-1 items-end justify-between gap-3">
                     <span className="font-display text-xl font-bold text-primary">
                       {p.price} ريال{" "}
-                      <span className="text-xs font-normal text-muted-foreground">{period[p.billing_period]}</span>
+                      <span className="text-xs font-normal text-muted-foreground">
+                        {period[p.billing_period]}
+                      </span>
                     </span>
-                    <button
+                    <Button
+                      size="sm"
                       onClick={() => {
                         add({
                           productId: p.id,
@@ -172,10 +190,9 @@ function Page() {
                         });
                         toast.success("تمت الإضافة إلى السلة");
                       }}
-                      className="rounded-xl bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary-deep"
                     >
                       أضف للسلة
-                    </button>
+                    </Button>
                   </div>
                 </div>
               </article>

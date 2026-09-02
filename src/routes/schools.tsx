@@ -1,7 +1,10 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
+import { Building2 } from "lucide-react";
 import { getSettings } from "@/lib/public.functions";
+import { Button } from "@/components/ui/button";
+import { PageHero, SectionTitle, HeroStat } from "@/components/site/PageHero";
 
 const q = queryOptions({ queryKey: ["settings"], queryFn: () => getSettings() });
 
@@ -10,9 +13,16 @@ export const Route = createFileRoute("/schools")({
   head: () => ({
     meta: [
       { title: "برنامج المدارس | التربية القرآنية للمدارس" },
-      { name: "description", content: "برنامج متكامل لبناء الثقافة والسلوك القرآني في البيئة المدرسية: تأهيل المعلمين، خمس حقائب، وقياس أثر Q360." },
+      {
+        name: "description",
+        content:
+          "برنامج متكامل لبناء الثقافة والسلوك القرآني في البيئة المدرسية: تأهيل المعلمين، خمس حقائب، وقياس أثر Q360.",
+      },
       { property: "og:title", content: "برنامج المدارس — القرآن خطوة بخطوة" },
-      { property: "og:description", content: "لا نقدم للمدرسة حقائب قرآنية فقط، بل نبني معها بيئة تربوية." },
+      {
+        property: "og:description",
+        content: "لا نقدم للمدرسة حقائب قرآنية فقط، بل نبني معها بيئة تربوية.",
+      },
     ],
   }),
   component: Page,
@@ -39,7 +49,18 @@ const benefits = [
   "توثيق أثر المدرسة ونتائجها.",
 ];
 
-const journey = ["التسجيل", "اختيار البرنامج", "تأهيل المعلمين", "تطبيق 5 حقائب", "تدريب الطلاب", "التطبيق العملي", "إشراك الأسرة", "Q360", "قياس الأثر", "تقرير المدرسة"];
+const journey = [
+  "التسجيل",
+  "اختيار البرنامج",
+  "تأهيل المعلمين",
+  "تطبيق 5 حقائب",
+  "تدريب الطلاب",
+  "التطبيق العملي",
+  "إشراك الأسرة",
+  "Q360",
+  "قياس الأثر",
+  "تقرير المدرسة",
+];
 
 function Page() {
   const { data } = useSuspenseQuery(q);
@@ -51,52 +72,88 @@ function Page() {
   const total = teachers * teacherPrice + students * studentPrice;
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16">
-      <h1 className="font-display text-4xl font-bold text-primary-deep">المدارس</h1>
-      <p className="mt-4 max-w-3xl text-lg leading-9 text-muted-foreground">
-        لا نقدم للمدرسة حقائب قرآنية فقط، بل نبني معها بيئة تربوية يتحول فيها القرآن من معرفة تُدرّس إلى سلوك يُمارس.
-      </p>
+    <div className="mx-auto max-w-6xl px-4 py-10 md:py-16">
+      <PageHero
+        eyebrow="برنامج المدارس"
+        title="ابنِ بيئة تربوية يمشي فيها القرآن"
+        description="لا نقدم للمدرسة حقائب قرآنية فقط، بل نبني معها بيئة تربوية يتحول فيها القرآن من معرفة تُدرّس إلى سلوك يُمارس."
+      >
+        <div className="grid gap-3 sm:grid-cols-3">
+          <HeroStat value="5" label="حقائب قرآنية سنويًا" />
+          <HeroStat value={String(minTeachers)} label="معلمًا كحد أدنى" />
+          <HeroStat value="Q360" label="تقرير أثر للمدرسة" />
+        </div>
+      </PageHero>
 
       <div className="mt-10 grid gap-4 md:grid-cols-3">
-        {[["تطبيق 5 حقائب قرآنية", "برنامج سنوي متكامل"], [`الحد الأدنى ${minTeachers} معلمًا`, "لبدء البرنامج"], ["تقرير أثر للمدرسة", "بناءً على نتائج Q360"]].map(([t, d]) => (
-          <div key={t} className="rounded-2xl border border-border bg-card p-6">
+        {[
+          ["تطبيق 5 حقائب قرآنية", "برنامج سنوي متكامل"],
+          [`الحد الأدنى ${minTeachers} معلمًا`, "لبدء البرنامج"],
+          ["تقرير أثر للمدرسة", "بناءً على نتائج Q360"],
+        ].map(([t, d]) => (
+          <div key={t} className="rounded-3xl border border-border bg-card p-6 shadow-sm">
             <h2 className="font-display font-bold text-primary-deep">{t}</h2>
             <p className="mt-1 text-sm text-muted-foreground">{d}</p>
           </div>
         ))}
       </div>
 
-      <section className="mt-12 rounded-3xl border border-border bg-card p-8">
-        <h2 className="font-display text-2xl font-bold text-primary-deep">حاسبة اشتراك المدرسة</h2>
+      <section className="mt-16 rounded-3xl border border-border bg-card p-8 shadow-sm">
+        <SectionTitle
+          title="حاسبة اشتراك المدرسة"
+          subtitle="قدّر التكلفة السنوية وفق عدد المعلمين والطلاب في مدرستك."
+        />
         <div className="mt-6 grid gap-5 md:grid-cols-2">
           <label className="text-sm">
             عدد المعلمين (الحد الأدنى {minTeachers})
-            <input type="number" min={minTeachers} value={teachers}
-              onChange={(e) => setTeachers(Math.max(minTeachers, Number(e.target.value) || minTeachers))}
-              className="mt-2 w-full rounded-xl border border-input bg-background px-4 py-3" />
-            <span className="mt-1 block text-xs text-muted-foreground">{teacherPrice} ريال سنويًا لكل معلم</span>
+            <input
+              type="number"
+              min={minTeachers}
+              value={teachers}
+              onChange={(e) =>
+                setTeachers(Math.max(minTeachers, Number(e.target.value) || minTeachers))
+              }
+              className="mt-2 w-full rounded-xl border border-input bg-background px-4 py-3"
+            />
+            <span className="mt-1 block text-xs text-muted-foreground">
+              {teacherPrice} ريال سنويًا لكل معلم
+            </span>
           </label>
           <label className="text-sm">
             عدد الطلاب
-            <input type="number" min={0} value={students}
+            <input
+              type="number"
+              min={0}
+              value={students}
               onChange={(e) => setStudents(Math.max(0, Number(e.target.value) || 0))}
-              className="mt-2 w-full rounded-xl border border-input bg-background px-4 py-3" />
-            <span className="mt-1 block text-xs text-muted-foreground">{studentPrice} ريال سنويًا لكل طالب</span>
+              className="mt-2 w-full rounded-xl border border-input bg-background px-4 py-3"
+            />
+            <span className="mt-1 block text-xs text-muted-foreground">
+              {studentPrice} ريال سنويًا لكل طالب
+            </span>
           </label>
         </div>
         <div className="mt-6 rounded-2xl bg-hero p-6 text-primary-foreground">
           <p className="text-sm text-primary-foreground/80">
             {teachers} × {teacherPrice} + {students} × {studentPrice}
           </p>
-          <p className="mt-1 font-display text-3xl font-bold">{total.toLocaleString("ar-EG")} ريال سنويًا</p>
+          <p className="mt-1 font-display text-3xl font-bold">
+            {total.toLocaleString("ar-EG")} ريال سنويًا
+          </p>
         </div>
       </section>
 
-      <section className="mt-12">
-        <h2 className="font-display text-2xl font-bold text-primary-deep">منافع البرنامج للمدرسة</h2>
-        <ol className="mt-5 grid gap-3 md:grid-cols-2">
+      <section className="mt-16">
+        <SectionTitle
+          title="منافع البرنامج للمدرسة"
+          subtitle="نظام واحد يربط التدريب اليومي بالثقافة المدرسية ونتائج قابلة للقياس."
+        />
+        <ol className="mt-8 grid gap-3 md:grid-cols-2">
           {benefits.map((b, i) => (
-            <li key={b} className="flex gap-3 rounded-xl border border-border bg-card px-4 py-3 text-sm leading-7">
+            <li
+              key={b}
+              className="flex gap-3 rounded-xl border border-border bg-card px-4 py-3 text-sm leading-7"
+            >
               <span className="font-display text-primary">{i + 1}</span>
               <span className="text-muted-foreground">{b}</span>
             </li>
@@ -104,24 +161,33 @@ function Page() {
         </ol>
       </section>
 
-      <section className="mt-12">
-        <h2 className="font-display text-2xl font-bold text-primary-deep">رحلة المدرسة</h2>
-        <div className="mt-5 flex flex-wrap gap-2">
+      <section className="mt-16">
+        <SectionTitle
+          title="رحلة المدرسة"
+          subtitle="من التسجيل إلى التقرير، بخطوات واضحة وفريق داخلي قادر على الاستمرار."
+        />
+        <div className="mt-8 flex flex-wrap gap-2">
           {journey.map((j, i) => (
-            <span key={j} className="rounded-full border border-border bg-card px-4 py-2 text-sm text-primary-deep">{i + 1}. {j}</span>
+            <span
+              key={j}
+              className="rounded-full border border-border bg-card px-4 py-2 text-sm text-primary-deep"
+            >
+              {i + 1}. {j}
+            </span>
           ))}
         </div>
       </section>
 
       <div className="mt-12 flex flex-wrap justify-center gap-3">
-        <Link to="/schools/dashboard" className="rounded-xl bg-primary px-8 py-3 font-medium text-primary-foreground">
-          لوحة تحكم المدرسة
-        </Link>
-        <Link to="/contact" className="rounded-xl border border-border px-8 py-3 font-medium">
-          اطلب تسجيل مدرستك
-        </Link>
+        <Button asChild size="lg">
+          <Link to="/schools/dashboard">
+            <Building2 /> لوحة تحكم المدرسة
+          </Link>
+        </Button>
+        <Button asChild size="lg" variant="outline">
+          <Link to="/contact">اطلب تسجيل مدرستك</Link>
+        </Button>
       </div>
-
     </div>
   );
 }
