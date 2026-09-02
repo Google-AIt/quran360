@@ -1,5 +1,5 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { queryOptions } from "@tanstack/react-query";
 import { ArrowLeft } from "lucide-react";
 import { getSettings } from "@/lib/public.functions";
 import { Button } from "@/components/ui/button";
