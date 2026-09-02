@@ -4,7 +4,7 @@ import { getSettings } from "@/lib/public.functions";
 
 const q = queryOptions({ queryKey: ["settings"], queryFn: () => getSettings() });
 
-export const Route = createFileRoute("/facilitators")({
+export const Route = createFileRoute("/facilitators/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(q),
   head: () => ({
     meta: [
