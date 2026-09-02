@@ -102,9 +102,15 @@ function Page() {
               )}
               <div className="p-6">
                 <h3 className="font-display text-lg font-bold text-primary-deep">{b.title}</h3>
-                <p className="mt-2 line-clamp-2 text-sm leading-7 text-muted-foreground">
-                  {b.summary}
+                <p className="mt-2 line-clamp-3 text-sm leading-7 text-muted-foreground">
+                  {b.summary ?? b.concept ?? "حقيبة قرآنية تطبيقية تربط الآية بالمهارة والسلوك."}
                 </p>
+                {b.concept && (
+                  <p className="mt-3 text-xs leading-6 text-muted-foreground">
+                    <span className="font-bold text-primary-deep">المهارة:</span> {b.concept}
+                  </p>
+                )}
+                <ObjectiveChips className="mt-4" />
                 <span className="mt-4 inline-block text-sm font-medium text-primary">
                   تفاصيل الحقيبة ←
                 </span>
