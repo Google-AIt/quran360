@@ -70,9 +70,19 @@ function Page() {
         Q360 ليس درجة دينية ولا حكمًا على الشخص، وإنما أداة لقياس التغير السلوكي والأثر التدريبي.
       </p>
 
-      <div className="mt-10">
-        <Link to="/store" className="rounded-xl bg-primary px-8 py-3 font-medium text-primary-foreground">اشترِ خدمة Q360</Link>
+      <div className="mt-10 flex flex-wrap gap-3">
+        <Link
+          to="/q360/assess/$bagSlug"
+          params={{ bagSlug: "fastabiqu-alkhayrat" }}
+          className="rounded-xl bg-primary px-8 py-3 font-medium text-primary-foreground"
+        >
+          ابدأ تقييم Q360 التجريبي
+        </Link>
+        <Link to="/store" className="rounded-xl border border-border px-8 py-3 font-medium text-primary-deep">
+          اشترِ خدمة Q360
+        </Link>
       </div>
+
     </div>
   );
 }
