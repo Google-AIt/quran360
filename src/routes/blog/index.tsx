@@ -58,9 +58,11 @@ function Page() {
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
                     loading="lazy"
                   />
-                  <span className="absolute right-4 top-4 rounded-full bg-background/90 px-3 py-1 text-xs font-medium text-foreground shadow-sm">
-                    {source.sourceLabel}
-                  </span>
+                  {source.sourceLabel ? (
+                    <span className="absolute right-4 top-4 rounded-full bg-background/90 px-3 py-1 text-xs font-medium text-foreground shadow-sm">
+                      {source.sourceLabel}
+                    </span>
+                  ) : null}
                 </div>
               ) : null}
               <div className="p-6">
