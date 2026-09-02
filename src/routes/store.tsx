@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { getBags, getProducts } from "@/lib/public.functions";
 import { bagImage } from "@/lib/bag-images";
+import { productImage } from "@/lib/product-images";
 import { useCart } from "@/lib/cart";
 import { toast } from "sonner";
 import { Link } from "@tanstack/react-router";
@@ -70,7 +71,18 @@ function Page() {
       <h2 className="mt-14 font-display text-2xl font-bold text-primary-deep">الدورات والعضويات والخدمات</h2>
       <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {products.map((p) => (
-          <article key={p.id} className="flex flex-col rounded-2xl border border-border bg-card p-6">
+          <article key={p.id} className="flex flex-col overflow-hidden rounded-2xl border border-border bg-card">
+            {productImage(p.slug) && (
+              <img
+                src={productImage(p.slug)}
+                alt={p.title}
+                loading="lazy"
+                width={1024}
+                height={640}
+                className="aspect-[16/10] w-full object-cover"
+              />
+            )}
+            <div className="flex flex-1 flex-col p-6">
             <span className="w-fit rounded-full bg-secondary px-3 py-1 text-xs text-secondary-foreground">{p.category}</span>
             <h2 className="mt-3 font-display text-lg font-bold text-primary-deep">{p.title}</h2>
             <p className="mt-2 flex-1 text-sm leading-7 text-muted-foreground">{p.description}</p>
@@ -93,6 +105,7 @@ function Page() {
               >
                 أضف للسلة
               </button>
+            </div>
             </div>
           </article>
         ))}
