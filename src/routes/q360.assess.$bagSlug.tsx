@@ -75,7 +75,23 @@ function Page() {
       .eq("user_id", uid)
       .eq("bag_id", bag.id);
     setSaved(rows ?? []);
+    const ids = (rows ?? []).map((r) => r.id);
+    if (ids.length === 0) {
+      setRaterAvgs({});
+      return;
+    }
+    const { data: resp } = await supabase
+      .from("q360_responses")
+      .select("rater_type, score")
+      .in("assessment_id", ids);
+    const acc: Record<string, { sum: number; n: number }> = {};
+    for (const r of resp ?? []) {
+      const k = r.rater_type;
+      acc[k] = { sum: (acc[k]?.sum ?? 0) + r.score, n: (acc[k]?.n ?? 0) + 1 };
+    }
+    setRaterAvgs(Object.fromEntries(Object.entries(acc).map(([k, v]) => [k, v.sum / v.n])));
   }
+
 
   useEffect(() => {
     if (!session) {
