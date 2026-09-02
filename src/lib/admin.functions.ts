@@ -32,8 +32,8 @@ export const getAdminOverview = createServerFn({ method: "GET" })
     await requireAdmin(context.supabase, context.userId);
     const sb = context.supabase;
     const count = async (table: string) => {
-      const { count } = await sb.from(table).select("id", { count: "exact", head: true });
-      return count ?? 0;
+      const { count } = await (sb as any).from(table).select("id", { count: "exact", head: true });
+      return (count ?? 0) as number;
     };
     const [
       users, courses, enrollments, certificates, orders,
@@ -150,7 +150,10 @@ export const grantRole = createServerFn({ method: "POST" })
     await requireAdmin(context.supabase, context.userId);
     const { error } = await context.supabase
       .from("user_roles")
-      .upsert({ user_id: data.userId, role: data.role }, { onConflict: "user_id,role" });
+      .upsert(
+        { user_id: data.userId, role: data.role as "facilitator" | "school" | "trainee" },
+        { onConflict: "user_id,role" },
+      );
     if (error) throw new Error("تعذّر منح الدور");
     return { ok: true };
   });
