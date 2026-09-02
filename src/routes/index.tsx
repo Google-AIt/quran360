@@ -35,6 +35,32 @@ export const Route = createFileRoute("/")({
         property: "og:description",
         content: "تعلّم وتدرّب خطوة بخطوة على تطبيق القرآن، لتكون قرآنًا يمشي على الأرض.",
       },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+    scripts: [
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "EducationalOrganization",
+          name: "القرآن خطوة بخطوة",
+          url: "https://quran360.lovable.app",
+          description:
+            "منصة عربية متكاملة للتدريب على تطبيق القرآن الكريم: منهجية تطبيقية، حقائب قرآنية، أكاديمية، برامج مدارس، وقياس أثر Q360.",
+          inLanguage: "ar",
+        }),
+      },
+      {
+        type: "application/ld+json",
+        children: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          name: "القرآن خطوة بخطوة",
+          url: "https://quran360.lovable.app",
+          inLanguage: "ar",
+        }),
+      },
     ],
   }),
   component: Home,
