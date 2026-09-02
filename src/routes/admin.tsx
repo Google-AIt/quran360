@@ -219,7 +219,7 @@ function AdminPage() {
                     disabled={editing[s.key] === undefined}
                     onClick={async () => {
                       try {
-                        await saveSetting({ data: { key: s.key, value: editing[s.key] } });
+                        await saveSetting({ data: { key: s.key, value: editing[s.key] ?? "" } });
                         toast.success("تم حفظ الإعداد");
                         setEditing((prev) => {
                           const { [s.key]: _drop, ...rest } = prev;
