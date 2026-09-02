@@ -1,11 +1,15 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { getProducts } from "@/lib/public.functions";
+import { getBags, getProducts } from "@/lib/public.functions";
+import { bagImage } from "@/lib/bag-images";
 import { useCart } from "@/lib/cart";
 import { toast } from "sonner";
 import { Link } from "@tanstack/react-router";
 
-const q = queryOptions({ queryKey: ["products"], queryFn: () => getProducts() });
+const q = queryOptions({
+  queryKey: ["store"],
+  queryFn: async () => ({ products: await getProducts(), bags: await getBags() }),
+});
 
 export const Route = createFileRoute("/store")({
   loader: ({ context }) => context.queryClient.ensureQueryData(q),
@@ -23,7 +27,8 @@ export const Route = createFileRoute("/store")({
 const period: Record<string, string> = { one_time: "دفعة واحدة", yearly: "سنويًا" };
 
 function Page() {
-  const { data: products } = useSuspenseQuery(q);
+  const { data } = useSuspenseQuery(q);
+  const { products, bags } = data;
   const { add, count } = useCart();
   return (
     <div className="mx-auto max-w-7xl px-4 py-16">
@@ -34,7 +39,36 @@ function Page() {
       <Link to="/cart" className="mt-6 inline-flex rounded-xl border border-border px-5 py-2.5 text-sm font-medium">
         عرض السلة{count > 0 ? ` (${count})` : ""}
       </Link>
-      <div className="mt-10 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+      <h2 className="mt-12 font-display text-2xl font-bold text-primary-deep">الحقائب القرآنية</h2>
+      <p className="mt-2 text-sm leading-7 text-muted-foreground">
+        كل حقيبة مبنية على آية أو موضوع قرآني، وترتبط بدورة إلكترونية داخل الأكاديمية.
+      </p>
+      <div className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+        {bags.map((b) => (
+          <Link
+            key={b.id}
+            to="/bags/$slug"
+            params={{ slug: b.slug }}
+            className="group overflow-hidden rounded-2xl border border-border bg-card hover:shadow-soft"
+          >
+            {bagImage(b.slug) && (
+              <img
+                src={bagImage(b.slug)}
+                alt={`غلاف حقيبة ${b.title}`}
+                loading="lazy"
+                className="aspect-[16/10] w-full object-cover"
+              />
+            )}
+            <div className="p-5">
+              <h3 className="font-display text-base font-bold text-primary-deep">{b.title}</h3>
+              <p className="mt-2 line-clamp-2 text-sm leading-7 text-muted-foreground">{b.summary}</p>
+            </div>
+          </Link>
+        ))}
+      </div>
+
+      <h2 className="mt-14 font-display text-2xl font-bold text-primary-deep">الدورات والعضويات والخدمات</h2>
+      <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
         {products.map((p) => (
           <article key={p.id} className="flex flex-col rounded-2xl border border-border bg-card p-6">
             <span className="w-fit rounded-full bg-secondary px-3 py-1 text-xs text-secondary-foreground">{p.category}</span>
