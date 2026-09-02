@@ -1,5 +1,8 @@
 User-agent: Googlebot
 Allow: /
+Disallow: /admin
+Disallow: /account
+Disallow: /cart
 
 User-agent: Bingbot
 Allow: /
@@ -12,3 +15,8 @@ Allow: /
 
 User-agent: *
 Allow: /
+Disallow: /admin
+Disallow: /account
+Disallow: /cart
+
+Sitemap: https://quran360.lovable.app/sitemap.xml

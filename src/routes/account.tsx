@@ -172,14 +172,24 @@ function Page() {
             {session.user.email} · {roles.map((r) => roleLabel[r] ?? r).join("، ") || "متدرب"}
           </p>
         </div>
-        <button
-          onClick={async () => {
-            await supabase.auth.signOut();
-          }}
-          className="rounded-xl border border-border px-5 py-2.5 text-sm"
-        >
-          تسجيل الخروج
-        </button>
+        <div className="flex items-center gap-2">
+          {roles.includes("admin") && (
+            <Link
+              to="/admin"
+              className="rounded-xl bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground"
+            >
+              لوحة تحكم المدير
+            </Link>
+          )}
+          <button
+            onClick={async () => {
+              await supabase.auth.signOut();
+            }}
+            className="rounded-xl border border-border px-5 py-2.5 text-sm"
+          >
+            تسجيل الخروج
+          </button>
+        </div>
       </div>
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
