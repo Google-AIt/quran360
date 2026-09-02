@@ -91,7 +91,7 @@ function Page() {
         <section className="mt-8 rounded-3xl border border-border bg-card p-6 shadow-sm md:p-8">
           <div className="flex flex-wrap items-start justify-between gap-4">
             <div>
-              <p className="text-sm font-medium text-primary">داخل الحقيبة</p>
+              <p className="text-sm font-medium text-primary">وصف تدريبي مساعد</p>
               <h2 className="mt-1 font-display text-2xl font-bold text-primary-deep">محتوى حقيبة {bag.title}</h2>
               <p className="mt-3 max-w-3xl leading-8 text-muted-foreground">{content.description}</p>
             </div>

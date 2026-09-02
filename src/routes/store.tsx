@@ -176,11 +176,12 @@ function Page() {
                             <span>{it}</span>
                           </li>
                         ))}
-                      </ul>
-                      <p className="mt-4 rounded-xl bg-gold-soft px-4 py-3 text-xs leading-6 text-accent-foreground">
-                        النتيجة: {c.outcome}
-                      </p>
-                    </>
+                       </ul>
+                       <ObjectiveChips className="mt-4" />
+                       <p className="mt-4 rounded-xl bg-gold-soft px-4 py-3 text-xs leading-6 text-accent-foreground">
+                         النتيجة: {c.outcome}
+                       </p>
+                     </>
                   )}
                   <div className="mt-6 flex flex-1 items-end justify-between gap-3">
                     <span className="font-display text-xl font-bold text-primary">
