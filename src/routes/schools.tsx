@@ -113,11 +113,15 @@ function Page() {
         </div>
       </section>
 
-      <div className="mt-12 text-center">
-        <Link to="/contact" className="rounded-xl bg-primary px-8 py-3 font-medium text-primary-foreground">
+      <div className="mt-12 flex flex-wrap justify-center gap-3">
+        <Link to="/schools/dashboard" className="rounded-xl bg-primary px-8 py-3 font-medium text-primary-foreground">
+          لوحة تحكم المدرسة
+        </Link>
+        <Link to="/contact" className="rounded-xl border border-border px-8 py-3 font-medium">
           اطلب تسجيل مدرستك
         </Link>
       </div>
+
     </div>
   );
 }
