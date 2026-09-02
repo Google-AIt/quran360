@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, UserRound, ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/cart";
+import logoAsset from "@/assets/logo/quran-step-logo.png.asset.json";
 
 const links = [
   { to: "/", label: "الرئيسية" },
@@ -24,13 +25,14 @@ export function Header() {
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
         <Link to="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <span className="flex size-10 items-center justify-center rounded-xl bg-hero text-primary-foreground font-display text-lg">
-            ق
-          </span>
-          <span className="leading-tight">
-            <span className="block font-display text-base font-bold text-primary-deep">القرآن خطوة بخطوة</span>
-            <span className="block text-[11px] text-muted-foreground">منظومة التدريب على تطبيق القرآن</span>
-          </span>
+          <img
+            src={logoAsset.url}
+            alt="القرآن خطوة بخطوة"
+            width={188}
+            height={49}
+            className="h-auto w-40 object-contain sm:w-48"
+          />
+          <span className="sr-only">القرآن خطوة بخطوة</span>
         </Link>
 
         <nav className="hidden items-center gap-1 xl:flex">
