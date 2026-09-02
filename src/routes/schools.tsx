@@ -54,11 +54,10 @@ function Page() {
   const total = teachers * teacherPrice + students * studentPrice;
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16">
-      <h1 className="font-display text-4xl font-bold text-primary-deep">المدارس</h1>
-      <p className="mt-4 max-w-3xl text-lg leading-9 text-muted-foreground">
-        لا نقدم للمدرسة حقائب قرآنية فقط، بل نبني معها بيئة تربوية يتحول فيها القرآن من معرفة تُدرّس إلى سلوك يُمارس.
-      </p>
+    <div className="mx-auto max-w-6xl px-4 py-10 md:py-16">
+      <PageHero eyebrow="برنامج المدارس" title="ابنِ بيئة تربوية يمشي فيها القرآن" description="لا نقدم للمدرسة حقائب قرآنية فقط، بل نبني معها بيئة تربوية يتحول فيها القرآن من معرفة تُدرّس إلى سلوك يُمارس.">
+        <div className="grid gap-3 sm:grid-cols-3"><HeroStat value="5" label="حقائب قرآنية سنويًا" /><HeroStat value={String(minTeachers)} label="معلمًا كحد أدنى" /><HeroStat value="Q360" label="تقرير أثر للمدرسة" /></div>
+      </PageHero>
 
       <div className="mt-10 grid gap-4 md:grid-cols-3">
         {[["تطبيق 5 حقائب قرآنية", "برنامج سنوي متكامل"], [`الحد الأدنى ${minTeachers} معلمًا`, "لبدء البرنامج"], ["تقرير أثر للمدرسة", "بناءً على نتائج Q360"]].map(([t, d]) => (

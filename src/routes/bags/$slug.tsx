@@ -45,21 +45,17 @@ function List({ title, items }: { title: string; items: unknown }) {
 function Page() {
   const { bag, steps, course, lessons, questions } = Route.useLoaderData();
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16">
+    <div className="mx-auto max-w-6xl px-4 py-10 md:py-16">
       <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr] lg:items-stretch">
-        <div className="rounded-3xl bg-hero p-8 text-primary-foreground md:p-12">
-          <p className="ayah text-2xl text-gold">{bag.verse}</p>
+        <div className="rounded-3xl bg-hero p-8 text-primary-foreground shadow-soft md:p-12">
+          <p className="text-sm font-medium text-gold">حقيبة قرآنية تطبيقية</p>
+          <p className="ayah mt-4 text-2xl text-gold">{bag.verse}</p>
           <p className="mt-1 text-sm text-primary-foreground/70">{bag.verse_reference}</p>
           <h1 className="mt-5 font-display text-4xl font-bold">{bag.title}</h1>
           {bag.summary && <p className="mt-4 max-w-3xl leading-9 text-primary-foreground/85">{bag.summary}</p>}
+          <div className="mt-8 flex flex-wrap gap-3 text-xs text-primary-foreground/80"><span className="rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-3 py-1.5">منهجية عملية</span><span className="rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-3 py-1.5">دروس وتطبيقات</span><span className="rounded-full border border-primary-foreground/20 bg-primary-foreground/10 px-3 py-1.5">قياس أثر Q360</span></div>
         </div>
-        {bagImage(bag.slug) && (
-          <img
-            src={bagImage(bag.slug)}
-            alt={`غلاف حقيبة ${bag.title}`}
-            className="h-full w-full rounded-3xl border border-border object-cover"
-          />
-        )}
+        {bagImage(bag.slug) && <img src={bagImage(bag.slug)} alt={`غلاف حقيبة ${bag.title}`} width={1200} height={900} className="h-full min-h-72 w-full rounded-3xl border border-border object-cover shadow-sm" />}
       </div>
 
       <div className="mt-10 grid gap-4 md:grid-cols-3">
@@ -74,13 +70,10 @@ function Page() {
       </div>
 
       {lessons.length > 0 && (
-        <section className="mt-14">
+        <section className="mt-16">
           <div className="flex flex-wrap items-end justify-between gap-4">
-            <div>
-              <p className="text-sm font-medium text-primary">مسار التعلّم</p>
-              <h2 className="mt-1 font-display text-2xl font-bold text-primary-deep">دروس الحقيبة</h2>
-            </div>
-            <span className="text-sm text-muted-foreground">{lessons.length} دروس تطبيقية</span>
+            <div><p className="text-sm font-medium text-primary">مسار التعلّم</p><h2 className="mt-1 font-display text-2xl font-bold text-primary-deep">دروس الحقيبة</h2><p className="mt-2 text-sm text-muted-foreground">شاهد، طبّق، ثم انتقل إلى الخطوة التالية.</p></div>
+            <span className="rounded-full bg-secondary px-4 py-2 text-sm text-secondary-foreground">{lessons.length} دروس تطبيقية</span>
           </div>
           <div className="mt-6 grid gap-5 md:grid-cols-2">
             {lessons.map((lesson) => {
@@ -108,8 +101,9 @@ function Page() {
       )}
 
       {steps.length > 0 && (
-        <section className="mt-10">
+        <section className="mt-16">
           <h2 className="font-display text-2xl font-bold text-primary-deep">الخطوات العملية</h2>
+          <p className="mt-2 text-sm text-muted-foreground">حوّل المعنى إلى ممارسات صغيرة واضحة قابلة للمتابعة.</p>
           <div className="mt-5 grid gap-3 md:grid-cols-2">
             {steps.map((s) => (
               <div key={s.id} className="flex gap-4 rounded-2xl border border-border bg-card p-5">

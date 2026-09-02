@@ -135,7 +135,7 @@ function Page() {
             ))}
           </ul>
 
-          <aside className="h-fit rounded-2xl border border-border bg-card p-6">
+          <aside className="h-fit rounded-3xl border border-border bg-card p-6 shadow-sm">
             <h2 className="font-display text-lg font-bold text-primary-deep">ملخص الطلب</h2>
             <div className="mt-4 flex items-center justify-between text-sm text-muted-foreground">
               <span>الإجمالي</span>
