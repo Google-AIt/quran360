@@ -19,6 +19,7 @@ import { Route as ImpactRouteImport } from './routes/impact'
 import { Route as MethodologyRouteImport } from './routes/methodology'
 import { Route as Q360RouteImport } from './routes/q360'
 import { Route as SchoolsRouteImport } from './routes/schools'
+import { Route as SitemapDotxmlRouteImport } from './routes/sitemap[.]xml'
 import { Route as StoreRouteImport } from './routes/store'
 import { Route as WalkingQuranRouteImport } from './routes/walking-quran'
 import { Route as BagsIndexRouteImport } from './routes/bags/index'
@@ -82,6 +83,11 @@ const Q360Route = Q360RouteImport.update({
 const SchoolsRoute = SchoolsRouteImport.update({
   id: '/schools',
   path: '/schools',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SitemapDotxmlRoute = SitemapDotxmlRouteImport.update({
+  id: '/sitemap.xml',
+  path: '/sitemap.xml',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StoreRoute = StoreRouteImport.update({
@@ -166,6 +172,7 @@ export interface FileRoutesByFullPath {
   '/methodology': typeof MethodologyRoute
   '/q360': typeof Q360RouteWithChildren
   '/schools': typeof SchoolsRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/store': typeof StoreRoute
   '/walking-quran': typeof WalkingQuranRoute
   '/bags/$slug': typeof BagsSlugRoute
@@ -192,6 +199,7 @@ export interface FileRoutesByTo {
   '/methodology': typeof MethodologyRoute
   '/q360': typeof Q360RouteWithChildren
   '/schools': typeof SchoolsRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/store': typeof StoreRoute
   '/walking-quran': typeof WalkingQuranRoute
   '/bags/$slug': typeof BagsSlugRoute
@@ -219,6 +227,7 @@ export interface FileRoutesById {
   '/methodology': typeof MethodologyRoute
   '/q360': typeof Q360RouteWithChildren
   '/schools': typeof SchoolsRouteWithChildren
+  '/sitemap.xml': typeof SitemapDotxmlRoute
   '/store': typeof StoreRoute
   '/walking-quran': typeof WalkingQuranRoute
   '/bags/$slug': typeof BagsSlugRoute
@@ -247,6 +256,7 @@ export interface FileRouteTypes {
     | '/methodology'
     | '/q360'
     | '/schools'
+    | '/sitemap.xml'
     | '/store'
     | '/walking-quran'
     | '/bags/$slug'
@@ -273,6 +283,7 @@ export interface FileRouteTypes {
     | '/methodology'
     | '/q360'
     | '/schools'
+    | '/sitemap.xml'
     | '/store'
     | '/walking-quran'
     | '/bags/$slug'
@@ -299,6 +310,7 @@ export interface FileRouteTypes {
     | '/methodology'
     | '/q360'
     | '/schools'
+    | '/sitemap.xml'
     | '/store'
     | '/walking-quran'
     | '/bags/$slug'
@@ -326,6 +338,7 @@ export interface RootRouteChildren {
   MethodologyRoute: typeof MethodologyRoute
   Q360Route: typeof Q360RouteWithChildren
   SchoolsRoute: typeof SchoolsRouteWithChildren
+  SitemapDotxmlRoute: typeof SitemapDotxmlRoute
   StoreRoute: typeof StoreRoute
   WalkingQuranRoute: typeof WalkingQuranRoute
   BagsSlugRoute: typeof BagsSlugRoute
@@ -409,6 +422,13 @@ declare module '@tanstack/react-router' {
       path: '/schools'
       fullPath: '/schools'
       preLoaderRoute: typeof SchoolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/sitemap.xml': {
+      id: '/sitemap.xml'
+      path: '/sitemap.xml'
+      fullPath: '/sitemap.xml'
+      preLoaderRoute: typeof SitemapDotxmlRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/store': {
@@ -546,6 +566,7 @@ const rootRouteChildren: RootRouteChildren = {
   MethodologyRoute: MethodologyRoute,
   Q360Route: Q360RouteWithChildren,
   SchoolsRoute: SchoolsRouteWithChildren,
+  SitemapDotxmlRoute: SitemapDotxmlRoute,
   StoreRoute: StoreRoute,
   WalkingQuranRoute: WalkingQuranRoute,
   BagsSlugRoute: BagsSlugRoute,
