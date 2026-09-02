@@ -4,6 +4,13 @@ import type { Session } from "@supabase/supabase-js";
 import { supabase } from "@/integrations/supabase/client";
 import { lovable } from "@/integrations/lovable";
 
+const ORDER_STATUS: Record<string, string> = {
+  pending: "بانتظار الدفع",
+  paid: "مدفوع",
+  cancelled: "ملغى",
+  refunded: "مسترجع",
+};
+
 export const Route = createFileRoute("/account")({
   ssr: false,
   head: () => ({
@@ -29,6 +36,9 @@ function Page() {
   const [myCerts, setMyCerts] = useState<
     { id: string; certificate_number: string; program_title: string; issued_at: string }[]
   >([]);
+  const [myOrders, setMyOrders] = useState<
+    { id: string; total: number; currency: string; status: string; created_at: string; items: unknown }[]
+  >([]);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -44,6 +54,7 @@ function Page() {
       setRoles([]);
       setMyCourses([]);
       setMyCerts([]);
+      setMyOrders([]);
       setStats({ courses: 0, percent: 0, certificates: 0, q360: 0 });
       return;
     }
@@ -59,6 +70,12 @@ function Page() {
           .order("issued_at", { ascending: false }),
         supabase.from("q360_assessments").select("id", { count: "exact", head: true }).eq("user_id", uid),
       ]);
+      const { data: orderRows } = await supabase
+        .from("orders")
+        .select("id, total, currency, status, created_at, items")
+        .eq("user_id", uid)
+        .order("created_at", { ascending: false });
+      setMyOrders(orderRows ?? []);
       const certs = (certRows ?? []).length;
       setMyCerts(certRows ?? []);
       setRoles((r ?? []).map((x) => x.role as string));
@@ -226,6 +243,40 @@ function Page() {
                 </div>
               </Link>
             ))}
+          </div>
+        )}
+      </section>
+
+      <section className="mt-10">
+        <h2 className="font-display text-2xl font-bold text-primary-deep">طلباتي</h2>
+        {myOrders.length === 0 ? (
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">
+            لا توجد طلبات بعد. تصفّح <Link to="/store" className="text-primary underline">المتجر</Link> لاختيار دورة أو
+            عضوية أو خدمة قياس أثر.
+          </p>
+        ) : (
+          <div className="mt-4 grid gap-4">
+            {myOrders.map((o) => {
+              const lines = Array.isArray(o.items) ? (o.items as { title: string; qty: number }[]) : [];
+              return (
+                <div key={o.id} className="rounded-2xl border border-border bg-card p-5">
+                  <div className="flex flex-wrap items-center justify-between gap-3">
+                    <span className="font-display font-bold text-primary-deep">
+                      {o.total} {o.currency === "SAR" ? "ريال" : o.currency}
+                    </span>
+                    <span className="rounded-full bg-secondary px-3 py-1 text-xs text-secondary-foreground">
+                      {ORDER_STATUS[o.status] ?? o.status}
+                    </span>
+                  </div>
+                  <p className="mt-2 text-sm text-muted-foreground">
+                    {lines.map((l) => `${l.title} × ${l.qty}`).join(" — ")}
+                  </p>
+                  <p className="mt-1 text-xs text-muted-foreground">
+                    {new Date(o.created_at).toLocaleDateString("ar-SA-u-ca-islamic")}
+                  </p>
+                </div>
+              );
+            })}
           </div>
         )}
       </section>

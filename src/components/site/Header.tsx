@@ -1,6 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { useState } from "react";
-import { Menu, X, UserRound } from "lucide-react";
+import { Menu, X, UserRound, ShoppingCart } from "lucide-react";
+import { useCart } from "@/lib/cart";
 
 const links = [
   { to: "/", label: "الرئيسية" },
@@ -17,6 +18,7 @@ const links = [
 
 export function Header() {
   const [open, setOpen] = useState(false);
+  const { count } = useCart();
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur">
@@ -46,6 +48,18 @@ export function Header() {
         </nav>
 
         <div className="flex items-center gap-2">
+          <Link
+            to="/cart"
+            aria-label="سلة المشتريات"
+            className="relative inline-flex size-10 items-center justify-center rounded-lg border border-border text-foreground/80 hover:bg-secondary"
+          >
+            <ShoppingCart className="size-5" />
+            {count > 0 && (
+              <span className="absolute -top-1.5 -left-1.5 flex min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[11px] font-bold text-accent-foreground">
+                {count}
+              </span>
+            )}
+          </Link>
           <Link
             to="/account"
             className="hidden items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:inline-flex"
