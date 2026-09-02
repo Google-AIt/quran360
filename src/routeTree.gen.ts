@@ -30,6 +30,7 @@ import { Route as SchoolsDashboardRouteImport } from './routes/schools.dashboard
 import { Route as VerifyIndexRouteImport } from './routes/verify.index'
 import { Route as VerifyNumberRouteImport } from './routes/verify.$number'
 import { Route as Q360AssessBagSlugRouteImport } from './routes/q360.assess.$bagSlug'
+import { Route as Q360RateAssessmentIdRouteImport } from './routes/q360.rate.$assessmentId'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -136,6 +137,11 @@ const Q360AssessBagSlugRoute = Q360AssessBagSlugRouteImport.update({
   path: '/assess/$bagSlug',
   getParentRoute: () => Q360Route,
 } as any)
+const Q360RateAssessmentIdRoute = Q360RateAssessmentIdRouteImport.update({
+  id: '/rate/$assessmentId',
+  path: '/rate/$assessmentId',
+  getParentRoute: () => Q360Route,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -159,6 +165,7 @@ export interface FileRoutesByFullPath {
   '/facilitators/': typeof FacilitatorsIndexRoute
   '/verify/': typeof VerifyIndexRoute
   '/q360/assess/$bagSlug': typeof Q360AssessBagSlugRoute
+  '/q360/rate/$assessmentId': typeof Q360RateAssessmentIdRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -182,6 +189,7 @@ export interface FileRoutesByTo {
   '/facilitators': typeof FacilitatorsIndexRoute
   '/verify': typeof VerifyIndexRoute
   '/q360/assess/$bagSlug': typeof Q360AssessBagSlugRoute
+  '/q360/rate/$assessmentId': typeof Q360RateAssessmentIdRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -206,6 +214,7 @@ export interface FileRoutesById {
   '/facilitators/': typeof FacilitatorsIndexRoute
   '/verify/': typeof VerifyIndexRoute
   '/q360/assess/$bagSlug': typeof Q360AssessBagSlugRoute
+  '/q360/rate/$assessmentId': typeof Q360RateAssessmentIdRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -231,6 +240,7 @@ export interface FileRouteTypes {
     | '/facilitators/'
     | '/verify/'
     | '/q360/assess/$bagSlug'
+    | '/q360/rate/$assessmentId'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -254,6 +264,7 @@ export interface FileRouteTypes {
     | '/facilitators'
     | '/verify'
     | '/q360/assess/$bagSlug'
+    | '/q360/rate/$assessmentId'
   id:
     | '__root__'
     | '/'
@@ -277,6 +288,7 @@ export interface FileRouteTypes {
     | '/facilitators/'
     | '/verify/'
     | '/q360/assess/$bagSlug'
+    | '/q360/rate/$assessmentId'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -450,15 +462,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Q360AssessBagSlugRouteImport
       parentRoute: typeof Q360Route
     }
+    '/q360/rate/$assessmentId': {
+      id: '/q360/rate/$assessmentId'
+      path: '/rate/$assessmentId'
+      fullPath: '/q360/rate/$assessmentId'
+      preLoaderRoute: typeof Q360RateAssessmentIdRouteImport
+      parentRoute: typeof Q360Route
+    }
   }
 }
 
 interface Q360RouteChildren {
   Q360AssessBagSlugRoute: typeof Q360AssessBagSlugRoute
+  Q360RateAssessmentIdRoute: typeof Q360RateAssessmentIdRoute
 }
 
 const Q360RouteChildren: Q360RouteChildren = {
   Q360AssessBagSlugRoute: Q360AssessBagSlugRoute,
+  Q360RateAssessmentIdRoute: Q360RateAssessmentIdRoute,
 }
 
 const Q360RouteWithChildren = Q360Route._addFileChildren(Q360RouteChildren)
