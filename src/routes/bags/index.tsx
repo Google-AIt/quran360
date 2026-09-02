@@ -2,6 +2,8 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { getBags } from "@/lib/public.functions";
 import { bagImage } from "@/lib/bag-images";
+import { contentForBag } from "@/lib/bag-content";
+import { BagObjectives, ObjectiveChips } from "@/components/site/BagObjectives";
 
 const q = queryOptions({ queryKey: ["bags"], queryFn: () => getBags() });
 
