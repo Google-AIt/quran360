@@ -1,7 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { Building2, Calculator, CheckCircle2 } from "lucide-react";
+import { Building2 } from "lucide-react";
 import { getSettings } from "@/lib/public.functions";
 import { Button } from "@/components/ui/button";
 import { PageHero, SectionTitle, HeroStat } from "@/components/site/PageHero";
@@ -61,7 +61,7 @@ function Page() {
 
       <div className="mt-10 grid gap-4 md:grid-cols-3">
         {[["تطبيق 5 حقائب قرآنية", "برنامج سنوي متكامل"], [`الحد الأدنى ${minTeachers} معلمًا`, "لبدء البرنامج"], ["تقرير أثر للمدرسة", "بناءً على نتائج Q360"]].map(([t, d]) => (
-          <div key={t} className="rounded-2xl border border-border bg-card p-6">
+          <div key={t} className="rounded-3xl border border-border bg-card p-6 shadow-sm">
             <h2 className="font-display font-bold text-primary-deep">{t}</h2>
             <p className="mt-1 text-sm text-muted-foreground">{d}</p>
           </div>

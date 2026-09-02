@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { ArrowLeft, CheckCircle2 } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { getSettings } from "@/lib/public.functions";
 import { Button } from "@/components/ui/button";
 import { PageHero, SectionTitle } from "@/components/site/PageHero";
