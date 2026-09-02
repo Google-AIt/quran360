@@ -183,7 +183,15 @@ function Page() {
 
       <section className="mt-16">
         <SectionTitle title="النتائج" subtitle="النتائج المتوقعة عند تطبيق الخطوات العملية." />
-        <div className="mt-8 grid gap-6 rounded-3xl border border-border bg-card p-6 shadow-sm md:grid-cols-3 md:p-8">
+        <div className="mt-8 overflow-hidden rounded-3xl border border-border bg-white p-4 shadow-sm md:p-6">
+          <img
+            src={resultsImg}
+            alt="نتائج حقيبة فاستبقوا الخيرات"
+            loading="lazy"
+            className="mx-auto w-full max-w-2xl object-contain"
+          />
+        </div>
+        <div className="mt-6 grid gap-6 rounded-3xl border border-border bg-card p-6 shadow-sm md:grid-cols-3 md:p-8">
           <ListBlock title="النتائج" items={methodologyResults.results} />
           <ListBlock title="البعد التدريبي للنتائج" items={methodologyResults.training} />
           <ListBlock title="ربط النتائج بالجزاء والعاقبة" items={methodologyResults.faith} />
