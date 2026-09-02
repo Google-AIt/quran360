@@ -3,6 +3,8 @@ import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
 import { Trash2, ShoppingBag, Loader2, BadgeCheck } from "lucide-react";
 import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
+import { PageHero, SectionTitle } from "@/components/site/PageHero";
 
 import { useCart } from "@/lib/cart";
 import { createOrder } from "@/lib/orders.functions";

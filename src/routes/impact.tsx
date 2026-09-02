@@ -1,7 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { BarChart3, TrendingUp } from "lucide-react";
 import { getStories } from "@/lib/public.functions";
 import { getImpactStats } from "@/lib/stats.functions";
+import { PageHero, SectionTitle, HeroStat } from "@/components/site/PageHero";
 
 const q = queryOptions({
   queryKey: ["impact"],

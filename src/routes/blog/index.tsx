@@ -1,6 +1,8 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { ArrowLeft, BookOpenText } from "lucide-react";
 import { getPosts } from "@/lib/public.functions";
+import { PageHero, SectionTitle } from "@/components/site/PageHero";
 
 const q = queryOptions({ queryKey: ["posts"], queryFn: () => getPosts() });
 

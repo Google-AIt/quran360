@@ -1,12 +1,14 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { ShoppingBag } from "lucide-react";
 import { getBags, getProducts } from "@/lib/public.functions";
 import { bagImage } from "@/lib/bag-images";
 import { productImage } from "@/lib/product-images";
 import { contentFor, categoryLabels } from "@/lib/product-content";
 import { useCart } from "@/lib/cart";
 import { toast } from "sonner";
-import { Link } from "@tanstack/react-router";
+import { Button } from "@/components/ui/button";
+import { PageHero, SectionTitle } from "@/components/site/PageHero";
 
 const q = queryOptions({
   queryKey: ["store"],

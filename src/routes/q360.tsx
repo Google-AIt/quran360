@@ -1,6 +1,9 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { ArrowLeft, BarChart3, UsersRound } from "lucide-react";
 import { getSettings } from "@/lib/public.functions";
+import { Button } from "@/components/ui/button";
+import { PageHero, SectionTitle, HeroStat } from "@/components/site/PageHero";
 
 const q = queryOptions({ queryKey: ["settings"], queryFn: () => getSettings() });
 

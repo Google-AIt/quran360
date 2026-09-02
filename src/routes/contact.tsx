@@ -1,6 +1,9 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useState } from "react";
+import { MessageCircle, Send } from "lucide-react";
 import { z } from "zod";
+import { Button } from "@/components/ui/button";
+import { PageHero, SectionTitle } from "@/components/site/PageHero";
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
