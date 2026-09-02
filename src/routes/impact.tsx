@@ -1,8 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { getStories } from "@/lib/public.functions";
+import { getImpactStats } from "@/lib/stats.functions";
 
-const q = queryOptions({ queryKey: ["stories"], queryFn: () => getStories() });
+const q = queryOptions({
+  queryKey: ["impact"],
+  queryFn: async () => ({ stories: await getStories(), stats: await getImpactStats() }),
+});
 
 export const Route = createFileRoute("/impact")({
   loader: ({ context }) => context.queryClient.ensureQueryData(q),
