@@ -2,6 +2,8 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { getBag } from "@/lib/public.functions";
 import { bagImage } from "@/lib/bag-images";
 import { lessonPoster, lessonStage } from "@/lib/lesson-media";
+import { BagObjectives } from "@/components/site/BagObjectives";
+import { contentForBag } from "@/lib/bag-content";
 
 export const Route = createFileRoute("/bags/$slug")({
   loader: async ({ params }) => {
@@ -48,6 +50,7 @@ function List({ title, items }: { title: string; items: unknown }) {
 
 function Page() {
   const { bag, steps, course, lessons, questions } = Route.useLoaderData();
+  const content = contentForBag(bag.slug);
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 md:py-16">
       <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr] lg:items-stretch">
@@ -81,6 +84,40 @@ function Page() {
           />
         )}
       </div>
+
+      <BagObjectives className="mt-10" />
+
+      {content && (
+        <section className="mt-8 rounded-3xl border border-border bg-card p-6 shadow-sm md:p-8">
+          <div className="flex flex-wrap items-start justify-between gap-4">
+            <div>
+              <p className="text-sm font-medium text-primary">وصف تدريبي مساعد</p>
+              <h2 className="mt-1 font-display text-2xl font-bold text-primary-deep">
+                محتوى حقيبة {bag.title}
+              </h2>
+              <p className="mt-3 max-w-3xl leading-8 text-muted-foreground">
+                {content.description}
+              </p>
+            </div>
+            <span className="rounded-full bg-secondary px-4 py-2 text-sm font-medium text-secondary-foreground">
+              {content.focus}
+            </span>
+          </div>
+          <ul className="mt-6 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+            {content.packageItems.map((item) => (
+              <li
+                key={item}
+                className="flex gap-2 rounded-2xl border border-border bg-background p-4 text-sm leading-7 text-foreground/80"
+              >
+                <span aria-hidden className="text-primary">
+                  ✦
+                </span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
 
       <div className="mt-10 grid gap-4 md:grid-cols-3">
         {[
