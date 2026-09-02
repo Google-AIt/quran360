@@ -26,6 +26,9 @@ function Page() {
   const [roles, setRoles] = useState<string[]>([]);
   const [stats, setStats] = useState({ courses: 0, percent: 0, certificates: 0, q360: 0 });
   const [myCourses, setMyCourses] = useState<{ id: string; slug: string; title: string; progress: number }[]>([]);
+  const [myCerts, setMyCerts] = useState<
+    { id: string; certificate_number: string; program_title: string; issued_at: string }[]
+  >([]);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
