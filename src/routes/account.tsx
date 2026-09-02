@@ -157,10 +157,10 @@ function Page() {
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[
-          ["دوراتي", "0"],
-          ["نسبة الإنجاز", "0%"],
-          ["الشهادات", "0"],
-          ["تقييمات Q360", "0"],
+          ["دوراتي", String(stats.courses)],
+          ["نسبة الإنجاز", `${stats.percent}%`],
+          ["الشهادات", String(stats.certificates)],
+          ["تقييمات Q360", String(stats.q360)],
         ].map(([l, v]) => (
           <div key={l} className="rounded-2xl border border-border bg-card p-6">
             <div className="font-display text-3xl font-bold text-primary">{v}</div>
@@ -169,11 +169,36 @@ function Page() {
         ))}
       </div>
 
+      {myCourses.length > 0 && (
+        <section className="mt-10">
+          <h2 className="font-display text-2xl font-bold text-primary-deep">دوراتي</h2>
+          <div className="mt-4 grid gap-4 lg:grid-cols-2">
+            {myCourses.map((c) => (
+              <Link
+                key={c.id}
+                to="/courses/$slug"
+                params={{ slug: c.slug }}
+                className="rounded-2xl border border-border bg-card p-5 transition-colors hover:border-primary"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-display font-bold text-primary-deep">{c.title}</span>
+                  <span className="text-sm text-primary">{c.progress}%</span>
+                </div>
+                <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-secondary">
+                  <div className="h-full rounded-full bg-primary" style={{ width: `${c.progress}%` }} />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
       <div className="mt-8 rounded-2xl bg-secondary/70 p-6 leading-8 text-muted-foreground">
         ابدأ رحلتك: استكشف <Link to="/bags" className="text-primary underline">الحقائب القرآنية</Link> ثم سجّل في{" "}
         <Link to="/academy" className="text-primary underline">الأكاديمية</Link> وقس أثرك عبر{" "}
         <Link to="/q360" className="text-primary underline">Q360</Link>.
       </div>
+
     </div>
   );
 }
