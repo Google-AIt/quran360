@@ -1,8 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { getStories } from "@/lib/public.functions";
+import { getImpactStats } from "@/lib/stats.functions";
 
-const q = queryOptions({ queryKey: ["stories"], queryFn: () => getStories() });
+const q = queryOptions({
+  queryKey: ["impact"],
+  queryFn: async () => ({ stories: await getStories(), stats: await getImpactStats() }),
+});
 
 export const Route = createFileRoute("/impact")({
   loader: ({ context }) => context.queryClient.ensureQueryData(q),
@@ -17,13 +21,20 @@ export const Route = createFileRoute("/impact")({
   component: Page,
 });
 
-const kpis = [
-  ["المتدربون", "1,240"], ["الميسّرون", "86"], ["المدارس", "14"], ["المعلمون", "312"],
-  ["الطلاب", "8,640"], ["الحقائب", "9"], ["الدورات", "1"], ["متوسط الإتمام", "78%"],
-];
-
 function Page() {
-  const { data: stories } = useSuspenseQuery(q);
+  const { data } = useSuspenseQuery(q);
+  const { stories, stats } = data;
+  const nf = new Intl.NumberFormat("ar-EG");
+  const kpis: [string, string][] = [
+    ["المتدربون", nf.format(stats.trainees)],
+    ["الميسّرون", nf.format(stats.facilitators)],
+    ["المدارس", nf.format(stats.schools)],
+    ["المعلمون", nf.format(stats.teachers)],
+    ["الطلاب", nf.format(stats.students)],
+    ["الحقائب", nf.format(stats.bags)],
+    ["الدورات", nf.format(stats.courses)],
+    ["متوسط الإتمام", `${nf.format(stats.completionRate)}%`],
+  ];
   return (
     <div className="mx-auto max-w-6xl px-4 py-16">
       <h1 className="font-display text-4xl font-bold text-primary-deep">الأثر والنتائج</h1>
