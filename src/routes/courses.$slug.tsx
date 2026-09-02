@@ -2,8 +2,10 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
+import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { getCourse } from "@/lib/public.functions";
+import { issueCourseCertificate } from "@/lib/certificates.functions";
 
 const courseQuery = (slug: string) =>
   queryOptions({
@@ -57,6 +59,19 @@ function Page() {
   const [done, setDone] = useState<string[]>([]);
   const [active, setActive] = useState(0);
   const [busy, setBusy] = useState(false);
+  const [certNumber, setCertNumber] = useState<string | null>(null);
+  const [certError, setCertError] = useState("");
+
+  const issueCert = useServerFn(issueCourseCertificate);
+
+  async function issue() {
+    setBusy(true);
+    setCertError("");
+    const res = await issueCert({ data: { courseId: course.id } });
+    if (res.ok) setCertNumber(res.number);
+    else setCertError(res.error);
+    setBusy(false);
+  }
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: s }) => setSession(s.session));
@@ -210,9 +225,23 @@ function Page() {
               <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${percent}%` }} />
             </div>
             {percent === 100 && (
-              <p className="mt-4 rounded-xl bg-accent/20 p-3 text-sm text-primary-deep">
-                أتممت الدورة. انتقل إلى تقييم Q360 البعدي لقياس أثر التطبيق.
-              </p>
+              <div className="mt-4 rounded-xl bg-accent/20 p-3 text-sm text-primary-deep">
+                <p>أتممت الدورة. انتقل إلى تقييم Q360 البعدي لقياس أثر التطبيق.</p>
+                {certNumber ? (
+                  <Link to="/verify/$number" params={{ number: certNumber }} className="mt-3 inline-block text-primary underline">
+                    عرض شهادتك ({certNumber})
+                  </Link>
+                ) : (
+                  <button
+                    onClick={issue}
+                    disabled={busy}
+                    className="mt-3 rounded-lg bg-primary px-4 py-2 text-xs font-medium text-primary-foreground disabled:opacity-60"
+                  >
+                    إصدار شهادة الإتمام
+                  </button>
+                )}
+                {certError && <p className="mt-2 text-destructive">{certError}</p>}
+              </div>
             )}
           </div>
 

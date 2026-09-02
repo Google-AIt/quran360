@@ -268,6 +268,48 @@ export type Database = {
           },
         ]
       }
+      facilitator_applications: {
+        Row: {
+          city: string | null
+          created_at: string
+          experience: string | null
+          full_name: string
+          id: string
+          motivation: string | null
+          phone: string | null
+          stage: number
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          city?: string | null
+          created_at?: string
+          experience?: string | null
+          full_name: string
+          id?: string
+          motivation?: string | null
+          phone?: string | null
+          stage?: number
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          city?: string | null
+          created_at?: string
+          experience?: string | null
+          full_name?: string
+          id?: string
+          motivation?: string | null
+          phone?: string | null
+          stage?: number
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       impact_stories: {
         Row: {
           bag_title: string | null

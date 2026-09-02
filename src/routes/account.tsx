@@ -26,6 +26,9 @@ function Page() {
   const [roles, setRoles] = useState<string[]>([]);
   const [stats, setStats] = useState({ courses: 0, percent: 0, certificates: 0, q360: 0 });
   const [myCourses, setMyCourses] = useState<{ id: string; slug: string; title: string; progress: number }[]>([]);
+  const [myCerts, setMyCerts] = useState<
+    { id: string; certificate_number: string; program_title: string; issued_at: string }[]
+  >([]);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -40,17 +43,24 @@ function Page() {
     if (!session) {
       setRoles([]);
       setMyCourses([]);
+      setMyCerts([]);
       setStats({ courses: 0, percent: 0, certificates: 0, q360: 0 });
       return;
     }
     const uid = session.user.id;
     void (async () => {
-      const [{ data: r }, { data: enr }, { count: certs }, { count: q }] = await Promise.all([
+      const [{ data: r }, { data: enr }, { data: certRows }, { count: q }] = await Promise.all([
         supabase.from("user_roles").select("role").eq("user_id", uid),
         supabase.from("enrollments").select("progress, courses(id, slug, title)").eq("user_id", uid),
-        supabase.from("certificates").select("id", { count: "exact", head: true }).eq("user_id", uid),
+        supabase
+          .from("certificates")
+          .select("id, certificate_number, program_title, issued_at")
+          .eq("user_id", uid)
+          .order("issued_at", { ascending: false }),
         supabase.from("q360_assessments").select("id", { count: "exact", head: true }).eq("user_id", uid),
       ]);
+      const certs = (certRows ?? []).length;
+      setMyCerts(certRows ?? []);
       setRoles((r ?? []).map((x) => x.role as string));
       const rows = (enr ?? []).flatMap((e) => {
         const c = e.courses as unknown as { id: string; slug: string; title: string } | null;
@@ -192,6 +202,33 @@ function Page() {
           </div>
         </section>
       )}
+
+      <section className="mt-10">
+        <h2 className="font-display text-2xl font-bold text-primary-deep">شهاداتي</h2>
+        {myCerts.length === 0 ? (
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">
+            لا توجد شهادات بعد. أكمل دورة تطبيقية بنسبة 100% لإصدار شهادة موثّقة برقم فريد ورمز QR، أو ابدأ{" "}
+            <Link to="/facilitators/apply" className="text-primary underline">مسار تأهيل الميسّر</Link>.
+          </p>
+        ) : (
+          <div className="mt-4 grid gap-4 lg:grid-cols-2">
+            {myCerts.map((c) => (
+              <Link
+                key={c.id}
+                to="/verify/$number"
+                params={{ number: c.certificate_number }}
+                className="rounded-2xl border border-gold/60 bg-card p-5 transition-colors hover:border-primary"
+              >
+                <div className="font-display font-bold text-primary-deep">{c.program_title}</div>
+                <div className="mt-2 font-mono text-xs text-muted-foreground">{c.certificate_number}</div>
+                <div className="mt-1 text-xs text-muted-foreground">
+                  {new Date(c.issued_at).toLocaleDateString("ar-SA-u-ca-islamic")}
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+      </section>
 
       <div className="mt-8 rounded-2xl bg-secondary/70 p-6 leading-8 text-muted-foreground">
         ابدأ رحلتك: استكشف <Link to="/bags" className="text-primary underline">الحقائب القرآنية</Link> ثم سجّل في{" "}
