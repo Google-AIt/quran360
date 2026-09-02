@@ -43,8 +43,6 @@ const stages = [
 ];
 
 function Page() {
-  const { data } = useSuspenseQuery(q);
-  const video = String(data["methodology_video_url"] ?? "");
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 md:py-16">
       <PageHero
@@ -60,14 +58,7 @@ function Page() {
         }
       />
 
-      <div className="mt-10 aspect-video overflow-hidden rounded-3xl border border-border bg-card shadow-soft">
-        <iframe
-          className="size-full"
-          src={video}
-          title="الفيديو الترويجي للمنهجية التطبيقية"
-          allowFullScreen
-        />
-      </div>
+
 
       <section className="mt-16">
         <SectionTitle
