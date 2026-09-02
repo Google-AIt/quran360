@@ -43,6 +43,7 @@ function Page() {
             <h2 className="mt-3 font-display text-lg font-bold text-primary-deep">{b.title}</h2>
             {b.concept && <span className="mt-2 inline-block rounded-full bg-gold-soft px-3 py-1 text-xs text-accent-foreground">التصور: {b.concept}</span>}
             <p className="mt-3 text-sm leading-7 text-muted-foreground">{b.summary}</p>
+            </div>
           </Link>
         ))}
       </div>
