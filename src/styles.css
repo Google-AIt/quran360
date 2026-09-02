@@ -192,3 +192,9 @@
   background-image: radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0);
   background-size: 22px 22px;
 }
+
+#lovable-badge {
+  display: none !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
