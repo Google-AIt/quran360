@@ -7,10 +7,10 @@ import {
   School,
   Users,
   Gauge,
-  Sparkles,
 } from "lucide-react";
 import { getBags, getSettings, getStories } from "@/lib/public.functions";
 import { bagImage } from "@/lib/bag-images";
+import { HeroSlider } from "@/components/site/HeroSlider";
 
 const homeQuery = queryOptions({
   queryKey: ["home"],
