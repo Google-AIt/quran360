@@ -203,6 +203,33 @@ function Page() {
         </section>
       )}
 
+      <section className="mt-10">
+        <h2 className="font-display text-2xl font-bold text-primary-deep">شهاداتي</h2>
+        {myCerts.length === 0 ? (
+          <p className="mt-3 text-sm leading-7 text-muted-foreground">
+            لا توجد شهادات بعد. أكمل دورة تطبيقية بنسبة 100% لإصدار شهادة موثّقة برقم فريد ورمز QR، أو ابدأ{" "}
+            <Link to="/facilitators/apply" className="text-primary underline">مسار تأهيل الميسّر</Link>.
+          </p>
+        ) : (
+          <div className="mt-4 grid gap-4 lg:grid-cols-2">
+            {myCerts.map((c) => (
+              <Link
+                key={c.id}
+                to="/verify/$number"
+                params={{ number: c.certificate_number }}
+                className="rounded-2xl border border-gold/60 bg-card p-5 transition-colors hover:border-primary"
+              >
+                <div className="font-display font-bold text-primary-deep">{c.program_title}</div>
+                <div className="mt-2 font-mono text-xs text-muted-foreground">{c.certificate_number}</div>
+                <div className="mt-1 text-xs text-muted-foreground">
+                  {new Date(c.issued_at).toLocaleDateString("ar-SA-u-ca-islamic")}
+                </div>
+              </Link>
+            ))}
+          </div>
+        )}
+      </section>
+
       <div className="mt-8 rounded-2xl bg-secondary/70 p-6 leading-8 text-muted-foreground">
         ابدأ رحلتك: استكشف <Link to="/bags" className="text-primary underline">الحقائب القرآنية</Link> ثم سجّل في{" "}
         <Link to="/academy" className="text-primary underline">الأكاديمية</Link> وقس أثرك عبر{" "}
