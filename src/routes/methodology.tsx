@@ -4,6 +4,13 @@ import { ArrowLeft } from "lucide-react";
 import { getSettings } from "@/lib/public.functions";
 import { Button } from "@/components/ui/button";
 import { PageHero, SectionTitle } from "@/components/site/PageHero";
+import {
+  methodologyFoundations,
+  mentalConcept,
+  practicalSteps,
+  methodologyResults,
+  methodologySourceUrl,
+} from "@/lib/methodology-content";
 
 const q = queryOptions({ queryKey: ["settings"], queryFn: () => getSettings() });
 
@@ -80,13 +87,102 @@ function Page() {
         </div>
       </section>
 
+      <section className="mt-16">
+        <SectionTitle
+          title="على ماذا بُنيت المنهجية التطبيقية؟"
+          subtitle="بُنيت المنهجية التطبيقية في الحقائب القرآنية على أمرين أساسيين."
+        />
+        <div className="mt-8 grid gap-4 md:grid-cols-2">
+          {methodologyFoundations.map((f) => (
+            <div key={f.title} className="rounded-3xl border border-border bg-card p-6 shadow-sm">
+              <span className="inline-flex rounded-full bg-secondary px-3 py-1 text-xs font-medium text-primary-deep">
+                {f.order}
+              </span>
+              <h3 className="mt-3 font-display text-lg font-bold text-primary-deep">{f.title}</h3>
+              <p className="mt-2 text-sm leading-8 text-muted-foreground">{f.text}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section className="mt-16">
+        <SectionTitle
+          title="التصور الذهني"
+          subtitle="نموذج تطبيقي من حقيبة «فاستبقوا الخيرات»."
+        />
+        <div className="mt-8 space-y-4 rounded-3xl border border-border bg-card p-6 shadow-sm md:p-8">
+          <p className="leading-9 text-muted-foreground">{mentalConcept.definition}</p>
+          <p className="leading-9 text-muted-foreground">{mentalConcept.example}</p>
+          <div className="grid gap-6 pt-2 md:grid-cols-2">
+            <ListBlock title="البعد التدريبي للتصور الذهني" items={mentalConcept.training} />
+            <ListBlock title="ربط التصور الذهني بالإيمان والمعتقد" items={mentalConcept.faith} />
+          </div>
+        </div>
+      </section>
+
+      <section className="mt-16">
+        <SectionTitle
+          title="الخطوات العملية"
+          subtitle="الخطوات العملية لحقيبة «فاستبقوا الخيرات»."
+        />
+        <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+          {practicalSteps.steps.map((s, i) => (
+            <div key={s.title} className="rounded-3xl border border-border bg-card p-5 shadow-sm">
+              <div className="mb-3 flex size-9 items-center justify-center rounded-xl bg-gold/20 font-display text-sm font-bold text-primary-deep">
+                {i + 1}
+              </div>
+              <h3 className="font-display text-base font-bold text-primary-deep">{s.title}</h3>
+              <p className="mt-2 text-sm leading-7 text-muted-foreground">{s.text}</p>
+            </div>
+          ))}
+        </div>
+        <div className="mt-6 grid gap-6 rounded-3xl border border-border bg-card p-6 shadow-sm md:grid-cols-2 md:p-8">
+          <ListBlock title="البعد التدريبي للخطوات العملية" items={practicalSteps.training} />
+          <ListBlock title="ربط الخطوات العملية بالامتثال والتصديق" items={practicalSteps.faith} />
+        </div>
+      </section>
+
+      <section className="mt-16">
+        <SectionTitle title="النتائج" subtitle="النتائج المتوقعة عند تطبيق الخطوات العملية." />
+        <div className="mt-8 grid gap-6 rounded-3xl border border-border bg-card p-6 shadow-sm md:grid-cols-3 md:p-8">
+          <ListBlock title="النتائج" items={methodologyResults.results} />
+          <ListBlock title="البعد التدريبي للنتائج" items={methodologyResults.training} />
+          <ListBlock title="ربط النتائج بالجزاء والعاقبة" items={methodologyResults.faith} />
+        </div>
+      </section>
+
       <div className="mt-14 rounded-3xl bg-secondary/70 p-8">
         <h2 className="font-display text-2xl font-bold text-primary-deep">أساس كل ما نقدّمه</h2>
         <p className="mt-3 leading-8 text-muted-foreground">
           جميع الحقائب القرآنية والدورات الإلكترونية وبرامج المدارس وتأهيل الميسّرين مبنية على هذه
           المنهجية، ويُقاس أثرها من خلال نظام Q360.
         </p>
+        <a
+          href={methodologySourceUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="mt-4 inline-block text-sm font-medium text-primary underline underline-offset-4"
+        >
+          المصدر: صفحة المنهجية التطبيقية في الموقع الرسمي
+        </a>
       </div>
     </div>
   );
 }
+
+function ListBlock({ title, items }: { title: string; items: string[] }) {
+  return (
+    <div>
+      <h3 className="font-display text-base font-bold text-primary-deep">{title}</h3>
+      <ol className="mt-3 space-y-2 text-sm leading-7 text-muted-foreground">
+        {items.map((t, i) => (
+          <li key={t} className="flex gap-2">
+            <span className="font-display text-gold">{i + 1}.</span>
+            <span>{t}</span>
+          </li>
+        ))}
+      </ol>
+    </div>
+  );
+}
+
