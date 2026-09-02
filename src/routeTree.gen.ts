@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AcademyRouteImport } from './routes/academy'
+import { Route as AccountRouteImport } from './routes/account'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FacilitatorsRouteImport } from './routes/facilitators'
 import { Route as ImpactRouteImport } from './routes/impact'
@@ -32,6 +33,11 @@ const IndexRoute = IndexRouteImport.update({
 const AcademyRoute = AcademyRouteImport.update({
   id: '/academy',
   path: '/academy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ContactRoute = ContactRouteImport.update({
@@ -98,6 +104,7 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/academy': typeof AcademyRoute
+  '/account': typeof AccountRoute
   '/contact': typeof ContactRoute
   '/facilitators': typeof FacilitatorsRoute
   '/impact': typeof ImpactRoute
@@ -114,6 +121,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/academy': typeof AcademyRoute
+  '/account': typeof AccountRoute
   '/contact': typeof ContactRoute
   '/facilitators': typeof FacilitatorsRoute
   '/impact': typeof ImpactRoute
@@ -131,6 +139,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/academy': typeof AcademyRoute
+  '/account': typeof AccountRoute
   '/contact': typeof ContactRoute
   '/facilitators': typeof FacilitatorsRoute
   '/impact': typeof ImpactRoute
@@ -149,6 +158,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/academy'
+    | '/account'
     | '/contact'
     | '/facilitators'
     | '/impact'
@@ -165,6 +175,7 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/academy'
+    | '/account'
     | '/contact'
     | '/facilitators'
     | '/impact'
@@ -181,6 +192,7 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/academy'
+    | '/account'
     | '/contact'
     | '/facilitators'
     | '/impact'
@@ -198,6 +210,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AcademyRoute: typeof AcademyRoute
+  AccountRoute: typeof AccountRoute
   ContactRoute: typeof ContactRoute
   FacilitatorsRoute: typeof FacilitatorsRoute
   ImpactRoute: typeof ImpactRoute
@@ -226,6 +239,13 @@ declare module '@tanstack/react-router' {
       path: '/academy'
       fullPath: '/academy'
       preLoaderRoute: typeof AcademyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -318,6 +338,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AcademyRoute: AcademyRoute,
+  AccountRoute: AccountRoute,
   ContactRoute: ContactRoute,
   FacilitatorsRoute: FacilitatorsRoute,
   ImpactRoute: ImpactRoute,
