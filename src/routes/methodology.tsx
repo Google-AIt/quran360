@@ -156,7 +156,15 @@ function Page() {
           title="الخطوات العملية"
           subtitle="الخطوات العملية لحقيبة «فاستبقوا الخيرات»."
         />
-        <div className="mt-8 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+        <div className="mt-8 overflow-hidden rounded-3xl border border-border bg-white p-4 shadow-sm md:p-6">
+          <img
+            src={practicalStepsImg}
+            alt="الخطوات العملية لحقيبة فاستبقوا الخيرات"
+            loading="lazy"
+            className="mx-auto w-full max-w-4xl object-contain"
+          />
+        </div>
+        <div className="mt-6 grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {practicalSteps.steps.map((s, i) => (
             <div key={s.title} className="rounded-3xl border border-border bg-card p-5 shadow-sm">
               <div className="mb-3 flex size-9 items-center justify-center rounded-xl bg-gold/20 font-display text-sm font-bold text-primary-deep">
