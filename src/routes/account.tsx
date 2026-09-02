@@ -24,6 +24,8 @@ function Page() {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [roles, setRoles] = useState<string[]>([]);
+  const [stats, setStats] = useState({ courses: 0, percent: 0, certificates: 0, q360: 0 });
+  const [myCourses, setMyCourses] = useState<{ id: string; slug: string; title: string; progress: number }[]>([]);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -37,14 +39,33 @@ function Page() {
   useEffect(() => {
     if (!session) {
       setRoles([]);
+      setMyCourses([]);
+      setStats({ courses: 0, percent: 0, certificates: 0, q360: 0 });
       return;
     }
-    supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", session.user.id)
-      .then(({ data }) => setRoles((data ?? []).map((r) => r.role as string)));
+    const uid = session.user.id;
+    void (async () => {
+      const [{ data: r }, { data: enr }, { count: certs }, { count: q }] = await Promise.all([
+        supabase.from("user_roles").select("role").eq("user_id", uid),
+        supabase.from("enrollments").select("progress, courses(id, slug, title)").eq("user_id", uid),
+        supabase.from("certificates").select("id", { count: "exact", head: true }).eq("user_id", uid),
+        supabase.from("q360_assessments").select("id", { count: "exact", head: true }).eq("user_id", uid),
+      ]);
+      setRoles((r ?? []).map((x) => x.role as string));
+      const rows = (enr ?? []).flatMap((e) => {
+        const c = e.courses as unknown as { id: string; slug: string; title: string } | null;
+        return c ? [{ ...c, progress: e.progress ?? 0 }] : [];
+      });
+      setMyCourses(rows);
+      setStats({
+        courses: rows.length,
+        percent: rows.length ? Math.round(rows.reduce((s, x) => s + x.progress, 0) / rows.length) : 0,
+        certificates: certs ?? 0,
+        q360: q ?? 0,
+      });
+    })();
   }, [session]);
+
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -136,10 +157,10 @@ function Page() {
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         {[
-          ["دوراتي", "0"],
-          ["نسبة الإنجاز", "0%"],
-          ["الشهادات", "0"],
-          ["تقييمات Q360", "0"],
+          ["دوراتي", String(stats.courses)],
+          ["نسبة الإنجاز", `${stats.percent}%`],
+          ["الشهادات", String(stats.certificates)],
+          ["تقييمات Q360", String(stats.q360)],
         ].map(([l, v]) => (
           <div key={l} className="rounded-2xl border border-border bg-card p-6">
             <div className="font-display text-3xl font-bold text-primary">{v}</div>
@@ -148,11 +169,36 @@ function Page() {
         ))}
       </div>
 
+      {myCourses.length > 0 && (
+        <section className="mt-10">
+          <h2 className="font-display text-2xl font-bold text-primary-deep">دوراتي</h2>
+          <div className="mt-4 grid gap-4 lg:grid-cols-2">
+            {myCourses.map((c) => (
+              <Link
+                key={c.id}
+                to="/courses/$slug"
+                params={{ slug: c.slug }}
+                className="rounded-2xl border border-border bg-card p-5 transition-colors hover:border-primary"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="font-display font-bold text-primary-deep">{c.title}</span>
+                  <span className="text-sm text-primary">{c.progress}%</span>
+                </div>
+                <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-secondary">
+                  <div className="h-full rounded-full bg-primary" style={{ width: `${c.progress}%` }} />
+                </div>
+              </Link>
+            ))}
+          </div>
+        </section>
+      )}
+
       <div className="mt-8 rounded-2xl bg-secondary/70 p-6 leading-8 text-muted-foreground">
         ابدأ رحلتك: استكشف <Link to="/bags" className="text-primary underline">الحقائب القرآنية</Link> ثم سجّل في{" "}
         <Link to="/academy" className="text-primary underline">الأكاديمية</Link> وقس أثرك عبر{" "}
         <Link to="/q360" className="text-primary underline">Q360</Link>.
       </div>
+
     </div>
   );
 }

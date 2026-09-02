@@ -59,6 +59,30 @@ export const getCourses = createServerFn({ method: "GET" }).handler(async () => 
   return (courses ?? []).map((c) => ({ ...c, lessons: (lessons ?? []).filter((l) => l.course_id === c.id) }));
 });
 
+export const getCourse = createServerFn({ method: "GET" })
+  .inputValidator((d: { slug: string }) => d)
+  .handler(async ({ data: input }) => {
+    const sb = publicClient();
+    const { data: course } = await sb
+      .from("courses")
+      .select("id, slug, title, verse, description, objectives, price, bag_id")
+      .eq("slug", input.slug)
+      .maybeSingle();
+    if (!course) return null;
+    const [{ data: lessons }, { data: bag }] = await Promise.all([
+      sb
+        .from("course_lessons")
+        .select("id, lesson_number, title, description, video_url, duration_minutes, activity, challenge")
+        .eq("course_id", course.id)
+        .order("lesson_number"),
+      course.bag_id
+        ? sb.from("quran_bags").select("slug, title").eq("id", course.bag_id).maybeSingle()
+        : Promise.resolve({ data: null }),
+    ]);
+    return { course, lessons: lessons ?? [], bag: bag ?? null };
+  });
+
+
 export const getProducts = createServerFn({ method: "GET" }).handler(async () => {
   const { data } = await publicClient()
     .from("products")

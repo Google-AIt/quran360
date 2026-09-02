@@ -91,14 +91,27 @@ function Page() {
             <ul className="mt-3 space-y-2 text-sm leading-7 text-muted-foreground">
               {questions.map((qq) => <li key={qq.id} className="flex gap-2"><span className="text-gold">•</span>{qq.text}</li>)}
             </ul>
-            <Link to="/q360" className="mt-4 inline-block text-sm font-medium text-primary">تفاصيل Q360</Link>
+            <div className="mt-4 flex flex-wrap gap-4">
+              <Link to="/q360" className="text-sm font-medium text-primary">تفاصيل Q360</Link>
+              <Link
+                to="/q360/assess/$bagSlug"
+                params={{ bagSlug: bag.slug }}
+                className="text-sm font-medium text-primary"
+              >
+                ابدأ تقييم الأثر ←
+              </Link>
+            </div>
           </section>
         )}
       </div>
 
       <div className="mt-10 flex flex-wrap gap-3">
         {course && (
-          <Link to="/academy" className="rounded-xl bg-primary px-6 py-3 font-medium text-primary-foreground">
+          <Link
+            to="/courses/$slug"
+            params={{ slug: course.slug }}
+            className="rounded-xl bg-primary px-6 py-3 font-medium text-primary-foreground"
+          >
             الدورة المرتبطة: {course.title} — {course.price} ريال
           </Link>
         )}
@@ -106,6 +119,7 @@ function Page() {
           شراء من المتجر
         </Link>
       </div>
+
     </div>
   );
 }
