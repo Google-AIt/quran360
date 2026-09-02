@@ -3,6 +3,7 @@ import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { getBags, getProducts } from "@/lib/public.functions";
 import { bagImage } from "@/lib/bag-images";
 import { productImage } from "@/lib/product-images";
+import { contentFor, categoryLabels } from "@/lib/product-content";
 import { useCart } from "@/lib/cart";
 import { toast } from "sonner";
 import { Link } from "@tanstack/react-router";
