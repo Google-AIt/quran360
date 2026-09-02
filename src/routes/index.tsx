@@ -7,10 +7,10 @@ import {
   School,
   Users,
   Gauge,
-  Sparkles,
 } from "lucide-react";
 import { getBags, getSettings, getStories } from "@/lib/public.functions";
 import { bagImage } from "@/lib/bag-images";
+import { HeroSlider } from "@/components/site/HeroSlider";
 
 const homeQuery = queryOptions({
   queryKey: ["home"],
@@ -84,53 +84,26 @@ function Home() {
 
   return (
     <div>
-      {/* Hero */}
-      <section className="bg-hero text-primary-foreground">
-        <div className="mx-auto grid max-w-7xl gap-10 px-4 py-20 md:py-28 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
-          <div>
-            <span className="inline-flex items-center gap-2 rounded-full border border-primary-foreground/25 bg-primary-foreground/10 px-4 py-1.5 text-xs">
-              <Sparkles className="size-3.5 text-gold" />
-              منظومة متكاملة للتدريب على تطبيق القرآن
-            </span>
-            <h1 className="mt-6 font-display text-4xl font-bold leading-[1.25] md:text-6xl">
-              القرآن خطوة بخطوة
-            </h1>
-            <p className="mt-5 max-w-2xl text-lg leading-9 text-primary-foreground/85">
-              تعلّم وتدرّب خطوة بخطوة على تطبيق القرآن، لتكون قرآنًا يمشي على الأرض.
-            </p>
-            <div className="mt-8 flex flex-wrap gap-3">
-              <Link
-                to="/academy"
-                className="inline-flex items-center gap-2 rounded-xl bg-gold px-6 py-3 font-medium text-accent-foreground transition-transform hover:-translate-y-0.5"
-              >
-                ابدأ التدريب <ArrowLeft className="size-4" />
-              </Link>
-              <Link
-                to="/bags"
-                className="inline-flex items-center gap-2 rounded-xl border border-primary-foreground/35 px-6 py-3 font-medium hover:bg-primary-foreground/10"
-              >
-                استكشف الحقائب
-              </Link>
+      {/* Hero slider */}
+      <HeroSlider />
+
+      {/* Stats strip */}
+      <section className="border-b border-border bg-card">
+        <div className="mx-auto grid max-w-7xl grid-cols-2 gap-4 px-4 py-8 text-center md:grid-cols-4">
+          {[
+            ["12", "حقيبة قرآنية"],
+            ["12", "دورة إلكترونية"],
+            ["5", "مراحل منهجية"],
+            ["Q360", "قياس الأثر"],
+          ].map(([v, l]) => (
+            <div key={l} className="rounded-2xl bg-secondary/50 px-3 py-5">
+              <div className="font-display text-2xl font-bold text-primary">{v}</div>
+              <div className="mt-1 text-sm text-muted-foreground">{l}</div>
             </div>
-          </div>
-          <div className="rounded-3xl border border-primary-foreground/20 bg-primary-foreground/5 p-6 backdrop-blur">
-            <p className="ayah text-center text-2xl text-gold">﴿فَاسْتَبِقُوا الْخَيْرَاتِ﴾</p>
-            <div className="mt-6 grid grid-cols-2 gap-3 text-center text-sm">
-              {[
-                ["12", "حقيبة قرآنية"],
-                ["12", "دورة إلكترونية"],
-                ["5", "مراحل منهجية"],
-                ["Q360", "قياس الأثر"],
-              ].map(([v, l]) => (
-                <div key={l} className="rounded-2xl bg-primary-foreground/10 px-3 py-4">
-                  <div className="font-display text-2xl font-bold text-gold">{v}</div>
-                  <div className="mt-1 text-primary-foreground/75">{l}</div>
-                </div>
-              ))}
-            </div>
-          </div>
+          ))}
         </div>
       </section>
+
 
       {/* Journey */}
       <section className="mx-auto max-w-7xl px-4 py-20">
