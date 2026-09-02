@@ -10,33 +10,63 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as MethodologyRouteImport } from './routes/methodology'
+import { Route as BagsIndexRouteImport } from './routes/bags/index'
+import { Route as BagsSlugRouteImport } from './routes/bags/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const MethodologyRoute = MethodologyRouteImport.update({
+  id: '/methodology',
+  path: '/methodology',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BagsIndexRoute = BagsIndexRouteImport.update({
+  id: '/bags/',
+  path: '/bags/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BagsSlugRoute = BagsSlugRouteImport.update({
+  id: '/bags/$slug',
+  path: '/bags/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/methodology': typeof MethodologyRoute
+  '/bags/$slug': typeof BagsSlugRoute
+  '/bags/': typeof BagsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/methodology': typeof MethodologyRoute
+  '/bags/$slug': typeof BagsSlugRoute
+  '/bags': typeof BagsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/methodology': typeof MethodologyRoute
+  '/bags/$slug': typeof BagsSlugRoute
+  '/bags/': typeof BagsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths: '/' | '/methodology' | '/bags/$slug' | '/bags/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to: '/' | '/methodology' | '/bags/$slug' | '/bags'
+  id: '__root__' | '/' | '/methodology' | '/bags/$slug' | '/bags/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  MethodologyRoute: typeof MethodologyRoute
+  BagsSlugRoute: typeof BagsSlugRoute
+  BagsIndexRoute: typeof BagsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +78,35 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/methodology': {
+      id: '/methodology'
+      path: '/methodology'
+      fullPath: '/methodology'
+      preLoaderRoute: typeof MethodologyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bags/': {
+      id: '/bags/'
+      path: '/bags'
+      fullPath: '/bags/'
+      preLoaderRoute: typeof BagsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bags/$slug': {
+      id: '/bags/$slug'
+      path: '/bags/$slug'
+      fullPath: '/bags/$slug'
+      preLoaderRoute: typeof BagsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  MethodologyRoute: MethodologyRoute,
+  BagsSlugRoute: BagsSlugRoute,
+  BagsIndexRoute: BagsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
