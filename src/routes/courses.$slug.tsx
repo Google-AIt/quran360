@@ -210,9 +210,23 @@ function Page() {
               <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${percent}%` }} />
             </div>
             {percent === 100 && (
-              <p className="mt-4 rounded-xl bg-accent/20 p-3 text-sm text-primary-deep">
-                أتممت الدورة. انتقل إلى تقييم Q360 البعدي لقياس أثر التطبيق.
-              </p>
+              <div className="mt-4 rounded-xl bg-accent/20 p-3 text-sm text-primary-deep">
+                <p>أتممت الدورة. انتقل إلى تقييم Q360 البعدي لقياس أثر التطبيق.</p>
+                {certNumber ? (
+                  <Link to="/verify/$number" params={{ number: certNumber }} className="mt-3 inline-block text-primary underline">
+                    عرض شهادتك ({certNumber})
+                  </Link>
+                ) : (
+                  <button
+                    onClick={issue}
+                    disabled={busy}
+                    className="mt-3 rounded-lg bg-primary px-4 py-2 text-xs font-medium text-primary-foreground disabled:opacity-60"
+                  >
+                    إصدار شهادة الإتمام
+                  </button>
+                )}
+                {certError && <p className="mt-2 text-destructive">{certError}</p>}
+              </div>
             )}
           </div>
 
