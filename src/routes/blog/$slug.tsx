@@ -30,7 +30,7 @@ export const Route = createFileRoute("/blog/$slug")({
         { property: "og:description", content: d },
         { property: "og:type", content: "article" },
         { name: "twitter:card", content: "summary_large_image" },
-        ...(source
+        ...(source?.imageUrl
           ? [
               { property: "og:image", content: source.imageUrl },
               { name: "twitter:image", content: source.imageUrl },
@@ -62,9 +62,11 @@ function Page() {
         {source ? (
           <div className="relative aspect-[16/7] overflow-hidden bg-secondary">
             <img src={source.image} alt={post.title} className="h-full w-full object-cover" />
-            <span className="absolute right-5 top-5 rounded-full bg-background/90 px-3 py-1.5 text-xs font-medium text-foreground shadow-sm">
-              {source.sourceLabel}
-            </span>
+            {source.sourceLabel ? (
+              <span className="absolute right-5 top-5 rounded-full bg-background/90 px-3 py-1.5 text-xs font-medium text-foreground shadow-sm">
+                {source.sourceLabel}
+              </span>
+            ) : null}
           </div>
         ) : null}
         <div className="p-6 md:p-10">
@@ -82,7 +84,7 @@ function Page() {
 
       <div className="mt-10 whitespace-pre-line text-lg leading-[2.2] text-foreground/90">{post.content}</div>
 
-      {source ? (
+      {source?.sourceUrl ? (
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6">
           <p className="text-sm text-muted-foreground">نُقل هذا المقال من أرشيف الموقع الرسمي للقرآن خطوة بخطوة.</p>
           <Button asChild variant="outline">

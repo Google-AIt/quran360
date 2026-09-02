@@ -2,15 +2,21 @@ import quranWalks from "@/assets/blog/quran-walks.jpg";
 import saadiDirection from "@/assets/blog/saadi-direction.jpg";
 import quranRules from "@/assets/blog/quran-rules.jpg";
 import quranReflection from "@/assets/blog/quran-reflection.jpg";
+import fromKnowledgeToPractice from "@/assets/blog/from-knowledge-to-practice.jpg";
+import mentalConcept from "@/assets/blog/mental-concept.jpg";
+import impactMeasurement from "@/assets/blog/impact-measurement.jpg";
 
 type OfficialBlogSource = {
   image: string;
-  imageUrl: string;
-  sourceUrl: string;
-  sourceLabel: string;
+  imageUrl?: string;
+  sourceUrl?: string;
+  sourceLabel?: string;
 };
 
 export const officialBlogSources: Record<string, OfficialBlogSource> = {
+  "min-marifat-alquran-ila-tatbiqih": { image: fromKnowledgeToPractice },
+  "altasawwur-aldhihni-alsahih": { image: mentalConcept },
+  "q360-qiyas-alathar": { image: impactMeasurement },
   "quran-walks": {
     image: quranWalks,
     imageUrl: "https://quranstepbystep.com/wp-content/uploads/2023/12/30d52aac-eda4-49e5-9a8d-2e6f2a34db43.jpg",
