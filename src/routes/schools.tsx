@@ -96,7 +96,7 @@ function Page() {
 
       <section className="mt-16">
         <SectionTitle title="منافع البرنامج للمدرسة" subtitle="نظام واحد يربط التدريب اليومي بالثقافة المدرسية ونتائج قابلة للقياس." />
-        <ol className="mt-5 grid gap-3 md:grid-cols-2">
+        <ol className="mt-8 grid gap-3 md:grid-cols-2">
           {benefits.map((b, i) => (
             <li key={b} className="flex gap-3 rounded-xl border border-border bg-card px-4 py-3 text-sm leading-7">
               <span className="font-display text-primary">{i + 1}</span>
@@ -108,7 +108,7 @@ function Page() {
 
       <section className="mt-16">
         <SectionTitle title="رحلة المدرسة" subtitle="من التسجيل إلى التقرير، بخطوات واضحة وفريق داخلي قادر على الاستمرار." />
-        <div className="mt-5 flex flex-wrap gap-2">
+        <div className="mt-8 flex flex-wrap gap-2">
           {journey.map((j, i) => (
             <span key={j} className="rounded-full border border-border bg-card px-4 py-2 text-sm text-primary-deep">{i + 1}. {j}</span>
           ))}

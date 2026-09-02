@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { } from "lucide-react";
+
 import { getStories } from "@/lib/public.functions";
 import { getImpactStats } from "@/lib/stats.functions";
 import { PageHero, SectionTitle, HeroStat } from "@/components/site/PageHero";
