@@ -51,15 +51,23 @@ function Page() {
           <ul className="mt-3 space-y-2 text-sm leading-7 text-muted-foreground">
             {benefits.map((x) => <li key={x} className="flex gap-2"><span className="text-gold">•</span>{x}</li>)}
           </ul>
-          <Link to="/store" className="mt-5 inline-block rounded-xl bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground">
-            اشترك الآن
-          </Link>
+          <div className="mt-5 flex flex-wrap gap-3">
+            <Link to="/store" className="inline-block rounded-xl bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground">
+              اشترك الآن
+            </Link>
+            <Link to="/facilitators/apply" className="inline-block rounded-xl border border-primary px-5 py-2.5 text-sm font-medium text-primary">
+              ابدأ مسار التأهيل
+            </Link>
+          </div>
         </section>
       </div>
 
       <div className="mt-10 rounded-3xl bg-gold-soft p-8">
         <h2 className="font-display text-xl font-bold text-accent-foreground">الشهادة</h2>
         <p className="mt-2 leading-8 text-accent-foreground/80">شهادة تأهيل واعتماد ميسّر الحقائب القرآنية، برقم فريد ورمز تحقق QR.</p>
+        <Link to="/verify" className="mt-4 inline-block text-sm text-primary underline">
+          التحقق من شهادة
+        </Link>
       </div>
     </div>
   );

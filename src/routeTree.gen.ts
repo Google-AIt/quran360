@@ -25,6 +25,8 @@ import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as CoursesSlugRouteImport } from './routes/courses.$slug'
 import { Route as FacilitatorsIndexRouteImport } from './routes/facilitators/index'
+import { Route as FacilitatorsApplyRouteImport } from './routes/facilitators/apply'
+import { Route as VerifyIndexRouteImport } from './routes/verify.index'
 import { Route as VerifyNumberRouteImport } from './routes/verify.$number'
 import { Route as Q360AssessBagSlugRouteImport } from './routes/q360.assess.$bagSlug'
 
@@ -108,6 +110,16 @@ const FacilitatorsIndexRoute = FacilitatorsIndexRouteImport.update({
   path: '/facilitators/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const FacilitatorsApplyRoute = FacilitatorsApplyRouteImport.update({
+  id: '/facilitators/apply',
+  path: '/facilitators/apply',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const VerifyIndexRoute = VerifyIndexRouteImport.update({
+  id: '/verify/',
+  path: '/verify/',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const VerifyNumberRoute = VerifyNumberRouteImport.update({
   id: '/verify/$number',
   path: '/verify/$number',
@@ -133,10 +145,12 @@ export interface FileRoutesByFullPath {
   '/bags/$slug': typeof BagsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/courses/$slug': typeof CoursesSlugRoute
+  '/facilitators/apply': typeof FacilitatorsApplyRoute
   '/verify/$number': typeof VerifyNumberRoute
   '/bags/': typeof BagsIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/facilitators/': typeof FacilitatorsIndexRoute
+  '/verify/': typeof VerifyIndexRoute
   '/q360/assess/$bagSlug': typeof Q360AssessBagSlugRoute
 }
 export interface FileRoutesByTo {
@@ -153,10 +167,12 @@ export interface FileRoutesByTo {
   '/bags/$slug': typeof BagsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/courses/$slug': typeof CoursesSlugRoute
+  '/facilitators/apply': typeof FacilitatorsApplyRoute
   '/verify/$number': typeof VerifyNumberRoute
   '/bags': typeof BagsIndexRoute
   '/blog': typeof BlogIndexRoute
   '/facilitators': typeof FacilitatorsIndexRoute
+  '/verify': typeof VerifyIndexRoute
   '/q360/assess/$bagSlug': typeof Q360AssessBagSlugRoute
 }
 export interface FileRoutesById {
@@ -174,10 +190,12 @@ export interface FileRoutesById {
   '/bags/$slug': typeof BagsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/courses/$slug': typeof CoursesSlugRoute
+  '/facilitators/apply': typeof FacilitatorsApplyRoute
   '/verify/$number': typeof VerifyNumberRoute
   '/bags/': typeof BagsIndexRoute
   '/blog/': typeof BlogIndexRoute
   '/facilitators/': typeof FacilitatorsIndexRoute
+  '/verify/': typeof VerifyIndexRoute
   '/q360/assess/$bagSlug': typeof Q360AssessBagSlugRoute
 }
 export interface FileRouteTypes {
@@ -196,10 +214,12 @@ export interface FileRouteTypes {
     | '/bags/$slug'
     | '/blog/$slug'
     | '/courses/$slug'
+    | '/facilitators/apply'
     | '/verify/$number'
     | '/bags/'
     | '/blog/'
     | '/facilitators/'
+    | '/verify/'
     | '/q360/assess/$bagSlug'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -216,10 +236,12 @@ export interface FileRouteTypes {
     | '/bags/$slug'
     | '/blog/$slug'
     | '/courses/$slug'
+    | '/facilitators/apply'
     | '/verify/$number'
     | '/bags'
     | '/blog'
     | '/facilitators'
+    | '/verify'
     | '/q360/assess/$bagSlug'
   id:
     | '__root__'
@@ -236,10 +258,12 @@ export interface FileRouteTypes {
     | '/bags/$slug'
     | '/blog/$slug'
     | '/courses/$slug'
+    | '/facilitators/apply'
     | '/verify/$number'
     | '/bags/'
     | '/blog/'
     | '/facilitators/'
+    | '/verify/'
     | '/q360/assess/$bagSlug'
   fileRoutesById: FileRoutesById
 }
@@ -257,10 +281,12 @@ export interface RootRouteChildren {
   BagsSlugRoute: typeof BagsSlugRoute
   BlogSlugRoute: typeof BlogSlugRoute
   CoursesSlugRoute: typeof CoursesSlugRoute
+  FacilitatorsApplyRoute: typeof FacilitatorsApplyRoute
   VerifyNumberRoute: typeof VerifyNumberRoute
   BagsIndexRoute: typeof BagsIndexRoute
   BlogIndexRoute: typeof BlogIndexRoute
   FacilitatorsIndexRoute: typeof FacilitatorsIndexRoute
+  VerifyIndexRoute: typeof VerifyIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -377,6 +403,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FacilitatorsIndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/facilitators/apply': {
+      id: '/facilitators/apply'
+      path: '/facilitators/apply'
+      fullPath: '/facilitators/apply'
+      preLoaderRoute: typeof FacilitatorsApplyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/verify/': {
+      id: '/verify/'
+      path: '/verify'
+      fullPath: '/verify/'
+      preLoaderRoute: typeof VerifyIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/verify/$number': {
       id: '/verify/$number'
       path: '/verify/$number'
@@ -418,10 +458,12 @@ const rootRouteChildren: RootRouteChildren = {
   BagsSlugRoute: BagsSlugRoute,
   BlogSlugRoute: BlogSlugRoute,
   CoursesSlugRoute: CoursesSlugRoute,
+  FacilitatorsApplyRoute: FacilitatorsApplyRoute,
   VerifyNumberRoute: VerifyNumberRoute,
   BagsIndexRoute: BagsIndexRoute,
   BlogIndexRoute: BlogIndexRoute,
   FacilitatorsIndexRoute: FacilitatorsIndexRoute,
+  VerifyIndexRoute: VerifyIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
