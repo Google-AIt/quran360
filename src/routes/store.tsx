@@ -110,9 +110,14 @@ function Page() {
                 <div className="p-6">
                   <h3 className="font-display text-lg font-bold text-primary-deep">{b.title}</h3>
                   <p className="mt-2 line-clamp-3 text-sm leading-7 text-muted-foreground">
-                    {bag?.description ?? b.summary ?? b.concept ?? "حقيبة قرآنية تطبيقية تربط الآية بالمهارة والسلوك."}
+                    {bag?.description ??
+                      b.summary ??
+                      b.concept ??
+                      "حقيبة قرآنية تطبيقية تربط الآية بالمهارة والسلوك."}
                   </p>
-                  {bag && <p className="mt-3 text-xs font-medium text-primary">المهارة: {bag.focus}</p>}
+                  {bag && (
+                    <p className="mt-3 text-xs font-medium text-primary">المهارة: {bag.focus}</p>
+                  )}
                   <ObjectiveChips className="mt-4" />
                   <span className="mt-4 inline-block text-sm font-medium text-primary">
                     تفاصيل الحقيبة ←
@@ -176,12 +181,12 @@ function Page() {
                             <span>{it}</span>
                           </li>
                         ))}
-                       </ul>
-                       <ObjectiveChips className="mt-4" />
-                       <p className="mt-4 rounded-xl bg-gold-soft px-4 py-3 text-xs leading-6 text-accent-foreground">
-                         النتيجة: {c.outcome}
-                       </p>
-                     </>
+                      </ul>
+                      <ObjectiveChips className="mt-4" />
+                      <p className="mt-4 rounded-xl bg-gold-soft px-4 py-3 text-xs leading-6 text-accent-foreground">
+                        النتيجة: {c.outcome}
+                      </p>
+                    </>
                   )}
                   <div className="mt-6 flex flex-1 items-end justify-between gap-3">
                     <span className="font-display text-xl font-bold text-primary">

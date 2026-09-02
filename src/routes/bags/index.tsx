@@ -12,9 +12,15 @@ export const Route = createFileRoute("/bags/")({
   head: () => ({
     meta: [
       { title: "الحقائب القرآنية | القرآن خطوة بخطوة" },
-      { name: "description", content: "12 حقيبة قرآنية تدريبية مبنية على المنهجية التطبيقية لتحويل الآية إلى سلوك." },
+      {
+        name: "description",
+        content: "12 حقيبة قرآنية تدريبية مبنية على المنهجية التطبيقية لتحويل الآية إلى سلوك.",
+      },
       { property: "og:title", content: "الحقائب القرآنية" },
-      { property: "og:description", content: "حقائب تدريبية تحوّل مفاهيم القرآن إلى خطوات عملية وسلوك مقاس." },
+      {
+        property: "og:description",
+        content: "حقائب تدريبية تحوّل مفاهيم القرآن إلى خطوات عملية وسلوك مقاس.",
+      },
     ],
   }),
   component: Page,
@@ -29,7 +35,8 @@ function Page() {
           <p className="text-sm font-medium text-gold">مسارات تطبيقية من القرآن</p>
           <h1 className="mt-3 font-display text-4xl font-bold md:text-5xl">الحقائب القرآنية</h1>
           <p className="mt-5 text-base leading-9 text-primary-foreground/85 md:text-lg">
-            حقائب تدريبية تساعدك على فهم الآية، وبناء تصور ذهني واضح لمعناها، ثم تحويلها إلى خطوات عملية تقيس أثرها في حياتك.
+            حقائب تدريبية تساعدك على فهم الآية، وبناء تصور ذهني واضح لمعناها، ثم تحويلها إلى خطوات
+            عملية تقيس أثرها في حياتك.
           </p>
         </div>
         <div className="mt-10 grid gap-3 border-t border-primary-foreground/20 pt-6 sm:grid-cols-3">
@@ -54,7 +61,9 @@ function Page() {
       <div className="mt-12 flex flex-wrap items-end justify-between gap-4">
         <div>
           <p className="text-sm font-medium text-primary">اختر موضوعك التدريبي</p>
-          <h2 className="mt-1 font-display text-2xl font-bold text-primary-deep">ابدأ من الآية الأقرب إلى احتياجك</h2>
+          <h2 className="mt-1 font-display text-2xl font-bold text-primary-deep">
+            ابدأ من الآية الأقرب إلى احتياجك
+          </h2>
         </div>
         <span className="text-sm text-muted-foreground">{bags.length} حقائب متاحة الآن</span>
       </div>
@@ -63,11 +72,25 @@ function Page() {
         {bags.map((b) => {
           const content = contentForBag(b.slug);
           return (
-            <Link key={b.id} to="/bags/$slug" params={{ slug: b.slug }} className="group overflow-hidden rounded-3xl border border-border bg-card shadow-sm transition-all hover:-translate-y-1 hover:shadow-soft">
+            <Link
+              key={b.id}
+              to="/bags/$slug"
+              params={{ slug: b.slug }}
+              className="group overflow-hidden rounded-3xl border border-border bg-card shadow-sm transition-all hover:-translate-y-1 hover:shadow-soft"
+            >
               {bagImage(b.slug) ? (
-                <img src={bagImage(b.slug)} alt={`غلاف حقيبة ${b.title}`} loading="lazy" width={1200} height={750} className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                <img
+                  src={bagImage(b.slug)}
+                  alt={`غلاف حقيبة ${b.title}`}
+                  loading="lazy"
+                  width={1200}
+                  height={750}
+                  className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                />
               ) : (
-                <div className="flex aspect-[16/10] items-center justify-center bg-secondary text-sm text-muted-foreground">صورة الحقيبة قريبًا</div>
+                <div className="flex aspect-[16/10] items-center justify-center bg-secondary text-sm text-muted-foreground">
+                  صورة الحقيبة قريبًا
+                </div>
               )}
               <div className="p-6">
                 <p className="ayah text-lg text-primary">{b.verse}</p>
@@ -75,14 +98,22 @@ function Page() {
                 <h3 className="mt-3 font-display text-xl font-bold text-primary-deep">{b.title}</h3>
                 {content ? (
                   <>
-                    <span className="mt-3 inline-block rounded-full bg-gold-soft px-3 py-1 text-xs text-accent-foreground">المهارة: {content.focus}</span>
-                    <p className="mt-4 line-clamp-3 text-sm leading-7 text-muted-foreground">{content.description}</p>
+                    <span className="mt-3 inline-block rounded-full bg-gold-soft px-3 py-1 text-xs text-accent-foreground">
+                      المهارة: {content.focus}
+                    </span>
+                    <p className="mt-4 line-clamp-3 text-sm leading-7 text-muted-foreground">
+                      {content.description}
+                    </p>
                   </>
                 ) : (
-                  <p className="mt-4 line-clamp-3 text-sm leading-7 text-muted-foreground">{b.summary}</p>
+                  <p className="mt-4 line-clamp-3 text-sm leading-7 text-muted-foreground">
+                    {b.summary}
+                  </p>
                 )}
                 <ObjectiveChips className="mt-4" />
-                <span className="mt-5 inline-block text-sm font-medium text-primary">استكشف الحقيبة ←</span>
+                <span className="mt-5 inline-block text-sm font-medium text-primary">
+                  استكشف الحقيبة ←
+                </span>
               </div>
             </Link>
           );

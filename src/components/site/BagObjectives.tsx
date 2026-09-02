@@ -32,7 +32,9 @@ export function BagObjectives({
   className?: string;
 }) {
   return (
-    <section className={`rounded-3xl border border-border bg-card p-6 shadow-sm md:p-8 ${className}`}>
+    <section
+      className={`rounded-3xl border border-border bg-card p-6 shadow-sm md:p-8 ${className}`}
+    >
       <h2 className="font-display text-2xl font-bold text-primary-deep">{title}</h2>
       <p className="mt-2 text-sm text-muted-foreground">أهداف الحقائب القرآنية</p>
       <div className="mt-6 grid gap-4 md:grid-cols-3">
