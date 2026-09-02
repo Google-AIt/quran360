@@ -264,6 +264,62 @@ function Page() {
                   <span className="font-display text-xl font-bold text-primary">{change}%</span>
                 </p>
               )}
+
+              <h3 className="mt-8 font-display text-lg font-bold text-primary-deep">
+                المقارنة بين جهات التقييم (360 درجة)
+              </h3>
+              <div className="mt-4 space-y-3">
+                {RATERS.map((r) => {
+                  const v = raterAvgs[r.key];
+                  return (
+                    <div key={r.key} className="flex items-center gap-3">
+                      <span className="w-28 shrink-0 text-sm text-muted-foreground">{r.label}</span>
+                      <div className="h-3 flex-1 overflow-hidden rounded-full bg-secondary">
+                        <div
+                          className="h-full rounded-full bg-primary transition-all"
+                          style={{ width: `${((v ?? 0) / 5) * 100}%` }}
+                        />
+                      </div>
+                      <span className="w-14 shrink-0 text-sm font-medium text-primary-deep">
+                        {v != null ? `${v.toFixed(1)} / 5` : "—"}
+                      </span>
+                    </div>
+                  );
+                })}
+              </div>
+
+              <h3 className="mt-8 font-display text-lg font-bold text-primary-deep">دعوة مقيّمين خارجيين</h3>
+              <p className="mt-2 text-sm leading-7 text-muted-foreground">
+                أرسل الرابط الخاص بكل قياس إلى أسرتك أو زملائك أو مدربك ليضيفوا تقييمهم لسلوكك بشكل موضوعي.
+              </p>
+              <div className="mt-4 space-y-2">
+                {saved.map((s) => {
+                  const url = `${typeof window !== "undefined" ? window.location.origin : ""}/q360/rate/${s.id}`;
+                  return (
+                    <div
+                      key={s.id}
+                      className="flex flex-wrap items-center gap-3 rounded-xl border border-border bg-background p-3"
+                    >
+                      <span className="text-sm text-muted-foreground">
+                        {PHASES.find((p) => p.key === s.phase)?.label ?? s.phase}
+                      </span>
+                      <code className="flex-1 truncate text-xs text-primary-deep" dir="ltr">
+                        {url}
+                      </code>
+                      <button
+                        onClick={() => {
+                          void navigator.clipboard.writeText(url);
+                          setCopied(s.id);
+                        }}
+                        className="rounded-lg bg-primary px-4 py-2 text-xs font-medium text-primary-foreground"
+                      >
+                        {copied === s.id ? "تم النسخ" : "نسخ الرابط"}
+                      </button>
+                    </div>
+                  );
+                })}
+              </div>
+
             </section>
           )}
         </>
