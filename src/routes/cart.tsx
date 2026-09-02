@@ -14,7 +14,10 @@ export const Route = createFileRoute("/cart")({
   head: () => ({
     meta: [
       { title: "سلة المشتريات | القرآن خطوة بخطوة" },
-      { name: "description", content: "راجع طلبك من الدورات والعضويات وبرامج قياس الأثر ثم أكمل الدفع بالريال السعودي." },
+      {
+        name: "description",
+        content: "راجع طلبك من الدورات والعضويات وبرامج قياس الأثر ثم أكمل الدفع بالريال السعودي.",
+      },
       { property: "og:title", content: "سلة المشتريات | القرآن خطوة بخطوة" },
       { property: "og:description", content: "إتمام طلب الدورات والعضويات وخدمات المنصة." },
       { property: "og:type", content: "website" },
@@ -43,8 +46,15 @@ function Page() {
         setLoading(false);
         return;
       }
-      const res = await submit({ data: { items: items.map((i) => ({ productId: i.productId, qty: i.qty })) } });
-      setPlaced({ orderId: res.orderId, total: res.total, reference: res.reference, provider: res.provider });
+      const res = await submit({
+        data: { items: items.map((i) => ({ productId: i.productId, qty: i.qty })) },
+      });
+      setPlaced({
+        orderId: res.orderId,
+        total: res.total,
+        reference: res.reference,
+        provider: res.provider,
+      });
       clear();
       toast.success("تم إنشاء طلبك بنجاح");
     } catch (e) {
@@ -61,7 +71,8 @@ function Page() {
           <BadgeCheck className="mx-auto size-12 text-primary" />
           <h1 className="mt-4 font-display text-2xl font-bold text-primary-deep">تم تسجيل طلبك</h1>
           <p className="mt-3 leading-8 text-muted-foreground">
-            رقم المرجع: <span className="font-mono font-bold text-foreground">{placed.reference}</span>
+            رقم المرجع:{" "}
+            <span className="font-mono font-bold text-foreground">{placed.reference}</span>
             <br />
             الإجمالي: <span className="font-bold text-foreground">{placed.total} ريال سعودي</span>
           </p>
@@ -70,8 +81,8 @@ function Page() {
               <>
                 <p className="font-bold">طريقة السداد الحالية: التحويل البنكي</p>
                 <p>
-                  حوّل قيمة الطلب ثم أرسل إشعار التحويل عبر صفحة «تواصل معنا» مرفقًا برقم المرجع، وسيتم تفعيل اشتراكك
-                  خلال يوم عمل واحد. ستظهر حالة الطلب في صفحة «حسابي».
+                  حوّل قيمة الطلب ثم أرسل إشعار التحويل عبر صفحة «تواصل معنا» مرفقًا برقم المرجع،
+                  وسيتم تفعيل اشتراكك خلال يوم عمل واحد. ستظهر حالة الطلب في صفحة «حسابي».
                 </p>
               </>
             ) : (
@@ -79,10 +90,16 @@ function Page() {
             )}
           </div>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
-            <Link to="/account" className="rounded-xl bg-primary px-6 py-3 text-sm font-medium text-primary-foreground">
+            <Link
+              to="/account"
+              className="rounded-xl bg-primary px-6 py-3 text-sm font-medium text-primary-foreground"
+            >
               متابعة الطلب في حسابي
             </Link>
-            <Link to="/store" className="rounded-xl border border-border px-6 py-3 text-sm font-medium">
+            <Link
+              to="/store"
+              className="rounded-xl border border-border px-6 py-3 text-sm font-medium"
+            >
               متابعة التسوق
             </Link>
           </div>
@@ -93,22 +110,33 @@ function Page() {
 
   return (
     <div className="mx-auto max-w-5xl px-4 py-10 md:py-16">
-      <PageHero eyebrow="متجر القرآن خطوة بخطوة" title="سلة المشتريات" description="راجع اختياراتك، ثم أكمل طلبك للبدء في مسارك التدريبي." />
+      <PageHero
+        eyebrow="متجر القرآن خطوة بخطوة"
+        title="سلة المشتريات"
+        description="راجع اختياراتك، ثم أكمل طلبك للبدء في مسارك التدريبي."
+      />
 
       {items.length === 0 ? (
         <div className="mt-10 rounded-3xl border border-dashed border-border bg-card p-12 text-center">
           <ShoppingBag className="mx-auto size-10 text-primary" />
           <p className="mt-4 text-muted-foreground">سلتك فارغة حاليًا.</p>
-          <Button asChild className="mt-6"><Link to="/store">تصفّح المتجر</Link></Button>
+          <Button asChild className="mt-6">
+            <Link to="/store">تصفّح المتجر</Link>
+          </Button>
         </div>
       ) : (
         <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_320px]">
           <ul className="grid gap-4">
             {items.map((i) => (
-              <li key={i.productId} className="flex flex-wrap items-center gap-4 rounded-3xl border border-border bg-card p-5 shadow-sm">
+              <li
+                key={i.productId}
+                className="flex flex-wrap items-center gap-4 rounded-3xl border border-border bg-card p-5 shadow-sm"
+              >
                 <div className="min-w-48 flex-1">
                   <h2 className="font-display text-lg font-bold text-primary-deep">{i.title}</h2>
-                  <p className="text-xs text-muted-foreground">{period[i.billing_period] ?? i.billing_period}</p>
+                  <p className="text-xs text-muted-foreground">
+                    {period[i.billing_period] ?? i.billing_period}
+                  </p>
                 </div>
                 <div className="flex items-center gap-2">
                   <button
@@ -127,8 +155,14 @@ function Page() {
                     +
                   </button>
                 </div>
-                <span className="font-display text-lg font-bold text-primary">{i.price * i.qty} ريال</span>
-                <button aria-label="حذف" onClick={() => remove(i.productId)} className="rounded-lg p-2 text-destructive">
+                <span className="font-display text-lg font-bold text-primary">
+                  {i.price * i.qty} ريال
+                </span>
+                <button
+                  aria-label="حذف"
+                  onClick={() => remove(i.productId)}
+                  className="rounded-lg p-2 text-destructive"
+                >
                   <Trash2 className="size-5" />
                 </button>
               </li>
@@ -141,7 +175,9 @@ function Page() {
               <span>الإجمالي</span>
               <span className="font-display text-xl font-bold text-primary">{total} ريال</span>
             </div>
-            <p className="mt-2 text-xs leading-6 text-muted-foreground">الأسعار بالريال السعودي وتُعتمد نهائيًا من الخادم.</p>
+            <p className="mt-2 text-xs leading-6 text-muted-foreground">
+              الأسعار بالريال السعودي وتُعتمد نهائيًا من الخادم.
+            </p>
             <button
               onClick={checkout}
               disabled={loading}
@@ -150,7 +186,10 @@ function Page() {
               {loading && <Loader2 className="size-4 animate-spin" />}
               إتمام الطلب
             </button>
-            <button onClick={clear} className="mt-3 w-full rounded-xl border border-border px-6 py-2.5 text-sm">
+            <button
+              onClick={clear}
+              className="mt-3 w-full rounded-xl border border-border px-6 py-2.5 text-sm"
+            >
               تفريغ السلة
             </button>
           </aside>

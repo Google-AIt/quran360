@@ -12,7 +12,11 @@ export const Route = createFileRoute("/facilitators/")({
   head: () => ({
     meta: [
       { title: "الميسّرون | تأهيل واعتماد ميسّر الحقائب القرآنية" },
-      { name: "description", content: "برنامج تأهيل واعتماد الميسّرين: فهم المنهجية، تطبيق الحقائب، مهارات التيسير، وقياس الأثر." },
+      {
+        name: "description",
+        content:
+          "برنامج تأهيل واعتماد الميسّرين: فهم المنهجية، تطبيق الحقائب، مهارات التيسير، وقياس الأثر.",
+      },
       { property: "og:title", content: "الميسّرون — القرآن خطوة بخطوة" },
       { property: "og:description", content: "الميسّر قائد تطبيق لا ناقل محتوى." },
     ],
@@ -20,14 +24,40 @@ export const Route = createFileRoute("/facilitators/")({
   component: Page,
 });
 
-const qualification = ["فهم المنهجية", "تطبيق الحقائب", "مهارات التيسير", "إدارة الأنشطة", "إدارة التطبيق", "متابعة المتدربين", "قياس الأثر"];
-const benefits = ["الوصول إلى المنصة", "المواد التعليمية", "أدلة الميسّر", "الأدوات التدريبية", "المحتوى", "التحديثات"];
+const qualification = [
+  "فهم المنهجية",
+  "تطبيق الحقائب",
+  "مهارات التيسير",
+  "إدارة الأنشطة",
+  "إدارة التطبيق",
+  "متابعة المتدربين",
+  "قياس الأثر",
+];
+const benefits = [
+  "الوصول إلى المنصة",
+  "المواد التعليمية",
+  "أدلة الميسّر",
+  "الأدوات التدريبية",
+  "المحتوى",
+  "التحديثات",
+];
 
 function Page() {
   const { data } = useSuspenseQuery(q);
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 md:py-16">
-      <PageHero eyebrow="مسار الميسّرين" title="كن قائدًا لتطبيق القرآن" description="الميسّر هو الشخص الذي يقود المتدرب في تطبيق المنهجية والحقائب، وليس مجرد ناقل للمحتوى." actions={<Button asChild><Link to="/facilitators/apply"><BadgeCheck /> ابدأ مسار التأهيل</Link></Button>} />
+      <PageHero
+        eyebrow="مسار الميسّرين"
+        title="كن قائدًا لتطبيق القرآن"
+        description="الميسّر هو الشخص الذي يقود المتدرب في تطبيق المنهجية والحقائب، وليس مجرد ناقل للمحتوى."
+        actions={
+          <Button asChild>
+            <Link to="/facilitators/apply">
+              <BadgeCheck /> ابدأ مسار التأهيل
+            </Link>
+          </Button>
+        }
+      />
 
       <div className="mt-16 grid gap-4 md:grid-cols-4">
         {["تأهيل الميسّر", "حقيبة الميسّر", "عضوية الميسّر", "اعتماد الميسّر"].map((t) => (
@@ -41,7 +71,12 @@ function Page() {
         <section className="rounded-3xl border border-border bg-card p-6 shadow-sm">
           <h2 className="font-display text-lg font-bold text-primary-deep">محاور التأهيل</h2>
           <ul className="mt-3 space-y-2 text-sm leading-7 text-muted-foreground">
-            {qualification.map((x) => <li key={x} className="flex gap-2"><span className="text-gold">•</span>{x}</li>)}
+            {qualification.map((x) => (
+              <li key={x} className="flex gap-2">
+                <span className="text-gold">•</span>
+                {x}
+              </li>
+            ))}
           </ul>
         </section>
         <section className="rounded-3xl border border-border bg-card p-6 shadow-sm">
@@ -49,13 +84,24 @@ function Page() {
             عضوية الميسّر — {data["price_facilitator_membership"]} ريال سنويًا
           </h2>
           <ul className="mt-3 space-y-2 text-sm leading-7 text-muted-foreground">
-            {benefits.map((x) => <li key={x} className="flex gap-2"><span className="text-gold">•</span>{x}</li>)}
+            {benefits.map((x) => (
+              <li key={x} className="flex gap-2">
+                <span className="text-gold">•</span>
+                {x}
+              </li>
+            ))}
           </ul>
           <div className="mt-5 flex flex-wrap gap-3">
-            <Link to="/store" className="inline-block rounded-xl bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground">
+            <Link
+              to="/store"
+              className="inline-block rounded-xl bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground"
+            >
               اشترك الآن
             </Link>
-            <Link to="/facilitators/apply" className="inline-block rounded-xl border border-primary px-5 py-2.5 text-sm font-medium text-primary">
+            <Link
+              to="/facilitators/apply"
+              className="inline-block rounded-xl border border-primary px-5 py-2.5 text-sm font-medium text-primary"
+            >
               ابدأ مسار التأهيل
             </Link>
           </div>
@@ -64,7 +110,9 @@ function Page() {
 
       <div className="mt-10 rounded-3xl bg-gold-soft p-8">
         <h2 className="font-display text-xl font-bold text-accent-foreground">الشهادة</h2>
-        <p className="mt-2 leading-8 text-accent-foreground/80">شهادة تأهيل واعتماد ميسّر الحقائب القرآنية، برقم فريد ورمز تحقق QR.</p>
+        <p className="mt-2 leading-8 text-accent-foreground/80">
+          شهادة تأهيل واعتماد ميسّر الحقائب القرآنية، برقم فريد ورمز تحقق QR.
+        </p>
         <Link to="/verify" className="mt-4 inline-block text-sm text-primary underline">
           التحقق من شهادة
         </Link>

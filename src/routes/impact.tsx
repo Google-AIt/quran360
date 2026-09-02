@@ -15,7 +15,11 @@ export const Route = createFileRoute("/impact")({
   head: () => ({
     meta: [
       { title: "الأثر والنتائج | قياس الأثر القرآني" },
-      { name: "description", content: "مؤشرات الأثر: المتدربون، الميسّرون، المدارس، نسب الإتمام، نتائج Q360 ونسب التغير السلوكي." },
+      {
+        name: "description",
+        content:
+          "مؤشرات الأثر: المتدربون، الميسّرون، المدارس، نسب الإتمام، نتائج Q360 ونسب التغير السلوكي.",
+      },
       { property: "og:title", content: "الأثر والنتائج" },
       { property: "og:description", content: "قياس ما تغير في سلوك الإنسان، وليس فقط ما تعلّمه." },
     ],
@@ -39,8 +43,16 @@ function Page() {
   ];
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 md:py-16">
-      <PageHero eyebrow="قرآنًا يمشي على الأرض" title="الأثر والنتائج" description="قياس ما تغير في سلوك الإنسان، وليس فقط ما تعلّمه.">
-        <div className="grid gap-3 sm:grid-cols-3"><HeroStat value={nf.format(stats.trainees)} label="متدربون" /><HeroStat value={nf.format(stats.schools)} label="مدارس" /><HeroStat value={`${nf.format(stats.completionRate)}%`} label="متوسط الإتمام" /></div>
+      <PageHero
+        eyebrow="قرآنًا يمشي على الأرض"
+        title="الأثر والنتائج"
+        description="قياس ما تغير في سلوك الإنسان، وليس فقط ما تعلّمه."
+      >
+        <div className="grid gap-3 sm:grid-cols-3">
+          <HeroStat value={nf.format(stats.trainees)} label="متدربون" />
+          <HeroStat value={nf.format(stats.schools)} label="مدارس" />
+          <HeroStat value={`${nf.format(stats.completionRate)}%`} label="متوسط الإتمام" />
+        </div>
       </PageHero>
 
       <div className="mt-16 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
@@ -52,7 +64,12 @@ function Page() {
         ))}
       </div>
 
-      <div className="mt-16"><SectionTitle title="نتائج Q360 ونسب التغير" subtitle="قصص حقيقية تُعرض من خلال مؤشرات قابلة للملاحظة والتتبع." /></div>
+      <div className="mt-16">
+        <SectionTitle
+          title="نتائج Q360 ونسب التغير"
+          subtitle="قصص حقيقية تُعرض من خلال مؤشرات قابلة للملاحظة والتتبع."
+        />
+      </div>
       <div className="mt-8 space-y-4">
         {stories.map((s) => (
           <div key={s.id} className="rounded-2xl border border-border bg-card p-6">

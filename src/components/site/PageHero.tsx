@@ -21,7 +21,9 @@ export function PageHero({ eyebrow, title, description, children, actions }: Pag
         )}
         <h1 className="mt-5 font-display text-3xl font-bold leading-tight md:text-5xl">{title}</h1>
         {description && (
-          <p className="mt-5 text-base leading-9 text-primary-foreground/85 md:text-lg">{description}</p>
+          <p className="mt-5 text-base leading-9 text-primary-foreground/85 md:text-lg">
+            {description}
+          </p>
         )}
         {actions && <div className="mt-8 flex flex-wrap gap-3">{actions}</div>}
       </div>
@@ -42,10 +44,15 @@ export function SectionTitle({
 }) {
   return (
     <div className={align === "center" ? "text-center" : ""}>
-      <span aria-hidden className={`mb-3 block h-1 w-12 rounded-full bg-gold ${align === "center" ? "mx-auto" : ""}`} />
+      <span
+        aria-hidden
+        className={`mb-3 block h-1 w-12 rounded-full bg-gold ${align === "center" ? "mx-auto" : ""}`}
+      />
       <h2 className="font-display text-2xl font-bold text-primary-deep md:text-3xl">{title}</h2>
       {subtitle && (
-        <p className="mt-3 max-w-3xl text-sm leading-8 text-muted-foreground md:text-base">{subtitle}</p>
+        <p className="mt-3 max-w-3xl text-sm leading-8 text-muted-foreground md:text-base">
+          {subtitle}
+        </p>
       )}
     </div>
   );
