@@ -1,11 +1,19 @@
 import { Link } from "@tanstack/react-router";
+import logoAsset from "@/assets/logo/quran-step-logo.png.asset.json";
 
 export function Footer() {
   return (
     <footer className="mt-24 bg-primary-deep text-primary-foreground">
       <div className="mx-auto grid max-w-7xl gap-10 px-4 py-14 md:grid-cols-4">
         <div className="md:col-span-2">
-          <h3 className="font-display text-xl font-bold">القرآن خطوة بخطوة</h3>
+          <img
+            src={logoAsset.url}
+            alt="القرآن خطوة بخطوة"
+            width={260}
+            height={68}
+            className="h-auto w-52 brightness-0 invert"
+          />
+          <h3 className="sr-only">القرآن خطوة بخطوة</h3>
           <p className="mt-3 max-w-md text-sm leading-7 text-primary-foreground/75">
             تعلّم وتدرّب خطوة بخطوة على تطبيق القرآن، لتكون قرآنًا يمشي على الأرض. منظومة متكاملة للتدريب على
             تطبيق القرآن وبناء السلوك القرآني وقياس أثره.
