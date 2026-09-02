@@ -12,20 +12,7 @@ type PageHeroProps = {
 /** ترويسة موحّدة للصفحات الداخلية بهوية إسلامية راقية. */
 export function PageHero({ eyebrow, title, description, children, actions }: PageHeroProps) {
   return (
-    <section className="relative overflow-hidden rounded-[2rem] bg-hero px-6 py-14 text-primary-foreground shadow-soft md:px-12 md:py-20">
-      <div
-        aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.14]"
-        style={{
-          backgroundImage:
-            "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)",
-          backgroundSize: "22px 22px",
-        }}
-      />
-      <div
-        aria-hidden
-        className="pointer-events-none absolute -left-16 -top-24 size-72 rounded-full bg-gold/20 blur-3xl"
-      />
+    <section className="relative overflow-hidden rounded-3xl bg-hero px-6 py-14 text-primary-foreground shadow-soft md:px-12 md:py-20">
       <div className="relative max-w-3xl">
         {eyebrow && (
           <span className="inline-flex rounded-full border border-primary-foreground/25 bg-primary-foreground/10 px-4 py-1.5 text-xs font-medium">
@@ -55,7 +42,7 @@ export function SectionTitle({
 }) {
   return (
     <div className={align === "center" ? "text-center" : ""}>
-      <span aria-hidden className="mb-3 block h-1 w-12 rounded-full bg-gold" />
+      <span aria-hidden className={`mb-3 block h-1 w-12 rounded-full bg-gold ${align === "center" ? "mx-auto" : ""}`} />
       <h2 className="font-display text-2xl font-bold text-primary-deep md:text-3xl">{title}</h2>
       {subtitle && (
         <p className="mt-3 max-w-3xl text-sm leading-8 text-muted-foreground md:text-base">{subtitle}</p>

@@ -173,7 +173,7 @@
   }
   h1, h2, h3, h4 {
     font-family: var(--font-display);
-    letter-spacing: -0.01em;
+    letter-spacing: 0;
   }
 }
 
@@ -186,4 +186,9 @@
   background-image:
     radial-gradient(120% 90% at 85% -10%, color-mix(in oklab, var(--gold) 22%, transparent), transparent 60%),
     var(--gradient-primary);
+}
+
+@utility pattern-grid {
+  background-image: radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0);
+  background-size: 22px 22px;
 }
