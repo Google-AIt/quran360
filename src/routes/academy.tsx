@@ -59,10 +59,15 @@ function Page() {
             </ol>
             <div className="mt-5 flex items-center justify-between">
               <span className="font-display text-lg font-bold text-primary">{c.price} ريال</span>
-              <Link to="/account" className="rounded-xl bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground">
-                سجّل في الدورة
+              <Link
+                to="/courses/$slug"
+                params={{ slug: c.slug }}
+                className="rounded-xl bg-primary px-5 py-2.5 text-sm font-medium text-primary-foreground"
+              >
+                ادخل الدورة
               </Link>
             </div>
+
           </article>
         ))}
       </div>

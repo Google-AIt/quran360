@@ -24,6 +24,7 @@ import { Route as BagsIndexRouteImport } from './routes/bags/index'
 import { Route as BagsSlugRouteImport } from './routes/bags/$slug'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
 import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
+import { Route as CoursesSlugRouteImport } from './routes/courses.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -100,6 +101,11 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
   path: '/blog/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CoursesSlugRoute = CoursesSlugRouteImport.update({
+  id: '/courses/$slug',
+  path: '/courses/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -115,6 +121,7 @@ export interface FileRoutesByFullPath {
   '/walking-quran': typeof WalkingQuranRoute
   '/bags/$slug': typeof BagsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/courses/$slug': typeof CoursesSlugRoute
   '/bags/': typeof BagsIndexRoute
   '/blog/': typeof BlogIndexRoute
 }
@@ -132,6 +139,7 @@ export interface FileRoutesByTo {
   '/walking-quran': typeof WalkingQuranRoute
   '/bags/$slug': typeof BagsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/courses/$slug': typeof CoursesSlugRoute
   '/bags': typeof BagsIndexRoute
   '/blog': typeof BlogIndexRoute
 }
@@ -150,6 +158,7 @@ export interface FileRoutesById {
   '/walking-quran': typeof WalkingQuranRoute
   '/bags/$slug': typeof BagsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
+  '/courses/$slug': typeof CoursesSlugRoute
   '/bags/': typeof BagsIndexRoute
   '/blog/': typeof BlogIndexRoute
 }
@@ -169,6 +178,7 @@ export interface FileRouteTypes {
     | '/walking-quran'
     | '/bags/$slug'
     | '/blog/$slug'
+    | '/courses/$slug'
     | '/bags/'
     | '/blog/'
   fileRoutesByTo: FileRoutesByTo
@@ -186,6 +196,7 @@ export interface FileRouteTypes {
     | '/walking-quran'
     | '/bags/$slug'
     | '/blog/$slug'
+    | '/courses/$slug'
     | '/bags'
     | '/blog'
   id:
@@ -203,6 +214,7 @@ export interface FileRouteTypes {
     | '/walking-quran'
     | '/bags/$slug'
     | '/blog/$slug'
+    | '/courses/$slug'
     | '/bags/'
     | '/blog/'
   fileRoutesById: FileRoutesById
@@ -221,6 +233,7 @@ export interface RootRouteChildren {
   WalkingQuranRoute: typeof WalkingQuranRoute
   BagsSlugRoute: typeof BagsSlugRoute
   BlogSlugRoute: typeof BlogSlugRoute
+  CoursesSlugRoute: typeof CoursesSlugRoute
   BagsIndexRoute: typeof BagsIndexRoute
   BlogIndexRoute: typeof BlogIndexRoute
 }
@@ -332,6 +345,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BlogSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/courses/$slug': {
+      id: '/courses/$slug'
+      path: '/courses/$slug'
+      fullPath: '/courses/$slug'
+      preLoaderRoute: typeof CoursesSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -349,6 +369,7 @@ const rootRouteChildren: RootRouteChildren = {
   WalkingQuranRoute: WalkingQuranRoute,
   BagsSlugRoute: BagsSlugRoute,
   BlogSlugRoute: BlogSlugRoute,
+  CoursesSlugRoute: CoursesSlugRoute,
   BagsIndexRoute: BagsIndexRoute,
   BlogIndexRoute: BlogIndexRoute,
 }
