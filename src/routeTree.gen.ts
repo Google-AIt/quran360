@@ -13,9 +13,13 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AcademyRouteImport } from './routes/academy'
 import { Route as FacilitatorsRouteImport } from './routes/facilitators'
 import { Route as MethodologyRouteImport } from './routes/methodology'
+import { Route as Q360RouteImport } from './routes/q360'
 import { Route as SchoolsRouteImport } from './routes/schools'
+import { Route as StoreRouteImport } from './routes/store'
 import { Route as BagsIndexRouteImport } from './routes/bags/index'
 import { Route as BagsSlugRouteImport } from './routes/bags/$slug'
+import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -37,9 +41,19 @@ const MethodologyRoute = MethodologyRouteImport.update({
   path: '/methodology',
   getParentRoute: () => rootRouteImport,
 } as any)
+const Q360Route = Q360RouteImport.update({
+  id: '/q360',
+  path: '/q360',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SchoolsRoute = SchoolsRouteImport.update({
   id: '/schools',
   path: '/schools',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StoreRoute = StoreRouteImport.update({
+  id: '/store',
+  path: '/store',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BagsIndexRoute = BagsIndexRouteImport.update({
@@ -52,24 +66,42 @@ const BagsSlugRoute = BagsSlugRouteImport.update({
   path: '/bags/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/academy': typeof AcademyRoute
   '/facilitators': typeof FacilitatorsRoute
   '/methodology': typeof MethodologyRoute
+  '/q360': typeof Q360Route
   '/schools': typeof SchoolsRoute
+  '/store': typeof StoreRoute
   '/bags/$slug': typeof BagsSlugRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/bags/': typeof BagsIndexRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/academy': typeof AcademyRoute
   '/facilitators': typeof FacilitatorsRoute
   '/methodology': typeof MethodologyRoute
+  '/q360': typeof Q360Route
   '/schools': typeof SchoolsRoute
+  '/store': typeof StoreRoute
   '/bags/$slug': typeof BagsSlugRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/bags': typeof BagsIndexRoute
+  '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -77,9 +109,13 @@ export interface FileRoutesById {
   '/academy': typeof AcademyRoute
   '/facilitators': typeof FacilitatorsRoute
   '/methodology': typeof MethodologyRoute
+  '/q360': typeof Q360Route
   '/schools': typeof SchoolsRoute
+  '/store': typeof StoreRoute
   '/bags/$slug': typeof BagsSlugRoute
+  '/blog/$slug': typeof BlogSlugRoute
   '/bags/': typeof BagsIndexRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -88,27 +124,39 @@ export interface FileRouteTypes {
     | '/academy'
     | '/facilitators'
     | '/methodology'
+    | '/q360'
     | '/schools'
+    | '/store'
     | '/bags/$slug'
+    | '/blog/$slug'
     | '/bags/'
+    | '/blog/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/academy'
     | '/facilitators'
     | '/methodology'
+    | '/q360'
     | '/schools'
+    | '/store'
     | '/bags/$slug'
+    | '/blog/$slug'
     | '/bags'
+    | '/blog'
   id:
     | '__root__'
     | '/'
     | '/academy'
     | '/facilitators'
     | '/methodology'
+    | '/q360'
     | '/schools'
+    | '/store'
     | '/bags/$slug'
+    | '/blog/$slug'
     | '/bags/'
+    | '/blog/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -116,9 +164,13 @@ export interface RootRouteChildren {
   AcademyRoute: typeof AcademyRoute
   FacilitatorsRoute: typeof FacilitatorsRoute
   MethodologyRoute: typeof MethodologyRoute
+  Q360Route: typeof Q360Route
   SchoolsRoute: typeof SchoolsRoute
+  StoreRoute: typeof StoreRoute
   BagsSlugRoute: typeof BagsSlugRoute
+  BlogSlugRoute: typeof BlogSlugRoute
   BagsIndexRoute: typeof BagsIndexRoute
+  BlogIndexRoute: typeof BlogIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -151,11 +203,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MethodologyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/q360': {
+      id: '/q360'
+      path: '/q360'
+      fullPath: '/q360'
+      preLoaderRoute: typeof Q360RouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/schools': {
       id: '/schools'
       path: '/schools'
       fullPath: '/schools'
       preLoaderRoute: typeof SchoolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/store': {
+      id: '/store'
+      path: '/store'
+      fullPath: '/store'
+      preLoaderRoute: typeof StoreRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bags/': {
@@ -172,6 +238,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BagsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -180,9 +260,13 @@ const rootRouteChildren: RootRouteChildren = {
   AcademyRoute: AcademyRoute,
   FacilitatorsRoute: FacilitatorsRoute,
   MethodologyRoute: MethodologyRoute,
+  Q360Route: Q360Route,
   SchoolsRoute: SchoolsRoute,
+  StoreRoute: StoreRoute,
   BagsSlugRoute: BagsSlugRoute,
+  BlogSlugRoute: BlogSlugRoute,
   BagsIndexRoute: BagsIndexRoute,
+  BlogIndexRoute: BlogIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
