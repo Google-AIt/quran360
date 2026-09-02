@@ -34,7 +34,7 @@ export const getImpactStats = createServerFn({ method: "GET" }).handler(async ()
     supabaseAdmin.from("quran_bags").select("id", head),
     supabaseAdmin.from("courses").select("id", head),
     supabaseAdmin.from("enrollments").select("id", head),
-    supabaseAdmin.from("enrollments").select("id", head).gte("progress_percent", 100),
+    supabaseAdmin.from("enrollments").select("id", head).gte("progress", 100),
   ]);
 
   const total = enrollments.count ?? 0;
