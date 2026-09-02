@@ -2,8 +2,10 @@ import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import type { Session } from "@supabase/supabase-js";
+import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { getCourse } from "@/lib/public.functions";
+import { issueCourseCertificate } from "@/lib/certificates.functions";
 
 const courseQuery = (slug: string) =>
   queryOptions({
@@ -57,6 +59,19 @@ function Page() {
   const [done, setDone] = useState<string[]>([]);
   const [active, setActive] = useState(0);
   const [busy, setBusy] = useState(false);
+  const [certNumber, setCertNumber] = useState<string | null>(null);
+  const [certError, setCertError] = useState("");
+
+  const issueCert = useServerFn(issueCourseCertificate);
+
+  async function issue() {
+    setBusy(true);
+    setCertError("");
+    const res = await issueCert({ data: { courseId: course.id } });
+    if (res.ok) setCertNumber(res.number);
+    else setCertError(res.error);
+    setBusy(false);
+  }
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data: s }) => setSession(s.session));
