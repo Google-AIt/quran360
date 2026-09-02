@@ -4,6 +4,13 @@ import { ArrowLeft } from "lucide-react";
 import { getSettings } from "@/lib/public.functions";
 import { Button } from "@/components/ui/button";
 import { PageHero, SectionTitle } from "@/components/site/PageHero";
+import {
+  methodologyFoundations,
+  mentalConcept,
+  practicalSteps,
+  methodologyResults,
+  methodologySourceUrl,
+} from "@/lib/methodology-content";
 
 const q = queryOptions({ queryKey: ["settings"], queryFn: () => getSettings() });
 
