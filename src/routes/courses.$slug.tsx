@@ -6,6 +6,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { supabase } from "@/integrations/supabase/client";
 import { getCourse } from "@/lib/public.functions";
 import { issueCourseCertificate } from "@/lib/certificates.functions";
+import { lessonPoster, lessonStage } from "@/lib/lesson-media";
 
 const courseQuery = (slug: string) =>
   queryOptions({
@@ -132,6 +133,7 @@ function Page() {
   }
 
   const lesson = lessons[active];
+  const stage = lesson ? lessonStage(lesson.lesson_number) : null;
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-14">
@@ -150,26 +152,22 @@ function Page() {
       <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_340px]">
         <div>
           {lesson ? (
-            <article className="rounded-2xl border border-border bg-card p-6">
-              <div className="aspect-video w-full overflow-hidden rounded-xl bg-secondary">
+            <article className="overflow-hidden rounded-3xl border border-border bg-card shadow-sm">
+              <div className="relative aspect-video w-full overflow-hidden bg-secondary">
+                <img src={lessonPoster(lesson.lesson_number)} alt={`صورة توضيحية لدرس ${lesson.lesson_number}: ${lesson.title}`} width={1024} height={576} className="absolute inset-0 h-full w-full object-cover" />
                 {lesson.video_url ? (
-                  <iframe
-                    src={lesson.video_url}
-                    title={lesson.title}
-                    className="h-full w-full"
-                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture"
-                    allowFullScreen
-                  />
+                  <iframe src={lesson.video_url} title={`فيديو ${lesson.title}`} className="relative z-10 h-full w-full bg-primary-deep/20" allow="accelerometer; autoplay; clipboard-write; encrypted-media; picture-in-picture" allowFullScreen />
                 ) : (
-                  <div className="flex h-full items-center justify-center text-sm text-muted-foreground">
-                    فيديو الدرس يُضاف قريبًا من لوحة الإدارة
-                  </div>
+                  <div className="absolute inset-0 z-10 flex items-center justify-center bg-primary-deep/55 p-6 text-center text-sm text-primary-foreground">فيديو الدرس يُضاف قريبًا من لوحة الإدارة</div>
                 )}
               </div>
-              <h2 className="mt-6 font-display text-2xl font-bold text-primary-deep">
-                الدرس {lesson.lesson_number}: {lesson.title}
-              </h2>
-              <p className="mt-2 leading-8 text-muted-foreground">{lesson.description}</p>
+              <div className="p-6 md:p-8">
+                <div className="flex flex-wrap items-center justify-between gap-3">
+                  <span className="rounded-full bg-gold-soft px-3 py-1 text-xs font-medium text-accent-foreground">{stage?.label}</span>
+                  <span className="text-sm text-muted-foreground">{lesson.duration_minutes} دقيقة</span>
+                </div>
+                <h2 className="mt-5 font-display text-2xl font-bold text-primary-deep">الدرس {lesson.lesson_number}: {lesson.title}</h2>
+                <p className="mt-3 leading-8 text-muted-foreground">{lesson.description ?? stage?.caption}</p>
 
               <div className="mt-6 grid gap-4 sm:grid-cols-2">
                 <div className="rounded-xl bg-secondary/70 p-5">
@@ -208,8 +206,9 @@ function Page() {
                 >
                   {done.includes(lesson.id) ? "إلغاء إتمام الدرس" : "تحديد الدرس كمكتمل"}
                 </button>
-              )}
-            </article>
+               )}
+               </div>
+             </article>
           ) : (
             <p className="rounded-2xl bg-secondary/70 p-6 text-muted-foreground">دروس هذه الدورة تُضاف قريبًا.</p>
           )}
@@ -261,10 +260,12 @@ function Page() {
                   >
                     {done.includes(l.id) ? "✓" : l.lesson_number}
                   </span>
-                  <span className="text-primary-deep">
-                    {l.title}
-                    <span className="block text-xs text-muted-foreground">{l.duration_minutes} دقيقة</span>
-                  </span>
+                   <span className="text-primary-deep">
+                     <span className="block font-medium">{l.title}</span>
+                     <span className="mt-1 block text-xs text-primary">{lessonStage(l.lesson_number).label}</span>
+                     <span className="mt-1 block text-xs leading-5 text-muted-foreground">{l.description ?? lessonStage(l.lesson_number).caption}</span>
+                     <span className="mt-1 block text-xs text-muted-foreground">{l.duration_minutes} دقيقة</span>
+                   </span>
                 </button>
               </li>
             ))}
