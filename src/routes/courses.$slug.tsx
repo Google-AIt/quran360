@@ -7,6 +7,7 @@ import { supabase } from "@/integrations/supabase/client";
 import { getCourse } from "@/lib/public.functions";
 import { issueCourseCertificate } from "@/lib/certificates.functions";
 import { lessonPoster, lessonStage } from "@/lib/lesson-media";
+import { BagObjectives } from "@/components/site/BagObjectives";
 
 const courseQuery = (slug: string) =>
   queryOptions({
