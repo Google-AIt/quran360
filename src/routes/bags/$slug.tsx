@@ -1,6 +1,7 @@
 import { createFileRoute, Link, notFound } from "@tanstack/react-router";
 import { getBag } from "@/lib/public.functions";
 import { bagImage } from "@/lib/bag-images";
+import { lessonPoster, lessonStage } from "@/lib/lesson-media";
 
 export const Route = createFileRoute("/bags/$slug")({
   loader: async ({ params }) => {
@@ -42,7 +43,7 @@ function List({ title, items }: { title: string; items: unknown }) {
 }
 
 function Page() {
-  const { bag, steps, course, questions } = Route.useLoaderData();
+  const { bag, steps, course, lessons, questions } = Route.useLoaderData();
   return (
     <div className="mx-auto max-w-6xl px-4 py-16">
       <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr] lg:items-stretch">
@@ -71,6 +72,40 @@ function Page() {
           ) : null,
         )}
       </div>
+
+      {lessons.length > 0 && (
+        <section className="mt-14">
+          <div className="flex flex-wrap items-end justify-between gap-4">
+            <div>
+              <p className="text-sm font-medium text-primary">مسار التعلّم</p>
+              <h2 className="mt-1 font-display text-2xl font-bold text-primary-deep">دروس الحقيبة</h2>
+            </div>
+            <span className="text-sm text-muted-foreground">{lessons.length} دروس تطبيقية</span>
+          </div>
+          <div className="mt-6 grid gap-5 md:grid-cols-2">
+            {lessons.map((lesson) => {
+              const stage = lessonStage(lesson.lesson_number);
+              return (
+                <article key={lesson.id} className="group overflow-hidden rounded-3xl border border-border bg-card shadow-sm transition-all hover:-translate-y-1 hover:shadow-soft">
+                  <div className="relative">
+                    <img src={lessonPoster(lesson.lesson_number)} alt={`صورة درس ${lesson.lesson_number}: ${lesson.title}`} loading="lazy" width={1024} height={576} className="aspect-video w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                    <span className="absolute right-4 top-4 rounded-full bg-primary px-3 py-1 text-xs font-bold text-primary-foreground">الدرس {lesson.lesson_number}</span>
+                  </div>
+                  <div className="p-6">
+                    <div className="flex items-center justify-between gap-3">
+                      <h3 className="font-display text-lg font-bold text-primary-deep">{lesson.title}</h3>
+                      <span className="shrink-0 text-xs text-muted-foreground">{lesson.duration_minutes} دقيقة</span>
+                    </div>
+                    <p className="mt-2 text-sm font-medium text-primary">{stage.label}</p>
+                    <p className="mt-2 text-sm leading-7 text-muted-foreground">{lesson.description ?? stage.caption}</p>
+                    <Link to={course ? "/courses/$slug" : "/store"} {...(course ? { params: { slug: course.slug } } : {})} className="mt-4 inline-block text-sm font-medium text-primary">{lesson.video_url ? "شاهد الفيديو ←" : "عرض الدرس ←"}</Link>
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+        </section>
+      )}
 
       {steps.length > 0 && (
         <section className="mt-10">

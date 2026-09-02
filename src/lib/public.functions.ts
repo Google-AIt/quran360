@@ -43,7 +43,14 @@ export const getBag = createServerFn({ method: "GET" })
       sb.from("courses").select("id, slug, title, description, price").eq("bag_id", bag.id).maybeSingle(),
       sb.from("q360_questions").select("id, text, question_number").eq("bag_id", bag.id).order("question_number"),
     ]);
-    return { bag, steps: steps ?? [], course: course ?? null, questions: questions ?? [] };
+    const { data: lessons } = course
+      ? await sb
+          .from("course_lessons")
+          .select("id, lesson_number, title, description, video_url, duration_minutes, activity, challenge")
+          .eq("course_id", course.id)
+          .order("lesson_number")
+      : { data: [] };
+    return { bag, steps: steps ?? [], course: course ?? null, lessons: lessons ?? [], questions: questions ?? [] };
   });
 
 export const getCourses = createServerFn({ method: "GET" }).handler(async () => {
