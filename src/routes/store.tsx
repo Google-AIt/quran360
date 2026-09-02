@@ -78,46 +78,49 @@ function Page() {
         </ol>
       </PageHero>
 
+      <section className="mt-14">
+        <BagObjectives title="منهجية كل منتج" />
+      </section>
+
       <section className="mt-16">
         <SectionTitle
           title="الحقائب القرآنية"
           subtitle="ابدأ من الآية الأقرب إلى احتياجك، وانتقل معها من فهم المعنى إلى ممارسة السلوك."
         />
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {bags.map((b) => (
-            <Link
-              key={b.id}
-              to="/bags/$slug"
-              params={{ slug: b.slug }}
-              className="group overflow-hidden rounded-3xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-soft"
-            >
-              {bagImage(b.slug) && (
-                <img
-                  src={bagImage(b.slug)}
-                  alt={`غلاف حقيبة ${b.title}`}
-                  loading="lazy"
-                  width={1200}
-                  height={750}
-                  className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                />
-              )}
-              <div className="p-6">
-                <h3 className="font-display text-lg font-bold text-primary-deep">{b.title}</h3>
-                <p className="mt-2 line-clamp-3 text-sm leading-7 text-muted-foreground">
-                  {b.summary ?? b.concept ?? "حقيبة قرآنية تطبيقية تربط الآية بالمهارة والسلوك."}
-                </p>
-                {b.concept && (
-                  <p className="mt-3 text-xs leading-6 text-muted-foreground">
-                    <span className="font-bold text-primary-deep">المهارة:</span> {b.concept}
-                  </p>
+          {bags.map((b) => {
+            const bag = contentForBag(b.slug);
+            return (
+              <Link
+                key={b.id}
+                to="/bags/$slug"
+                params={{ slug: b.slug }}
+                className="group overflow-hidden rounded-3xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-soft"
+              >
+                {bagImage(b.slug) && (
+                  <img
+                    src={bagImage(b.slug)}
+                    alt={`غلاف حقيبة ${b.title}`}
+                    loading="lazy"
+                    width={1200}
+                    height={750}
+                    className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                  />
                 )}
-                <ObjectiveChips className="mt-4" />
-                <span className="mt-4 inline-block text-sm font-medium text-primary">
-                  تفاصيل الحقيبة ←
-                </span>
-              </div>
-            </Link>
-          ))}
+                <div className="p-6">
+                  <h3 className="font-display text-lg font-bold text-primary-deep">{b.title}</h3>
+                  <p className="mt-2 line-clamp-3 text-sm leading-7 text-muted-foreground">
+                    {bag?.description ?? b.summary ?? b.concept ?? "حقيبة قرآنية تطبيقية تربط الآية بالمهارة والسلوك."}
+                  </p>
+                  {bag && <p className="mt-3 text-xs font-medium text-primary">المهارة: {bag.focus}</p>}
+                  <ObjectiveChips className="mt-4" />
+                  <span className="mt-4 inline-block text-sm font-medium text-primary">
+                    تفاصيل الحقيبة ←
+                  </span>
+                </div>
+              </Link>
+            );
+          })}
         </div>
       </section>
 
