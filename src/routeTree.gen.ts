@@ -11,11 +11,14 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AcademyRouteImport } from './routes/academy'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as FacilitatorsRouteImport } from './routes/facilitators'
+import { Route as ImpactRouteImport } from './routes/impact'
 import { Route as MethodologyRouteImport } from './routes/methodology'
 import { Route as Q360RouteImport } from './routes/q360'
 import { Route as SchoolsRouteImport } from './routes/schools'
 import { Route as StoreRouteImport } from './routes/store'
+import { Route as WalkingQuranRouteImport } from './routes/walking-quran'
 import { Route as BagsIndexRouteImport } from './routes/bags/index'
 import { Route as BagsSlugRouteImport } from './routes/bags/$slug'
 import { Route as BlogIndexRouteImport } from './routes/blog/index'
@@ -31,9 +34,19 @@ const AcademyRoute = AcademyRouteImport.update({
   path: '/academy',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const FacilitatorsRoute = FacilitatorsRouteImport.update({
   id: '/facilitators',
   path: '/facilitators',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImpactRoute = ImpactRouteImport.update({
+  id: '/impact',
+  path: '/impact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MethodologyRoute = MethodologyRouteImport.update({
@@ -54,6 +67,11 @@ const SchoolsRoute = SchoolsRouteImport.update({
 const StoreRoute = StoreRouteImport.update({
   id: '/store',
   path: '/store',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WalkingQuranRoute = WalkingQuranRouteImport.update({
+  id: '/walking-quran',
+  path: '/walking-quran',
   getParentRoute: () => rootRouteImport,
 } as any)
 const BagsIndexRoute = BagsIndexRouteImport.update({
@@ -80,11 +98,14 @@ const BlogSlugRoute = BlogSlugRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/academy': typeof AcademyRoute
+  '/contact': typeof ContactRoute
   '/facilitators': typeof FacilitatorsRoute
+  '/impact': typeof ImpactRoute
   '/methodology': typeof MethodologyRoute
   '/q360': typeof Q360Route
   '/schools': typeof SchoolsRoute
   '/store': typeof StoreRoute
+  '/walking-quran': typeof WalkingQuranRoute
   '/bags/$slug': typeof BagsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/bags/': typeof BagsIndexRoute
@@ -93,11 +114,14 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/academy': typeof AcademyRoute
+  '/contact': typeof ContactRoute
   '/facilitators': typeof FacilitatorsRoute
+  '/impact': typeof ImpactRoute
   '/methodology': typeof MethodologyRoute
   '/q360': typeof Q360Route
   '/schools': typeof SchoolsRoute
   '/store': typeof StoreRoute
+  '/walking-quran': typeof WalkingQuranRoute
   '/bags/$slug': typeof BagsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/bags': typeof BagsIndexRoute
@@ -107,11 +131,14 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/academy': typeof AcademyRoute
+  '/contact': typeof ContactRoute
   '/facilitators': typeof FacilitatorsRoute
+  '/impact': typeof ImpactRoute
   '/methodology': typeof MethodologyRoute
   '/q360': typeof Q360Route
   '/schools': typeof SchoolsRoute
   '/store': typeof StoreRoute
+  '/walking-quran': typeof WalkingQuranRoute
   '/bags/$slug': typeof BagsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/bags/': typeof BagsIndexRoute
@@ -122,11 +149,14 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/academy'
+    | '/contact'
     | '/facilitators'
+    | '/impact'
     | '/methodology'
     | '/q360'
     | '/schools'
     | '/store'
+    | '/walking-quran'
     | '/bags/$slug'
     | '/blog/$slug'
     | '/bags/'
@@ -135,11 +165,14 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/academy'
+    | '/contact'
     | '/facilitators'
+    | '/impact'
     | '/methodology'
     | '/q360'
     | '/schools'
     | '/store'
+    | '/walking-quran'
     | '/bags/$slug'
     | '/blog/$slug'
     | '/bags'
@@ -148,11 +181,14 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/academy'
+    | '/contact'
     | '/facilitators'
+    | '/impact'
     | '/methodology'
     | '/q360'
     | '/schools'
     | '/store'
+    | '/walking-quran'
     | '/bags/$slug'
     | '/blog/$slug'
     | '/bags/'
@@ -162,11 +198,14 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AcademyRoute: typeof AcademyRoute
+  ContactRoute: typeof ContactRoute
   FacilitatorsRoute: typeof FacilitatorsRoute
+  ImpactRoute: typeof ImpactRoute
   MethodologyRoute: typeof MethodologyRoute
   Q360Route: typeof Q360Route
   SchoolsRoute: typeof SchoolsRoute
   StoreRoute: typeof StoreRoute
+  WalkingQuranRoute: typeof WalkingQuranRoute
   BagsSlugRoute: typeof BagsSlugRoute
   BlogSlugRoute: typeof BlogSlugRoute
   BagsIndexRoute: typeof BagsIndexRoute
@@ -189,11 +228,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AcademyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/facilitators': {
       id: '/facilitators'
       path: '/facilitators'
       fullPath: '/facilitators'
       preLoaderRoute: typeof FacilitatorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/impact': {
+      id: '/impact'
+      path: '/impact'
+      fullPath: '/impact'
+      preLoaderRoute: typeof ImpactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/methodology': {
@@ -222,6 +275,13 @@ declare module '@tanstack/react-router' {
       path: '/store'
       fullPath: '/store'
       preLoaderRoute: typeof StoreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/walking-quran': {
+      id: '/walking-quran'
+      path: '/walking-quran'
+      fullPath: '/walking-quran'
+      preLoaderRoute: typeof WalkingQuranRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/bags/': {
@@ -258,11 +318,14 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AcademyRoute: AcademyRoute,
+  ContactRoute: ContactRoute,
   FacilitatorsRoute: FacilitatorsRoute,
+  ImpactRoute: ImpactRoute,
   MethodologyRoute: MethodologyRoute,
   Q360Route: Q360Route,
   SchoolsRoute: SchoolsRoute,
   StoreRoute: StoreRoute,
+  WalkingQuranRoute: WalkingQuranRoute,
   BagsSlugRoute: BagsSlugRoute,
   BlogSlugRoute: BlogSlugRoute,
   BagsIndexRoute: BagsIndexRoute,
