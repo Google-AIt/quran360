@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
+import { PageHero } from "@/components/site/PageHero";
 import { getStories } from "@/lib/public.functions";
 
 const q = queryOptions({ queryKey: ["stories"], queryFn: () => getStories() });

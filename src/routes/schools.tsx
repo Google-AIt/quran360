@@ -95,8 +95,8 @@ function Page() {
         </div>
       </section>
 
-      <section className="mt-12">
-        <h2 className="font-display text-2xl font-bold text-primary-deep">منافع البرنامج للمدرسة</h2>
+      <section className="mt-16">
+        <SectionTitle title="منافع البرنامج للمدرسة" subtitle="نظام واحد يربط التدريب اليومي بالثقافة المدرسية ونتائج قابلة للقياس." />
         <ol className="mt-5 grid gap-3 md:grid-cols-2">
           {benefits.map((b, i) => (
             <li key={b} className="flex gap-3 rounded-xl border border-border bg-card px-4 py-3 text-sm leading-7">
@@ -107,8 +107,8 @@ function Page() {
         </ol>
       </section>
 
-      <section className="mt-12">
-        <h2 className="font-display text-2xl font-bold text-primary-deep">رحلة المدرسة</h2>
+      <section className="mt-16">
+        <SectionTitle title="رحلة المدرسة" subtitle="من التسجيل إلى التقرير، بخطوات واضحة وفريق داخلي قادر على الاستمرار." />
         <div className="mt-5 flex flex-wrap gap-2">
           {journey.map((j, i) => (
             <span key={j} className="rounded-full border border-border bg-card px-4 py-2 text-sm text-primary-deep">{i + 1}. {j}</span>
@@ -117,12 +117,8 @@ function Page() {
       </section>
 
       <div className="mt-12 flex flex-wrap justify-center gap-3">
-        <Link to="/schools/dashboard" className="rounded-xl bg-primary px-8 py-3 font-medium text-primary-foreground">
-          لوحة تحكم المدرسة
-        </Link>
-        <Link to="/contact" className="rounded-xl border border-border px-8 py-3 font-medium">
-          اطلب تسجيل مدرستك
-        </Link>
+        <Button asChild size="lg"><Link to="/schools/dashboard"><Building2 /> لوحة تحكم المدرسة</Link></Button>
+        <Button asChild size="lg" variant="outline"><Link to="/contact">اطلب تسجيل مدرستك</Link></Button>
       </div>
 
     </div>

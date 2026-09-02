@@ -92,22 +92,20 @@ function Page() {
   }
 
   return (
-    <div className="mx-auto max-w-5xl px-4 py-16">
-      <h1 className="font-display text-4xl font-bold text-primary-deep">سلة المشتريات</h1>
+    <div className="mx-auto max-w-5xl px-4 py-10 md:py-16">
+      <PageHero eyebrow="متجر القرآن خطوة بخطوة" title="سلة المشتريات" description="راجع اختياراتك، ثم أكمل طلبك للبدء في مسارك التدريبي." />
 
       {items.length === 0 ? (
-        <div className="mt-10 rounded-2xl border border-dashed border-border p-12 text-center">
-          <ShoppingBag className="mx-auto size-10 text-muted-foreground" />
+        <div className="mt-10 rounded-3xl border border-dashed border-border bg-card p-12 text-center">
+          <ShoppingBag className="mx-auto size-10 text-primary" />
           <p className="mt-4 text-muted-foreground">سلتك فارغة حاليًا.</p>
-          <Link to="/store" className="mt-6 inline-block rounded-xl bg-primary px-6 py-3 text-sm font-medium text-primary-foreground">
-            تصفّح المتجر
-          </Link>
+          <Button asChild className="mt-6"><Link to="/store">تصفّح المتجر</Link></Button>
         </div>
       ) : (
         <div className="mt-10 grid gap-8 lg:grid-cols-[1fr_320px]">
           <ul className="grid gap-4">
             {items.map((i) => (
-              <li key={i.productId} className="flex flex-wrap items-center gap-4 rounded-2xl border border-border bg-card p-5">
+              <li key={i.productId} className="flex flex-wrap items-center gap-4 rounded-3xl border border-border bg-card p-5 shadow-sm">
                 <div className="min-w-48 flex-1">
                   <h2 className="font-display text-lg font-bold text-primary-deep">{i.title}</h2>
                   <p className="text-xs text-muted-foreground">{period[i.billing_period] ?? i.billing_period}</p>
