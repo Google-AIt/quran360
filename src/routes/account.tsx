@@ -24,6 +24,8 @@ function Page() {
   const [error, setError] = useState("");
   const [notice, setNotice] = useState("");
   const [roles, setRoles] = useState<string[]>([]);
+  const [stats, setStats] = useState({ courses: 0, percent: 0, certificates: 0, q360: 0 });
+  const [myCourses, setMyCourses] = useState<{ id: string; slug: string; title: string; progress: number }[]>([]);
 
   useEffect(() => {
     supabase.auth.getSession().then(({ data }) => {
@@ -37,14 +39,33 @@ function Page() {
   useEffect(() => {
     if (!session) {
       setRoles([]);
+      setMyCourses([]);
+      setStats({ courses: 0, percent: 0, certificates: 0, q360: 0 });
       return;
     }
-    supabase
-      .from("user_roles")
-      .select("role")
-      .eq("user_id", session.user.id)
-      .then(({ data }) => setRoles((data ?? []).map((r) => r.role as string)));
+    const uid = session.user.id;
+    void (async () => {
+      const [{ data: r }, { data: enr }, { count: certs }, { count: q }] = await Promise.all([
+        supabase.from("user_roles").select("role").eq("user_id", uid),
+        supabase.from("enrollments").select("progress, courses(id, slug, title)").eq("user_id", uid),
+        supabase.from("certificates").select("id", { count: "exact", head: true }).eq("user_id", uid),
+        supabase.from("q360_assessments").select("id", { count: "exact", head: true }).eq("user_id", uid),
+      ]);
+      setRoles((r ?? []).map((x) => x.role as string));
+      const rows = (enr ?? []).flatMap((e) => {
+        const c = e.courses as unknown as { id: string; slug: string; title: string } | null;
+        return c ? [{ ...c, progress: e.progress ?? 0 }] : [];
+      });
+      setMyCourses(rows);
+      setStats({
+        courses: rows.length,
+        percent: rows.length ? Math.round(rows.reduce((s, x) => s + x.progress, 0) / rows.length) : 0,
+        certificates: certs ?? 0,
+        q360: q ?? 0,
+      });
+    })();
   }, [session]);
+
 
   async function submit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
