@@ -26,6 +26,7 @@ import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 import { Route as CoursesSlugRouteImport } from './routes/courses.$slug'
 import { Route as FacilitatorsIndexRouteImport } from './routes/facilitators/index'
 import { Route as FacilitatorsApplyRouteImport } from './routes/facilitators/apply'
+import { Route as SchoolsDashboardRouteImport } from './routes/schools.dashboard'
 import { Route as VerifyIndexRouteImport } from './routes/verify.index'
 import { Route as VerifyNumberRouteImport } from './routes/verify.$number'
 import { Route as Q360AssessBagSlugRouteImport } from './routes/q360.assess.$bagSlug'
@@ -115,6 +116,11 @@ const FacilitatorsApplyRoute = FacilitatorsApplyRouteImport.update({
   path: '/facilitators/apply',
   getParentRoute: () => rootRouteImport,
 } as any)
+const SchoolsDashboardRoute = SchoolsDashboardRouteImport.update({
+  id: '/dashboard',
+  path: '/dashboard',
+  getParentRoute: () => SchoolsRoute,
+} as any)
 const VerifyIndexRoute = VerifyIndexRouteImport.update({
   id: '/verify/',
   path: '/verify/',
@@ -139,13 +145,14 @@ export interface FileRoutesByFullPath {
   '/impact': typeof ImpactRoute
   '/methodology': typeof MethodologyRoute
   '/q360': typeof Q360RouteWithChildren
-  '/schools': typeof SchoolsRoute
+  '/schools': typeof SchoolsRouteWithChildren
   '/store': typeof StoreRoute
   '/walking-quran': typeof WalkingQuranRoute
   '/bags/$slug': typeof BagsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/facilitators/apply': typeof FacilitatorsApplyRoute
+  '/schools/dashboard': typeof SchoolsDashboardRoute
   '/verify/$number': typeof VerifyNumberRoute
   '/bags/': typeof BagsIndexRoute
   '/blog/': typeof BlogIndexRoute
@@ -161,13 +168,14 @@ export interface FileRoutesByTo {
   '/impact': typeof ImpactRoute
   '/methodology': typeof MethodologyRoute
   '/q360': typeof Q360RouteWithChildren
-  '/schools': typeof SchoolsRoute
+  '/schools': typeof SchoolsRouteWithChildren
   '/store': typeof StoreRoute
   '/walking-quran': typeof WalkingQuranRoute
   '/bags/$slug': typeof BagsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/facilitators/apply': typeof FacilitatorsApplyRoute
+  '/schools/dashboard': typeof SchoolsDashboardRoute
   '/verify/$number': typeof VerifyNumberRoute
   '/bags': typeof BagsIndexRoute
   '/blog': typeof BlogIndexRoute
@@ -184,13 +192,14 @@ export interface FileRoutesById {
   '/impact': typeof ImpactRoute
   '/methodology': typeof MethodologyRoute
   '/q360': typeof Q360RouteWithChildren
-  '/schools': typeof SchoolsRoute
+  '/schools': typeof SchoolsRouteWithChildren
   '/store': typeof StoreRoute
   '/walking-quran': typeof WalkingQuranRoute
   '/bags/$slug': typeof BagsSlugRoute
   '/blog/$slug': typeof BlogSlugRoute
   '/courses/$slug': typeof CoursesSlugRoute
   '/facilitators/apply': typeof FacilitatorsApplyRoute
+  '/schools/dashboard': typeof SchoolsDashboardRoute
   '/verify/$number': typeof VerifyNumberRoute
   '/bags/': typeof BagsIndexRoute
   '/blog/': typeof BlogIndexRoute
@@ -215,6 +224,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/courses/$slug'
     | '/facilitators/apply'
+    | '/schools/dashboard'
     | '/verify/$number'
     | '/bags/'
     | '/blog/'
@@ -237,6 +247,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/courses/$slug'
     | '/facilitators/apply'
+    | '/schools/dashboard'
     | '/verify/$number'
     | '/bags'
     | '/blog'
@@ -259,6 +270,7 @@ export interface FileRouteTypes {
     | '/blog/$slug'
     | '/courses/$slug'
     | '/facilitators/apply'
+    | '/schools/dashboard'
     | '/verify/$number'
     | '/bags/'
     | '/blog/'
@@ -275,7 +287,7 @@ export interface RootRouteChildren {
   ImpactRoute: typeof ImpactRoute
   MethodologyRoute: typeof MethodologyRoute
   Q360Route: typeof Q360RouteWithChildren
-  SchoolsRoute: typeof SchoolsRoute
+  SchoolsRoute: typeof SchoolsRouteWithChildren
   StoreRoute: typeof StoreRoute
   WalkingQuranRoute: typeof WalkingQuranRoute
   BagsSlugRoute: typeof BagsSlugRoute
@@ -410,6 +422,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof FacilitatorsApplyRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/schools/dashboard': {
+      id: '/schools/dashboard'
+      path: '/dashboard'
+      fullPath: '/schools/dashboard'
+      preLoaderRoute: typeof SchoolsDashboardRouteImport
+      parentRoute: typeof SchoolsRoute
+    }
     '/verify/': {
       id: '/verify/'
       path: '/verify'
@@ -444,6 +463,17 @@ const Q360RouteChildren: Q360RouteChildren = {
 
 const Q360RouteWithChildren = Q360Route._addFileChildren(Q360RouteChildren)
 
+interface SchoolsRouteChildren {
+  SchoolsDashboardRoute: typeof SchoolsDashboardRoute
+}
+
+const SchoolsRouteChildren: SchoolsRouteChildren = {
+  SchoolsDashboardRoute: SchoolsDashboardRoute,
+}
+
+const SchoolsRouteWithChildren =
+  SchoolsRoute._addFileChildren(SchoolsRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AcademyRoute: AcademyRoute,
@@ -452,7 +482,7 @@ const rootRouteChildren: RootRouteChildren = {
   ImpactRoute: ImpactRoute,
   MethodologyRoute: MethodologyRoute,
   Q360Route: Q360RouteWithChildren,
-  SchoolsRoute: SchoolsRoute,
+  SchoolsRoute: SchoolsRouteWithChildren,
   StoreRoute: StoreRoute,
   WalkingQuranRoute: WalkingQuranRoute,
   BagsSlugRoute: BagsSlugRoute,
