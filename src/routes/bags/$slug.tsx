@@ -3,6 +3,7 @@ import { getBag } from "@/lib/public.functions";
 import { bagImage } from "@/lib/bag-images";
 import { lessonPoster, lessonStage } from "@/lib/lesson-media";
 import { BagObjectives } from "@/components/site/BagObjectives";
+import { contentForBag } from "@/lib/bag-content";
 
 export const Route = createFileRoute("/bags/$slug")({
   loader: async ({ params }) => {
