@@ -84,7 +84,7 @@ function Page() {
 
       <div className="mt-10 whitespace-pre-line text-lg leading-[2.2] text-foreground/90">{post.content}</div>
 
-      {source ? (
+      {source?.sourceUrl ? (
         <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-border pt-6">
           <p className="text-sm text-muted-foreground">نُقل هذا المقال من أرشيف الموقع الرسمي للقرآن خطوة بخطوة.</p>
           <Button asChild variant="outline">
