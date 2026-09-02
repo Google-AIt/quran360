@@ -82,6 +82,10 @@ function Page() {
         )}
       </div>
 
+      <BagObjectives className="mt-10" />
+
+
+
       <div className="mt-10 grid gap-4 md:grid-cols-3">
         {[
           ["المفهوم / التصور الذهني", bag.mental_image ?? bag.concept],
