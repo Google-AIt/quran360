@@ -11,6 +11,14 @@ import {
   methodologyResults,
   methodologySourceUrl,
 } from "@/lib/methodology-content";
+import foundation1 from "@/assets/methodology/foundation-1.jpg";
+import foundation2 from "@/assets/methodology/foundation-2.jpg";
+import changeModel from "@/assets/methodology/change-model.png";
+import mentalConceptImg from "@/assets/methodology/mental-concept.png";
+import practicalStepsImg from "@/assets/methodology/practical-steps.png";
+import resultsImg from "@/assets/methodology/results.png";
+
+const foundationImages = [foundation1, foundation2];
 
 const q = queryOptions({ queryKey: ["settings"], queryFn: () => getSettings() });
 
