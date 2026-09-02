@@ -26,13 +26,10 @@ const benefits = ["الوصول إلى المنصة", "المواد التعلي
 function Page() {
   const { data } = useSuspenseQuery(q);
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16">
-      <h1 className="font-display text-4xl font-bold text-primary-deep">الميسّرون</h1>
-      <p className="mt-4 max-w-3xl leading-9 text-muted-foreground">
-        الميسّر هو الشخص الذي يقود المتدرب في تطبيق المنهجية والحقائب، وليس مجرد ناقل للمحتوى.
-      </p>
+    <div className="mx-auto max-w-6xl px-4 py-10 md:py-16">
+      <PageHero eyebrow="مسار الميسّرين" title="كن قائدًا لتطبيق القرآن" description="الميسّر هو الشخص الذي يقود المتدرب في تطبيق المنهجية والحقائب، وليس مجرد ناقل للمحتوى." actions={<Button asChild><Link to="/facilitators/apply"><BadgeCheck /> ابدأ مسار التأهيل</Link></Button>} />
 
-      <div className="mt-10 grid gap-4 md:grid-cols-4">
+      <div className="mt-16 grid gap-4 md:grid-cols-4">
         {["تأهيل الميسّر", "حقيبة الميسّر", "عضوية الميسّر", "اعتماد الميسّر"].map((t) => (
           <div key={t} className="rounded-2xl border border-border bg-card p-6 text-center">
             <h2 className="font-display font-bold text-primary-deep">{t}</h2>
@@ -40,14 +37,14 @@ function Page() {
         ))}
       </div>
 
-      <div className="mt-10 grid gap-4 md:grid-cols-2">
-        <section className="rounded-2xl border border-border bg-card p-6">
+      <div className="mt-16 grid gap-4 md:grid-cols-2">
+        <section className="rounded-3xl border border-border bg-card p-6 shadow-sm">
           <h2 className="font-display text-lg font-bold text-primary-deep">محاور التأهيل</h2>
           <ul className="mt-3 space-y-2 text-sm leading-7 text-muted-foreground">
             {qualification.map((x) => <li key={x} className="flex gap-2"><span className="text-gold">•</span>{x}</li>)}
           </ul>
         </section>
-        <section className="rounded-2xl border border-border bg-card p-6">
+        <section className="rounded-3xl border border-border bg-card p-6 shadow-sm">
           <h2 className="font-display text-lg font-bold text-primary-deep">
             عضوية الميسّر — {data["price_facilitator_membership"]} ريال سنويًا
           </h2>

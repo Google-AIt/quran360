@@ -38,11 +38,12 @@ function Page() {
     ["متوسط الإتمام", `${nf.format(stats.completionRate)}%`],
   ];
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16">
-      <h1 className="font-display text-4xl font-bold text-primary-deep">الأثر والنتائج</h1>
-      <p className="mt-4 max-w-3xl leading-9 text-muted-foreground">قياس ما تغير في سلوك الإنسان، وليس فقط ما تعلّمه.</p>
+    <div className="mx-auto max-w-6xl px-4 py-10 md:py-16">
+      <PageHero eyebrow="قرآنًا يمشي على الأرض" title="الأثر والنتائج" description="قياس ما تغير في سلوك الإنسان، وليس فقط ما تعلّمه.">
+        <div className="grid gap-3 sm:grid-cols-3"><HeroStat value={nf.format(stats.trainees)} label="متدربون" /><HeroStat value={nf.format(stats.schools)} label="مدارس" /><HeroStat value={`${nf.format(stats.completionRate)}%`} label="متوسط الإتمام" /></div>
+      </PageHero>
 
-      <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="mt-16 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         {kpis.map(([l, v]) => (
           <div key={l} className="rounded-2xl border border-border bg-card p-6 text-center">
             <div className="font-display text-3xl font-bold text-primary">{v}</div>
@@ -51,8 +52,8 @@ function Page() {
         ))}
       </div>
 
-      <h2 className="mt-14 font-display text-2xl font-bold text-primary-deep">نتائج Q360 ونسب التغير</h2>
-      <div className="mt-5 space-y-4">
+      <div className="mt-16"><SectionTitle title="نتائج Q360 ونسب التغير" subtitle="قصص حقيقية تُعرض من خلال مؤشرات قابلة للملاحظة والتتبع." /></div>
+      <div className="mt-8 space-y-4">
         {stories.map((s) => (
           <div key={s.id} className="rounded-2xl border border-border bg-card p-6">
             <div className="flex items-center justify-between gap-4">

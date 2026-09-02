@@ -27,13 +27,10 @@ const scale = ["1 = لا يظهر", "2 = نادرًا", "3 = أحيانًا", "4
 function Page() {
   const { data } = useSuspenseQuery(q);
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16">
-      <span className="rounded-full bg-gold-soft px-4 py-1.5 text-xs text-accent-foreground">تعلّم. طبّق. قيّم. تغيّر.</span>
-      <h1 className="mt-5 font-display text-4xl font-bold text-primary-deep">Q360 — قياس الأثر القرآني</h1>
-      <p className="mt-4 max-w-3xl leading-9 text-muted-foreground">
-        نظام تقييم شامل يقيس أثر التدريب والتطبيق على سلوك المتدرب من خلال التقييم الذاتي وتقييم الأشخاص
-        المحيطين به، قبل التدريب وبعده وبعد مرور شهر على التطبيق. السعر {data["price_q360"]} ريال.
-      </p>
+    <div className="mx-auto max-w-6xl px-4 py-10 md:py-16">
+      <PageHero eyebrow="تعلّم. طبّق. قيّم. تغيّر." title="Q360 — قياس الأثر القرآني" description={`نظام تقييم شامل يقيس أثر التدريب والتطبيق على سلوك المتدرب من خلال التقييم الذاتي وتقييم الأشخاص المحيطين به، قبل التدريب وبعده وبعد مرور شهر على التطبيق. السعر ${data["price_q360"]} ريال.`} actions={<Button asChild variant="secondary"><Link to="/store">شراء خدمة Q360 <ArrowLeft /></Link></Button>}>
+        <div className="grid gap-3 sm:grid-cols-3"><HeroStat value="360°" label="رؤية متكاملة للسلوك" /><HeroStat value="5" label="أنواع من المقيمين" /><HeroStat value="3" label="نقاط قياس زمنية" /></div>
+      </PageHero>
 
       <div className="mt-10 flex flex-wrap gap-2">
         {phases.map((p, i) => (
@@ -41,9 +38,11 @@ function Page() {
         ))}
       </div>
 
-      <div className="mt-10 grid gap-4 md:grid-cols-3">
-        <section className="rounded-2xl border border-border bg-card p-6">
-          <h2 className="font-display text-lg font-bold text-primary-deep">أنواع المقيمين</h2>
+      <section className="mt-16">
+        <SectionTitle title="قياسٌ يرى التغيير" subtitle="تقييم متعدد الزوايا يساعد المتدرب والجهة على فهم ما تغيّر وما يحتاج إلى دعم." />
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
+        <section className="rounded-3xl border border-border bg-card p-6 shadow-sm">
+          <h2 className="font-display text-lg font-bold text-primary-deep"><UsersRound className="ml-2 inline size-5 text-gold" />أنواع المقيمين</h2>
           <ul className="mt-3 space-y-2 text-sm leading-7 text-muted-foreground">
             {raters.map((r) => <li key={r} className="flex gap-2"><span className="text-gold">•</span>{r}</li>)}
           </ul>
@@ -58,7 +57,8 @@ function Page() {
           <h2 className="font-display text-lg font-bold text-primary-deep">نموذج سؤال سلوكي</h2>
           <p className="mt-3 leading-8 text-muted-foreground">«يبادر إلى إنجاز الأعمال النافعة دون انتظار أن يُطلب منه ذلك.»</p>
         </section>
-      </div>
+        </div>
+      </section>
 
       <div className="mt-10 grid gap-4 md:grid-cols-3">
         {[["قبل التدريب", "القياس القبلي"], ["بعد التدريب", "القياس البعدي"], ["بعد شهر", "قياس الاستدامة"]].map(([t, d]) => (

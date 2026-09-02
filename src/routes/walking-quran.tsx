@@ -20,14 +20,13 @@ export const Route = createFileRoute("/walking-quran")({
 function Page() {
   const { data: stories } = useSuspenseQuery(q);
   return (
-    <div className="mx-auto max-w-6xl px-4 py-16">
-      <h1 className="font-display text-4xl font-bold text-primary-deep">قرآنًا يمشي على الأرض</h1>
-      <p className="mt-4 max-w-3xl text-lg leading-9 text-muted-foreground">
-        أن يتحول القرآن من نص يُقرأ إلى منهج يُعاش، حتى يكون قرآنًا يمشي على الأرض.
-      </p>
-      <div className="mt-10 grid gap-4 md:grid-cols-2">
+    <div className="mx-auto max-w-6xl px-4 py-10 md:py-16">
+      <PageHero eyebrow="قصص الأثر" title="قرآنًا يمشي على الأرض" description="أن يتحول القرآن من نص يُقرأ إلى منهج يُعاش، حتى يكون قرآنًا يمشي على الأرض.">
+        <div className="rounded-2xl border border-primary-foreground/15 bg-primary-foreground/10 p-4 text-sm leading-7 text-primary-foreground/80">كل قصة هنا تروي انتقالًا من الفهم إلى ممارسة يمكن رؤيتها وقياس أثرها.</div>
+      </PageHero>
+      <div className="mt-16 grid gap-5 md:grid-cols-2">
         {stories.map((s) => (
-          <article key={s.id} className="rounded-2xl border border-border bg-card p-6">
+          <article key={s.id} className="rounded-3xl border border-border bg-card p-6 shadow-sm">
             <h2 className="font-display text-lg font-bold text-primary-deep">{s.title}</h2>
             <p className="mt-2 text-sm leading-7 text-muted-foreground">{s.story}</p>
             <p className="mt-4 text-xs text-muted-foreground">{s.person_name} — {s.person_role} · {s.bag_title}</p>

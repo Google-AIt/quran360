@@ -69,8 +69,8 @@ function Page() {
         ))}
       </div>
 
-      <section className="mt-12 rounded-3xl border border-border bg-card p-8">
-        <h2 className="font-display text-2xl font-bold text-primary-deep">حاسبة اشتراك المدرسة</h2>
+      <section className="mt-16 rounded-3xl border border-border bg-card p-8 shadow-sm">
+        <SectionTitle title="حاسبة اشتراك المدرسة" subtitle="قدّر التكلفة السنوية وفق عدد المعلمين والطلاب في مدرستك." />
         <div className="mt-6 grid gap-5 md:grid-cols-2">
           <label className="text-sm">
             عدد المعلمين (الحد الأدنى {minTeachers})
