@@ -62,9 +62,11 @@ function Page() {
         {source ? (
           <div className="relative aspect-[16/7] overflow-hidden bg-secondary">
             <img src={source.image} alt={post.title} className="h-full w-full object-cover" />
-            <span className="absolute right-5 top-5 rounded-full bg-background/90 px-3 py-1.5 text-xs font-medium text-foreground shadow-sm">
-              {source.sourceLabel}
-            </span>
+            {source.sourceLabel ? (
+              <span className="absolute right-5 top-5 rounded-full bg-background/90 px-3 py-1.5 text-xs font-medium text-foreground shadow-sm">
+                {source.sourceLabel}
+              </span>
+            ) : null}
           </div>
         ) : null}
         <div className="p-6 md:p-10">
