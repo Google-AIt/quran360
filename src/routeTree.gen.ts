@@ -10,33 +10,219 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AcademyRouteImport } from './routes/academy'
+import { Route as AccountRouteImport } from './routes/account'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as FacilitatorsRouteImport } from './routes/facilitators'
+import { Route as ImpactRouteImport } from './routes/impact'
+import { Route as MethodologyRouteImport } from './routes/methodology'
+import { Route as Q360RouteImport } from './routes/q360'
+import { Route as SchoolsRouteImport } from './routes/schools'
+import { Route as StoreRouteImport } from './routes/store'
+import { Route as WalkingQuranRouteImport } from './routes/walking-quran'
+import { Route as BagsIndexRouteImport } from './routes/bags/index'
+import { Route as BagsSlugRouteImport } from './routes/bags/$slug'
+import { Route as BlogIndexRouteImport } from './routes/blog/index'
+import { Route as BlogSlugRouteImport } from './routes/blog/$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AcademyRoute = AcademyRouteImport.update({
+  id: '/academy',
+  path: '/academy',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AccountRoute = AccountRouteImport.update({
+  id: '/account',
+  path: '/account',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const FacilitatorsRoute = FacilitatorsRouteImport.update({
+  id: '/facilitators',
+  path: '/facilitators',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ImpactRoute = ImpactRouteImport.update({
+  id: '/impact',
+  path: '/impact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MethodologyRoute = MethodologyRouteImport.update({
+  id: '/methodology',
+  path: '/methodology',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const Q360Route = Q360RouteImport.update({
+  id: '/q360',
+  path: '/q360',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SchoolsRoute = SchoolsRouteImport.update({
+  id: '/schools',
+  path: '/schools',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StoreRoute = StoreRouteImport.update({
+  id: '/store',
+  path: '/store',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const WalkingQuranRoute = WalkingQuranRouteImport.update({
+  id: '/walking-quran',
+  path: '/walking-quran',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BagsIndexRoute = BagsIndexRouteImport.update({
+  id: '/bags/',
+  path: '/bags/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BagsSlugRoute = BagsSlugRouteImport.update({
+  id: '/bags/$slug',
+  path: '/bags/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogIndexRoute = BlogIndexRouteImport.update({
+  id: '/blog/',
+  path: '/blog/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BlogSlugRoute = BlogSlugRouteImport.update({
+  id: '/blog/$slug',
+  path: '/blog/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/academy': typeof AcademyRoute
+  '/account': typeof AccountRoute
+  '/contact': typeof ContactRoute
+  '/facilitators': typeof FacilitatorsRoute
+  '/impact': typeof ImpactRoute
+  '/methodology': typeof MethodologyRoute
+  '/q360': typeof Q360Route
+  '/schools': typeof SchoolsRoute
+  '/store': typeof StoreRoute
+  '/walking-quran': typeof WalkingQuranRoute
+  '/bags/$slug': typeof BagsSlugRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/bags/': typeof BagsIndexRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/academy': typeof AcademyRoute
+  '/account': typeof AccountRoute
+  '/contact': typeof ContactRoute
+  '/facilitators': typeof FacilitatorsRoute
+  '/impact': typeof ImpactRoute
+  '/methodology': typeof MethodologyRoute
+  '/q360': typeof Q360Route
+  '/schools': typeof SchoolsRoute
+  '/store': typeof StoreRoute
+  '/walking-quran': typeof WalkingQuranRoute
+  '/bags/$slug': typeof BagsSlugRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/bags': typeof BagsIndexRoute
+  '/blog': typeof BlogIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/academy': typeof AcademyRoute
+  '/account': typeof AccountRoute
+  '/contact': typeof ContactRoute
+  '/facilitators': typeof FacilitatorsRoute
+  '/impact': typeof ImpactRoute
+  '/methodology': typeof MethodologyRoute
+  '/q360': typeof Q360Route
+  '/schools': typeof SchoolsRoute
+  '/store': typeof StoreRoute
+  '/walking-quran': typeof WalkingQuranRoute
+  '/bags/$slug': typeof BagsSlugRoute
+  '/blog/$slug': typeof BlogSlugRoute
+  '/bags/': typeof BagsIndexRoute
+  '/blog/': typeof BlogIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/academy'
+    | '/account'
+    | '/contact'
+    | '/facilitators'
+    | '/impact'
+    | '/methodology'
+    | '/q360'
+    | '/schools'
+    | '/store'
+    | '/walking-quran'
+    | '/bags/$slug'
+    | '/blog/$slug'
+    | '/bags/'
+    | '/blog/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/academy'
+    | '/account'
+    | '/contact'
+    | '/facilitators'
+    | '/impact'
+    | '/methodology'
+    | '/q360'
+    | '/schools'
+    | '/store'
+    | '/walking-quran'
+    | '/bags/$slug'
+    | '/blog/$slug'
+    | '/bags'
+    | '/blog'
+  id:
+    | '__root__'
+    | '/'
+    | '/academy'
+    | '/account'
+    | '/contact'
+    | '/facilitators'
+    | '/impact'
+    | '/methodology'
+    | '/q360'
+    | '/schools'
+    | '/store'
+    | '/walking-quran'
+    | '/bags/$slug'
+    | '/blog/$slug'
+    | '/bags/'
+    | '/blog/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AcademyRoute: typeof AcademyRoute
+  AccountRoute: typeof AccountRoute
+  ContactRoute: typeof ContactRoute
+  FacilitatorsRoute: typeof FacilitatorsRoute
+  ImpactRoute: typeof ImpactRoute
+  MethodologyRoute: typeof MethodologyRoute
+  Q360Route: typeof Q360Route
+  SchoolsRoute: typeof SchoolsRoute
+  StoreRoute: typeof StoreRoute
+  WalkingQuranRoute: typeof WalkingQuranRoute
+  BagsSlugRoute: typeof BagsSlugRoute
+  BlogSlugRoute: typeof BlogSlugRoute
+  BagsIndexRoute: typeof BagsIndexRoute
+  BlogIndexRoute: typeof BlogIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +234,123 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/academy': {
+      id: '/academy'
+      path: '/academy'
+      fullPath: '/academy'
+      preLoaderRoute: typeof AcademyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/account': {
+      id: '/account'
+      path: '/account'
+      fullPath: '/account'
+      preLoaderRoute: typeof AccountRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/facilitators': {
+      id: '/facilitators'
+      path: '/facilitators'
+      fullPath: '/facilitators'
+      preLoaderRoute: typeof FacilitatorsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/impact': {
+      id: '/impact'
+      path: '/impact'
+      fullPath: '/impact'
+      preLoaderRoute: typeof ImpactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/methodology': {
+      id: '/methodology'
+      path: '/methodology'
+      fullPath: '/methodology'
+      preLoaderRoute: typeof MethodologyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/q360': {
+      id: '/q360'
+      path: '/q360'
+      fullPath: '/q360'
+      preLoaderRoute: typeof Q360RouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/schools': {
+      id: '/schools'
+      path: '/schools'
+      fullPath: '/schools'
+      preLoaderRoute: typeof SchoolsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/store': {
+      id: '/store'
+      path: '/store'
+      fullPath: '/store'
+      preLoaderRoute: typeof StoreRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/walking-quran': {
+      id: '/walking-quran'
+      path: '/walking-quran'
+      fullPath: '/walking-quran'
+      preLoaderRoute: typeof WalkingQuranRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bags/': {
+      id: '/bags/'
+      path: '/bags'
+      fullPath: '/bags/'
+      preLoaderRoute: typeof BagsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/bags/$slug': {
+      id: '/bags/$slug'
+      path: '/bags/$slug'
+      fullPath: '/bags/$slug'
+      preLoaderRoute: typeof BagsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/': {
+      id: '/blog/'
+      path: '/blog'
+      fullPath: '/blog/'
+      preLoaderRoute: typeof BlogIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/blog/$slug': {
+      id: '/blog/$slug'
+      path: '/blog/$slug'
+      fullPath: '/blog/$slug'
+      preLoaderRoute: typeof BlogSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AcademyRoute: AcademyRoute,
+  AccountRoute: AccountRoute,
+  ContactRoute: ContactRoute,
+  FacilitatorsRoute: FacilitatorsRoute,
+  ImpactRoute: ImpactRoute,
+  MethodologyRoute: MethodologyRoute,
+  Q360Route: Q360Route,
+  SchoolsRoute: SchoolsRoute,
+  StoreRoute: StoreRoute,
+  WalkingQuranRoute: WalkingQuranRoute,
+  BagsSlugRoute: BagsSlugRoute,
+  BlogSlugRoute: BlogSlugRoute,
+  BagsIndexRoute: BagsIndexRoute,
+  BlogIndexRoute: BlogIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
