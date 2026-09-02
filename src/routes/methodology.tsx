@@ -91,16 +91,42 @@ function Page() {
           title="على ماذا بُنيت المنهجية التطبيقية؟"
           subtitle="بُنيت المنهجية التطبيقية في الحقائب القرآنية على أمرين أساسيين."
         />
-        <div className="mt-8 grid gap-4 md:grid-cols-2">
-          {methodologyFoundations.map((f) => (
-            <div key={f.title} className="rounded-3xl border border-border bg-card p-6 shadow-sm">
-              <span className="inline-flex rounded-full bg-secondary px-3 py-1 text-xs font-medium text-primary-deep">
-                {f.order}
-              </span>
-              <h3 className="mt-3 font-display text-lg font-bold text-primary-deep">{f.title}</h3>
-              <p className="mt-2 text-sm leading-8 text-muted-foreground">{f.text}</p>
+        <div className="mt-8 grid gap-6 md:grid-cols-2">
+          {methodologyFoundations.map((f, i) => (
+            <div
+              key={f.title}
+              className="overflow-hidden rounded-3xl border border-border bg-card shadow-sm"
+            >
+              <img
+                src={foundationImages[i]}
+                alt={f.title}
+                loading="lazy"
+                className="w-full bg-white object-contain"
+              />
+              <div className="p-6">
+                <span className="inline-flex rounded-full bg-secondary px-3 py-1 text-xs font-medium text-primary-deep">
+                  {f.order}
+                </span>
+                <h3 className="mt-3 font-display text-lg font-bold text-primary-deep">{f.title}</h3>
+                <p className="mt-2 text-sm leading-8 text-muted-foreground">{f.text}</p>
+              </div>
             </div>
           ))}
+        </div>
+      </section>
+
+      <section className="mt-16">
+        <SectionTitle
+          title="نموذج التغيير"
+          subtitle="النموذج الذي تقوم عليه المنهجية التطبيقية في الحقائب القرآنية."
+        />
+        <div className="mt-8 overflow-hidden rounded-3xl border border-border bg-white p-4 shadow-sm md:p-8">
+          <img
+            src={changeModel}
+            alt="نموذج التغيير في المنهجية التطبيقية"
+            loading="lazy"
+            className="mx-auto w-full max-w-3xl object-contain"
+          />
         </div>
       </section>
 
@@ -110,6 +136,12 @@ function Page() {
           subtitle="نموذج تطبيقي من حقيبة «فاستبقوا الخيرات»."
         />
         <div className="mt-8 space-y-4 rounded-3xl border border-border bg-card p-6 shadow-sm md:p-8">
+          <img
+            src={mentalConceptImg}
+            alt="التصور الذهني الخاص بحقيبة فاستبقوا الخيرات"
+            loading="lazy"
+            className="mx-auto w-full max-w-2xl rounded-2xl bg-white object-contain"
+          />
           <p className="leading-9 text-muted-foreground">{mentalConcept.definition}</p>
           <p className="leading-9 text-muted-foreground">{mentalConcept.example}</p>
           <div className="grid gap-6 pt-2 md:grid-cols-2">
