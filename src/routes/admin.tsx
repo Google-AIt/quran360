@@ -103,6 +103,13 @@ function AdminPage() {
           <TabsTrigger value="facilitators">طلبات الميسّرين</TabsTrigger>
           <TabsTrigger value="settings">الأسعار والإعدادات</TabsTrigger>
           <TabsTrigger value="users">المستخدمون</TabsTrigger>
+          <TabsTrigger value="q360">Q360</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="q360">
+          <Q360Admin />
+        </TabsContent>
+
         </TabsList>
 
         {/* ===== المؤشرات ===== */}
