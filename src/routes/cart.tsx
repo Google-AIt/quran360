@@ -77,24 +77,24 @@ function Page() {
             الإجمالي: <span className="font-bold text-foreground">{placed.total} ريال سعودي</span>
           </p>
           <div className="mt-6 rounded-xl bg-secondary p-5 text-right text-sm leading-8 text-secondary-foreground">
-            {placed.provider === "manual" ? (
-              <>
-                <p className="font-bold">طريقة السداد الحالية: التحويل البنكي</p>
-                <p>
-                  حوّل قيمة الطلب ثم أرسل إشعار التحويل عبر صفحة «تواصل معنا» مرفقًا برقم المرجع،
-                  وسيتم تفعيل اشتراكك خلال يوم عمل واحد. ستظهر حالة الطلب في صفحة «حسابي».
-                </p>
-              </>
-            ) : (
-              <p>سيتم تحويلك إلى بوابة الدفع لإتمام العملية، وحالة الطلب تظهر في صفحة «حسابي».</p>
-            )}
+            <p className="font-bold">تم تفعيل وصولك مباشرة</p>
+            <p>
+              يمكنك الآن الدخول إلى الأكاديمية والبدء في دوراتك فورًا. تفاصيل الطلب متاحة في صفحة
+              «حسابي».
+            </p>
           </div>
           <div className="mt-6 flex flex-wrap justify-center gap-3">
             <Link
-              to="/account"
+              to="/academy"
               className="rounded-xl bg-primary px-6 py-3 text-sm font-medium text-primary-foreground"
             >
-              متابعة الطلب في حسابي
+              ابدأ التعلّم الآن
+            </Link>
+            <Link
+              to="/account"
+              className="rounded-xl border border-border px-6 py-3 text-sm font-medium"
+            >
+              حسابي
             </Link>
             <Link
               to="/store"
