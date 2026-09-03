@@ -1,0 +1,1 @@
+revoke execute on function public.has_course_access(uuid, uuid) from public, anon;
