@@ -4,6 +4,7 @@ import { bagImage } from "@/lib/bag-images";
 import { lessonPoster, lessonStage } from "@/lib/lesson-media";
 import { BagObjectives } from "@/components/site/BagObjectives";
 import { contentForBag } from "@/lib/bag-content";
+import { objectivesForBag } from "@/lib/bag-objectives";
 
 export const Route = createFileRoute("/bags/$slug")({
   loader: async ({ params }) => {
