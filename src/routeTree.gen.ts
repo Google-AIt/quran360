@@ -33,6 +33,7 @@ import { Route as SchoolsDashboardRouteImport } from './routes/schools.dashboard
 import { Route as VerifyIndexRouteImport } from './routes/verify.index'
 import { Route as VerifyNumberRouteImport } from './routes/verify.$number'
 import { Route as Q360AssessBagSlugRouteImport } from './routes/q360.assess.$bagSlug'
+import { Route as Q360CourseSlugRouteImport } from './routes/q360.course.$slug'
 import { Route as Q360InviteTokenRouteImport } from './routes/q360.invite.$token'
 import { Route as Q360RateAssessmentIdRouteImport } from './routes/q360.rate.$assessmentId'
 
@@ -156,6 +157,11 @@ const Q360AssessBagSlugRoute = Q360AssessBagSlugRouteImport.update({
   path: '/assess/$bagSlug',
   getParentRoute: () => Q360Route,
 } as any)
+const Q360CourseSlugRoute = Q360CourseSlugRouteImport.update({
+  id: '/course/$slug',
+  path: '/course/$slug',
+  getParentRoute: () => Q360Route,
+} as any)
 const Q360InviteTokenRoute = Q360InviteTokenRouteImport.update({
   id: '/invite/$token',
   path: '/invite/$token',
@@ -192,6 +198,7 @@ export interface FileRoutesByFullPath {
   '/facilitators/': typeof FacilitatorsIndexRoute
   '/verify/': typeof VerifyIndexRoute
   '/q360/assess/$bagSlug': typeof Q360AssessBagSlugRoute
+  '/q360/course/$slug': typeof Q360CourseSlugRoute
   '/q360/invite/$token': typeof Q360InviteTokenRoute
   '/q360/rate/$assessmentId': typeof Q360RateAssessmentIdRoute
 }
@@ -220,6 +227,7 @@ export interface FileRoutesByTo {
   '/facilitators': typeof FacilitatorsIndexRoute
   '/verify': typeof VerifyIndexRoute
   '/q360/assess/$bagSlug': typeof Q360AssessBagSlugRoute
+  '/q360/course/$slug': typeof Q360CourseSlugRoute
   '/q360/invite/$token': typeof Q360InviteTokenRoute
   '/q360/rate/$assessmentId': typeof Q360RateAssessmentIdRoute
 }
@@ -249,6 +257,7 @@ export interface FileRoutesById {
   '/facilitators/': typeof FacilitatorsIndexRoute
   '/verify/': typeof VerifyIndexRoute
   '/q360/assess/$bagSlug': typeof Q360AssessBagSlugRoute
+  '/q360/course/$slug': typeof Q360CourseSlugRoute
   '/q360/invite/$token': typeof Q360InviteTokenRoute
   '/q360/rate/$assessmentId': typeof Q360RateAssessmentIdRoute
 }
@@ -279,6 +288,7 @@ export interface FileRouteTypes {
     | '/facilitators/'
     | '/verify/'
     | '/q360/assess/$bagSlug'
+    | '/q360/course/$slug'
     | '/q360/invite/$token'
     | '/q360/rate/$assessmentId'
   fileRoutesByTo: FileRoutesByTo
@@ -307,6 +317,7 @@ export interface FileRouteTypes {
     | '/facilitators'
     | '/verify'
     | '/q360/assess/$bagSlug'
+    | '/q360/course/$slug'
     | '/q360/invite/$token'
     | '/q360/rate/$assessmentId'
   id:
@@ -335,6 +346,7 @@ export interface FileRouteTypes {
     | '/facilitators/'
     | '/verify/'
     | '/q360/assess/$bagSlug'
+    | '/q360/course/$slug'
     | '/q360/invite/$token'
     | '/q360/rate/$assessmentId'
   fileRoutesById: FileRoutesById
@@ -534,6 +546,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof Q360AssessBagSlugRouteImport
       parentRoute: typeof Q360Route
     }
+    '/q360/course/$slug': {
+      id: '/q360/course/$slug'
+      path: '/course/$slug'
+      fullPath: '/q360/course/$slug'
+      preLoaderRoute: typeof Q360CourseSlugRouteImport
+      parentRoute: typeof Q360Route
+    }
     '/q360/invite/$token': {
       id: '/q360/invite/$token'
       path: '/invite/$token'
@@ -553,12 +572,14 @@ declare module '@tanstack/react-router' {
 
 interface Q360RouteChildren {
   Q360AssessBagSlugRoute: typeof Q360AssessBagSlugRoute
+  Q360CourseSlugRoute: typeof Q360CourseSlugRoute
   Q360InviteTokenRoute: typeof Q360InviteTokenRoute
   Q360RateAssessmentIdRoute: typeof Q360RateAssessmentIdRoute
 }
 
 const Q360RouteChildren: Q360RouteChildren = {
   Q360AssessBagSlugRoute: Q360AssessBagSlugRoute,
+  Q360CourseSlugRoute: Q360CourseSlugRoute,
   Q360InviteTokenRoute: Q360InviteTokenRoute,
   Q360RateAssessmentIdRoute: Q360RateAssessmentIdRoute,
 }
