@@ -176,30 +176,30 @@ function Page() {
 
   return (
     <div className="bg-background">
-      {/* شريط علوي داكن على نمط منصات التعلم */}
-      <div className="bg-primary-deep text-primary-foreground">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-5">
-          <div>
-            <nav className="text-xs text-primary-foreground/70">
-              <Link to="/academy" className="hover:text-accent">
-                الأكاديمية
-              </Link>
-              <span className="mx-2">/</span>
-              <span>{course.title}</span>
-            </nav>
-            <h1 className="mt-2 font-display text-2xl font-bold sm:text-3xl">{course.title}</h1>
+      <div className="mx-auto max-w-7xl px-4 pt-8">
+        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+          <nav className="text-xs text-muted-foreground">
+            <Link to="/academy" className="hover:text-primary">
+              الأكاديمية
+            </Link>
+            <span className="mx-2">/</span>
+            <span>{course.title}</span>
+          </nav>
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-4">
+            <h1 className="font-display text-2xl font-bold text-primary-deep sm:text-3xl">
+              {course.title}
+            </h1>
+            <span className="font-display text-sm font-bold text-primary">{percent}% مكتمل</span>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="text-left">
-              <p className="text-xs text-primary-foreground/70">نسبة الإنجاز</p>
-              <p className="font-display text-xl font-bold text-accent">{percent}%</p>
-            </div>
-            <div className="h-2 w-32 overflow-hidden rounded-full bg-primary-foreground/20">
-              <div className="h-full rounded-full bg-accent transition-all" style={{ width: `${percent}%` }} />
-            </div>
+          <div className="mt-4 h-3 w-full overflow-hidden rounded-full bg-secondary">
+            <div
+              className="h-full rounded-full bg-gradient-to-l from-primary to-accent transition-all duration-500"
+              style={{ width: `${percent}%` }}
+            />
           </div>
         </div>
       </div>
+
 
       <div className="mx-auto max-w-7xl gap-8 px-4 py-8 lg:grid lg:grid-cols-[1fr_360px]">
         {/* المشغّل والمحتوى */}
