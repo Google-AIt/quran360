@@ -201,7 +201,7 @@ function Page() {
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl gap-8 px-4 py-8 lg:grid lg:grid-cols-[1fr_340px]">
+      <div className="mx-auto max-w-7xl gap-8 px-4 py-8 lg:grid lg:grid-cols-[1fr_360px]">
         {/* المشغّل والمحتوى */}
         <div>
           {lesson ? (
@@ -223,16 +223,23 @@ function Page() {
                     allowFullScreen
                   />
                 ) : (
-                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-primary-deep/75 p-6 text-center text-primary-foreground">
+                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-gradient-to-b from-primary-deep/60 to-primary-deep/95 p-8 text-center text-primary-foreground">
                     {unlocked ? (
                       <p className="text-sm">فيديو الدرس يُضاف قريبًا من لوحة الإدارة.</p>
                     ) : (
                       <>
-                        <span className="text-3xl">🔒</span>
-                        <p className="text-sm">محتوى الدورة متاح بعد الشراء.</p>
+                        <span className="flex size-20 items-center justify-center rounded-full bg-gold-soft text-3xl shadow-[0_0_36px_rgba(197,160,89,0.35)]">
+                          🔒
+                        </span>
+                        <h3 className="font-display text-2xl font-bold">
+                          هذا المحتوى مخصص للمشتركين
+                        </h3>
+                        <p className="max-w-md text-sm leading-7 text-primary-foreground/85">
+                          انضم إلى الدورة الآن لتتمكن من مشاهدة كافة الدروس والحصول على الشهادة.
+                        </p>
                         <Link
                           to="/store"
-                          className="rounded-xl bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground"
+                          className="mt-2 rounded-xl bg-gradient-to-l from-accent to-gold px-8 py-3 text-sm font-bold text-accent-foreground shadow-lg transition-transform hover:-translate-y-0.5"
                         >
                           اشترِ الدورة من المتجر
                         </Link>
@@ -241,6 +248,7 @@ function Page() {
                   </div>
                 )}
               </div>
+
 
               <div className="p-6 md:p-8">
                 <div className="flex flex-wrap items-center justify-between gap-3">
