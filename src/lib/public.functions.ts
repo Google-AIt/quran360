@@ -38,10 +38,16 @@ export const getBag = createServerFn({ method: "GET" })
     const sb = publicClient();
     const { data: bag } = await sb.from("quran_bags").select("*").eq("slug", input.slug).maybeSingle();
     if (!bag) return null;
-    const [{ data: steps }, { data: course }, { data: questions }] = await Promise.all([
+    const [{ data: steps }, { data: course }, { data: questions }, { data: product }] = await Promise.all([
       sb.from("bag_steps").select("*").eq("bag_id", bag.id).order("step_number"),
       sb.from("courses").select("id, slug, title, description, price").eq("bag_id", bag.id).maybeSingle(),
       sb.from("q360_questions").select("id, text, question_number").eq("bag_id", bag.id).order("question_number"),
+      sb
+        .from("products")
+        .select("id, slug, title, price, billing_period")
+        .eq("slug", `bag-${input.slug}`)
+        .eq("is_active", true)
+        .maybeSingle(),
     ]);
     const { data: lessons } = course
       ? await sb
@@ -50,7 +56,14 @@ export const getBag = createServerFn({ method: "GET" })
           .eq("course_id", course.id)
           .order("lesson_number")
       : { data: [] };
-    return { bag, steps: steps ?? [], course: course ?? null, lessons: lessons ?? [], questions: questions ?? [] };
+    return {
+      bag,
+      steps: steps ?? [],
+      course: course ?? null,
+      lessons: lessons ?? [],
+      questions: questions ?? [],
+      product: product ?? null,
+    };
   });
 
 export const getCourses = createServerFn({ method: "GET" }).handler(async () => {

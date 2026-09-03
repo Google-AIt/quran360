@@ -5,6 +5,9 @@ import { lessonPoster, lessonStage } from "@/lib/lesson-media";
 import { BagObjectives } from "@/components/site/BagObjectives";
 import { contentForBag } from "@/lib/bag-content";
 import { objectivesForBag } from "@/lib/bag-objectives";
+import { useCart } from "@/lib/cart";
+import { toast } from "sonner";
+import { Button } from "@/components/ui/button";
 
 export const Route = createFileRoute("/bags/$slug")({
   loader: async ({ params }) => {
@@ -50,7 +53,8 @@ function List({ title, items }: { title: string; items: unknown }) {
 }
 
 function Page() {
-  const { bag, steps, course, lessons, questions } = Route.useLoaderData();
+  const { bag, steps, course, lessons, questions, product } = Route.useLoaderData();
+  const { add } = useCart();
   const content = contentForBag(bag.slug);
   const courseObjectives = objectivesForBag(bag.slug);
   return (
@@ -280,7 +284,35 @@ function Page() {
         )}
       </div>
 
-      <div className="mt-10 flex flex-wrap gap-3">
+      <div className="mt-10 flex flex-wrap items-center gap-3">
+        {product && (
+          <>
+            <span className="font-display text-xl font-bold text-primary">
+              {product.price} ريال
+            </span>
+            <Button
+              size="lg"
+              onClick={() => {
+                add({
+                  productId: product.id,
+                  slug: product.slug,
+                  title: product.title,
+                  price: Number(product.price),
+                  billing_period: product.billing_period,
+                });
+                toast.success("تمت إضافة الحقيبة إلى السلة");
+              }}
+            >
+              أضف الحقيبة للسلة
+            </Button>
+            <Link
+              to="/cart"
+              className="rounded-xl border border-border px-6 py-3 font-medium text-primary-deep"
+            >
+              إتمام الشراء
+            </Link>
+          </>
+        )}
         {course && (
           <Link
             to="/courses/$slug"

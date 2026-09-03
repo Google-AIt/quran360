@@ -90,24 +90,25 @@ function Page() {
         <div className="mt-8 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {bags.map((b) => {
             const bag = contentForBag(b.slug);
+            const prod = products.find((p) => p.slug === `bag-${b.slug}`);
             return (
-              <Link
+              <article
                 key={b.id}
-                to="/bags/$slug"
-                params={{ slug: b.slug }}
-                className="group overflow-hidden rounded-3xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-soft"
+                className="group flex flex-col overflow-hidden rounded-3xl border border-border bg-card shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-soft"
               >
-                {bagImage(b.slug) && (
-                  <img
-                    src={bagImage(b.slug)}
-                    alt={`غلاف حقيبة ${b.title}`}
-                    loading="lazy"
-                    width={1200}
-                    height={750}
-                    className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
-                  />
-                )}
-                <div className="p-6">
+                <Link to="/bags/$slug" params={{ slug: b.slug }}>
+                  {bagImage(b.slug) && (
+                    <img
+                      src={bagImage(b.slug)}
+                      alt={`غلاف حقيبة ${b.title}`}
+                      loading="lazy"
+                      width={1200}
+                      height={750}
+                      className="aspect-[16/10] w-full object-cover transition-transform duration-500 group-hover:scale-[1.03]"
+                    />
+                  )}
+                </Link>
+                <div className="flex flex-1 flex-col p-6">
                   <h3 className="font-display text-lg font-bold text-primary-deep">{b.title}</h3>
                   <p className="mt-2 line-clamp-3 text-sm leading-7 text-muted-foreground">
                     {bag?.description ??
@@ -119,14 +120,56 @@ function Page() {
                     <p className="mt-3 text-xs font-medium text-primary">المهارة: {bag.focus}</p>
                   )}
                   <ObjectiveChips className="mt-4" />
-                  <span className="mt-4 inline-block text-sm font-medium text-primary">
-                    تفاصيل الحقيبة ←
-                  </span>
+                  <div className="mt-6 flex flex-1 items-end justify-between gap-3">
+                    {prod ? (
+                      <span className="font-display text-xl font-bold text-primary">
+                        {prod.price} ريال{" "}
+                        <span className="text-xs font-normal text-muted-foreground">
+                          {period[prod.billing_period]}
+                        </span>
+                      </span>
+                    ) : (
+                      <Link
+                        to="/bags/$slug"
+                        params={{ slug: b.slug }}
+                        className="text-sm font-medium text-primary"
+                      >
+                        تفاصيل الحقيبة ←
+                      </Link>
+                    )}
+                    {prod && (
+                      <div className="flex items-center gap-2">
+                        <Link
+                          to="/bags/$slug"
+                          params={{ slug: b.slug }}
+                          className="text-xs font-medium text-primary"
+                        >
+                          التفاصيل
+                        </Link>
+                        <Button
+                          size="sm"
+                          onClick={() => {
+                            add({
+                              productId: prod.id,
+                              slug: prod.slug,
+                              title: prod.title,
+                              price: Number(prod.price),
+                              billing_period: prod.billing_period,
+                            });
+                            toast.success("تمت إضافة الحقيبة إلى السلة");
+                          }}
+                        >
+                          أضف للسلة
+                        </Button>
+                      </div>
+                    )}
+                  </div>
                 </div>
-              </Link>
+              </article>
             );
           })}
         </div>
+
       </section>
 
       <section className="mt-20 border-t border-border pt-16">
@@ -135,7 +178,10 @@ function Page() {
           subtitle="مسارات مرنة للأفراد والميسّرين والمدارس، مصممة لترافقك من أول خطوة حتى الأثر."
         />
         <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {products.map((p) => {
+          {products
+            .filter((p) => p.category !== "bag")
+            .map((p) => {
+
             const c = contentFor(p.slug);
             return (
               <article
@@ -213,8 +259,9 @@ function Page() {
                   </div>
                 </div>
               </article>
-            );
-          })}
+              );
+            })}
+
         </div>
       </section>
     </div>
