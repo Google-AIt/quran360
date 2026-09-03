@@ -52,6 +52,7 @@ function List({ title, items }: { title: string; items: unknown }) {
 function Page() {
   const { bag, steps, course, lessons, questions } = Route.useLoaderData();
   const content = contentForBag(bag.slug);
+  const courseObjectives = objectivesForBag(bag.slug);
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 md:py-16">
       <div className="grid gap-6 lg:grid-cols-[1.4fr_1fr] lg:items-stretch">
