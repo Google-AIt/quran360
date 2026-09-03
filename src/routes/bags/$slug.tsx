@@ -89,6 +89,28 @@ function Page() {
 
       <BagObjectives className="mt-10" />
 
+      {courseObjectives.length > 0 && (
+        <section className="mt-8 rounded-3xl border border-border bg-card p-6 shadow-sm md:p-8">
+          <p className="text-sm font-medium text-primary">من البروشور الرسمي للحقائب القرآنية</p>
+          <h2 className="mt-1 font-display text-2xl font-bold text-primary-deep">
+            أهداف دورة {bag.title}
+          </h2>
+          <ul className="mt-6 grid gap-3 md:grid-cols-2">
+            {courseObjectives.map((o) => (
+              <li
+                key={o}
+                className="flex gap-3 rounded-2xl border border-border bg-background p-4 text-sm leading-8 text-foreground/80"
+              >
+                <span aria-hidden className="text-gold">
+                  ◆
+                </span>
+                <span>{o}</span>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
       {content && (
         <section className="mt-8 rounded-3xl border border-border bg-card p-6 shadow-sm md:p-8">
           <div className="flex flex-wrap items-start justify-between gap-4">
