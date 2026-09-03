@@ -110,7 +110,7 @@ function AdminPage() {
           <Q360Admin />
         </TabsContent>
 
-        </TabsList>
+
 
         {/* ===== المؤشرات ===== */}
         <TabsContent value="overview">
