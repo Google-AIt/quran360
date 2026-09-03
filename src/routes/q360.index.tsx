@@ -7,7 +7,7 @@ import { PageHero, SectionTitle, HeroStat } from "@/components/site/PageHero";
 
 const q = queryOptions({ queryKey: ["settings"], queryFn: () => getSettings() });
 
-export const Route = createFileRoute("/q360")({
+export const Route = createFileRoute("/q360/")({
   loader: ({ context }) => context.queryClient.ensureQueryData(q),
   head: () => ({
     meta: [

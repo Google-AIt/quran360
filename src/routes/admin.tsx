@@ -10,6 +10,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Q360Admin } from "@/components/admin/Q360Admin";
 import { toast } from "sonner";
 import {
   LayoutDashboard, Users, Settings2, ClipboardCheck, Banknote, ShieldCheck,
@@ -103,7 +104,14 @@ function AdminPage() {
           <TabsTrigger value="facilitators">طلبات الميسّرين</TabsTrigger>
           <TabsTrigger value="settings">الأسعار والإعدادات</TabsTrigger>
           <TabsTrigger value="users">المستخدمون</TabsTrigger>
+          <TabsTrigger value="q360">Q360</TabsTrigger>
         </TabsList>
+
+        <TabsContent value="q360">
+          <Q360Admin />
+        </TabsContent>
+
+
 
         {/* ===== المؤشرات ===== */}
         <TabsContent value="overview">

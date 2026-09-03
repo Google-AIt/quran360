@@ -390,6 +390,54 @@ function Page() {
             <p className="mt-3 max-w-3xl leading-9 text-muted-foreground">{course.description}</p>
             <BagObjectives className="mt-8" />
           </section>
+
+          {/* ===== Q360 — قياس أثر التدريب ===== */}
+          <section className="mt-12 rounded-3xl border border-border bg-card p-6 md:p-8">
+            <span className="rounded-full bg-gold-soft px-3 py-1 text-xs font-medium text-accent-foreground">
+              Q360 — قياس أثر التدريب
+            </span>
+            <h2 className="mt-4 font-display text-2xl font-bold text-primary-deep">
+              هل ظهر أثر ما تعلمته في سلوكك كما يراه من حولك؟
+            </h2>
+            <p className="mt-3 leading-9 text-muted-foreground">
+              لا نكتفي بأن تسأل نفسك: هل استفدت من الدورة؟ بل نساعدك على معرفة أثر التدريب في سلوكك. قبل التدريب
+              تقيس مستوى ممارستك للمهارات المستهدفة، وبعد التدريب تعيد القياس وتقارن النتائج، ويمكنك أيضًا دعوة
+              أشخاص يعرفونك للمشاركة في التقييم.
+            </p>
+
+            <div className="mt-6 grid gap-3 sm:grid-cols-5">
+              {["قياس قبلي", "التدريب والتطبيق", "قياس بعدي", "مقارنة النتائج", "تقرير الأثر"].map((s, i) => (
+                <div key={s} className="rounded-2xl bg-secondary/60 p-4 text-center text-sm text-primary-deep">
+                  <span className="font-display text-lg font-bold text-primary">{i + 1}</span>
+                  <p className="mt-1">{s}</p>
+                </div>
+              ))}
+            </div>
+
+            <ul className="mt-6 grid gap-2 text-sm leading-7 text-muted-foreground sm:grid-cols-2">
+              {[
+                "مستوى أدائك قبل وبعد التدريب",
+                "أكثر المهارات تطوراً",
+                "الجوانب التي تحتاج إلى مزيد من التطوير",
+                "الفرق بين تقييمك لنفسك وتقييم الآخرين",
+                "التغيرات التي لاحظها من حولك",
+              ].map((t) => (
+                <li key={t} className="flex gap-2">
+                  <span className="text-gold">•</span>
+                  {t}
+                </li>
+              ))}
+            </ul>
+
+            <Link
+              to="/q360/course/$slug"
+              params={{ slug }}
+              className="mt-6 inline-block rounded-xl bg-primary px-6 py-3 text-sm font-medium text-primary-foreground"
+            >
+              ابدأ قياس أثر التدريب
+            </Link>
+          </section>
+
         </div>
 
         {/* قائمة الدروس الجانبية */}
@@ -406,7 +454,13 @@ function Page() {
             </div>
             {percent === 100 && (
               <div className="mt-4 rounded-xl bg-accent/20 p-3 text-sm text-primary-deep">
-                <p>أتممت الدورة. انتقل إلى تقييم Q360 البعدي لقياس أثر التطبيق.</p>
+                <p>
+                  أتممت الدورة.{" "}
+                  <Link to="/q360/course/$slug" params={{ slug }} className="text-primary underline">
+                    انتقل إلى القياس البعدي Q360
+                  </Link>{" "}
+                  لقياس أثر التطبيق.
+                </p>
                 {certNumber ? (
                   <Link
                     to="/verify/$number"
