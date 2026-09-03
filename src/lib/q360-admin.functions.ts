@@ -76,12 +76,12 @@ export const saveQ360Program = createServerFn({ method: "POST" })
   .inputValidator(
     (d: {
       courseId: string;
-      title?: string;
-      intro?: string;
-      enabled?: boolean;
-      followupDays?: number;
-      minGroupRaters?: number;
-      inviteValidDays?: number;
+      title?: string | undefined;
+      intro?: string | undefined;
+      enabled?: boolean | undefined;
+      followupDays?: number | undefined;
+      minGroupRaters?: number | undefined;
+      inviteValidDays?: number | undefined;
     }) => d,
   )
   .handler(async ({ data, context }) => {
