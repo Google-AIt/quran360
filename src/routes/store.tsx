@@ -259,8 +259,9 @@ function Page() {
                   </div>
                 </div>
               </article>
-            );
-          })}
+              );
+            })}
+
         </div>
       </section>
     </div>
