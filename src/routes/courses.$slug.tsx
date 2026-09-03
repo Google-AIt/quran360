@@ -306,15 +306,15 @@ function Page() {
                 </div>
 
                 {/* التبويبات التفاعلية */}
-                <div className="mt-8 flex flex-wrap gap-2 border-b border-border pb-3">
+                <div className="mt-8 flex gap-8 overflow-x-auto border-b border-border">
                   {TABS.map((t) => (
                     <button
                       key={t.id}
                       onClick={() => setTab(t.id)}
-                      className={`rounded-full px-4 py-2 text-sm transition-colors ${
+                      className={`shrink-0 border-b-2 pb-4 text-sm whitespace-nowrap transition-colors ${
                         tab === t.id
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-secondary/70 text-primary-deep hover:bg-secondary"
+                          ? "border-accent font-bold text-primary-deep"
+                          : "border-transparent font-medium text-muted-foreground hover:text-primary"
                       }`}
                     >
                       {t.label}
@@ -327,21 +327,32 @@ function Page() {
                     <div>
                       <p className="leading-8 text-muted-foreground">{lesson.description ?? stage?.caption}</p>
                       <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                        <div className="rounded-xl bg-secondary/70 p-5">
-                          <h3 className="font-display font-bold text-primary-deep">النشاط التطبيقي</h3>
-                          <p className="mt-2 text-sm leading-7 text-muted-foreground">
+                        <div className="rounded-2xl border border-border bg-secondary/50 p-5">
+                          <h3 className="flex items-center gap-2 font-display font-bold text-primary-deep">
+                            <span className="flex size-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                              ✦
+                            </span>
+                            النشاط التطبيقي
+                          </h3>
+                          <p className="mt-3 text-sm leading-7 text-muted-foreground">
                             {lesson.activity ?? "نشاط تطبيقي يُضاف مع محتوى الدرس."}
                           </p>
                         </div>
-                        <div className="rounded-xl bg-accent/15 p-5">
-                          <h3 className="font-display font-bold text-primary-deep">التحدي العملي</h3>
-                          <p className="mt-2 text-sm leading-7 text-muted-foreground">
+                        <div className="rounded-2xl border border-accent/30 bg-gradient-to-br from-gold-soft to-accent/15 p-5">
+                          <h3 className="flex items-center gap-2 font-display font-bold text-accent-foreground">
+                            <span className="flex size-8 items-center justify-center rounded-lg bg-accent/20">
+                              🏆
+                            </span>
+                            التحدي العملي
+                          </h3>
+                          <p className="mt-3 text-sm leading-7 text-accent-foreground/80">
                             {lesson.challenge ?? "تحدٍ عملي يُضاف مع محتوى الدرس."}
                           </p>
                         </div>
                       </div>
                     </div>
                   )}
+
 
                   {tab !== "overview" && tab !== "reviews" && !unlocked && (
                     <p className="rounded-2xl bg-secondary/70 p-5 text-sm text-muted-foreground">
