@@ -178,7 +178,10 @@ function Page() {
           subtitle="مسارات مرنة للأفراد والميسّرين والمدارس، مصممة لترافقك من أول خطوة حتى الأثر."
         />
         <div className="mt-8 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {products.map((p) => {
+          {products
+            .filter((p) => p.category !== "bag")
+            .map((p) => {
+
             const c = contentFor(p.slug);
             return (
               <article
