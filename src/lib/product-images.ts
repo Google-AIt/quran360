@@ -1,3 +1,4 @@
+import { bagImage } from "@/lib/bag-images";
 import courseSingle from "@/assets/products/course-single.jpg.asset.json";
 import traineeMembership from "@/assets/products/trainee-membership.jpg.asset.json";
 import facilitatorMembership from "@/assets/products/facilitator-membership.jpg.asset.json";
@@ -19,5 +20,7 @@ export const productImages: Record<string, string> = {
 };
 
 export function productImage(slug: string): string | undefined {
-  return productImages[slug];
+  if (productImages[slug]) return productImages[slug];
+  if (slug.startsWith("bag-")) return bagImage(slug.slice(4));
+  return undefined;
 }

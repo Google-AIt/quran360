@@ -114,4 +114,5 @@ export const categoryLabels: Record<string, string> = {
   facilitator: "الميسّرون",
   school: "المدارس",
   service: "خدمات",
+  bag: "الحقائب القرآنية",
 };
