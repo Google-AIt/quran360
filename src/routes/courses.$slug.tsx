@@ -441,19 +441,22 @@ function Page() {
         </div>
 
         {/* قائمة الدروس الجانبية */}
-        <aside className="mt-8 space-y-4 lg:mt-0">
-          <div className="rounded-2xl border border-border bg-card p-5">
+        <aside className="mt-8 space-y-6 lg:mt-0">
+          <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground">
                 {done.length} من {lessons.length} دروس
               </span>
               <span className="font-display text-lg font-bold text-primary">{percent}%</span>
             </div>
-            <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-secondary">
-              <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${percent}%` }} />
+            <div className="mt-3 h-3 w-full overflow-hidden rounded-full bg-secondary">
+              <div
+                className="h-full rounded-full bg-gradient-to-l from-primary to-accent transition-all duration-500"
+                style={{ width: `${percent}%` }}
+              />
             </div>
             {percent === 100 && (
-              <div className="mt-4 rounded-xl bg-accent/20 p-3 text-sm text-primary-deep">
+              <div className="mt-4 rounded-xl border border-accent/30 bg-gold-soft p-4 text-sm text-accent-foreground">
                 <p>
                   أتممت الدورة.{" "}
                   <Link to="/q360/course/$slug" params={{ slug }} className="text-primary underline">
@@ -483,41 +486,56 @@ function Page() {
             )}
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-border bg-card">
-            <p className="border-b border-border bg-secondary/60 px-5 py-3 font-display font-bold text-primary-deep">
-              محتوى الدورة
-            </p>
-            <ol>
-              {lessons.map((l, i) => (
-                <li key={l.id} className="border-b border-border last:border-0">
-                  <button
-                    onClick={() => {
-                      setActive(i);
-                      setTab("overview");
-                    }}
-                    className={`flex w-full items-start gap-3 px-4 py-3 text-right text-sm transition-colors ${
-                      i === active ? "bg-primary/5" : "hover:bg-secondary/60"
-                    }`}
-                  >
-                    <span
-                      className={`mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs ${
-                        done.includes(l.id) ? "bg-primary text-primary-foreground" : "bg-secondary text-primary-deep"
-                      }`}
+          <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+            <div className="flex items-center justify-between border-b border-border bg-secondary/60 px-5 py-4">
+              <p className="font-display font-bold text-primary-deep">قائمة الدروس</p>
+              <span className="rounded-full bg-card px-3 py-1 text-xs text-muted-foreground">
+                {lessons.length} دروس
+              </span>
+            </div>
+            <ol className="divide-y divide-border">
+              {lessons.map((l, i) => {
+                const isCompleted = done.includes(l.id);
+                return (
+                  <li key={l.id}>
+                    <button
+                      onClick={() => {
+                        setActive(i);
+                        setTab("overview");
+                      }}
+                      className={`flex w-full items-start gap-4 px-4 py-4 text-right text-sm transition-colors ${
+                        i === active
+                          ? "border-r-4 border-accent bg-primary/5"
+                          : "hover:bg-secondary/50"
+                      } ${unlocked || isCompleted ? "" : "opacity-80"}`}
                     >
-                      {done.includes(l.id) ? "✓" : l.lesson_number}
-                    </span>
-                    <span className="text-primary-deep">
-                      <span className="block font-medium">{l.title}</span>
-                      <span className="mt-1 block text-xs text-primary">{lessonStage(l.lesson_number).label}</span>
-                      <span className="mt-1 block text-xs text-muted-foreground">
-                        {l.duration_minutes} دقيقة {unlocked ? "" : "• 🔒"}
+                      <span
+                        className={`mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
+                          isCompleted
+                            ? "bg-primary text-primary-foreground"
+                            : i === active
+                              ? "bg-primary-deep text-primary-foreground"
+                              : "border-2 border-border bg-card text-muted-foreground"
+                        }`}
+                      >
+                        {isCompleted ? "✓" : unlocked ? l.lesson_number : "🔒"}
                       </span>
-                    </span>
-                  </button>
-                </li>
-              ))}
+                      <span className="flex-1 text-primary-deep">
+                        <span className="block font-bold">{l.title}</span>
+                        <span className="mt-1 block text-xs text-primary">
+                          {lessonStage(l.lesson_number).label}
+                        </span>
+                        <span className="mt-1 block text-xs text-muted-foreground">
+                          {l.duration_minutes} دقيقة
+                        </span>
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
             </ol>
           </div>
+
 
           {data!.bag && (
             <Link
