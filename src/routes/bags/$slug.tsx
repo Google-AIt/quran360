@@ -91,7 +91,7 @@ function Page() {
 
       {courseObjectives.length > 0 && (
         <section className="mt-8 rounded-3xl border border-border bg-card p-6 shadow-sm md:p-8">
-          <p className="text-sm font-medium text-primary">من البروشور الرسمي للحقائب القرآنية</p>
+          <p className="text-sm font-medium text-primary">الأهداف التفصيلية للحقيبة</p>
           <h2 className="mt-1 font-display text-2xl font-bold text-primary-deep">
             أهداف دورة {bag.title}
           </h2>
