@@ -59,13 +59,16 @@ export const createOrder = createServerFn({ method: "POST" })
     const total = lines.reduce((s, l) => s + l.subtotal, 0);
     const provider = activeProvider();
 
+    // الوصول يُفعَّل فور إتمام الطلب (وضع التفعيل الفوري)
+    const orderStatus = "paid";
+
     const { data: order, error: orderErr } = await sb
       .from("orders")
       .insert({
         user_id: context.userId,
         total,
         currency: "SAR",
-        status: "pending",
+        status: orderStatus,
         items: lines,
       })
       .select("id, total, currency, status, created_at")
