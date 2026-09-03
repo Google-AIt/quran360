@@ -81,11 +81,39 @@ export const createOrder = createServerFn({ method: "POST" })
       order_id: order.id,
       amount: total,
       provider,
-      status: "pending",
+      status: "paid",
       reference,
     });
 
-    return { orderId: order.id, total, currency: order.currency, provider, reference, lines };
+    // تفعيل الاشتراكات السنوية مباشرة للعضويات وبرامج المدارس
+    const subs = lines.flatMap((l) => {
+      const p = products.find((x) => x.id === l.product_id);
+      if (!p || p.billing_period !== "yearly") return [];
+      const started = new Date();
+      const expires = new Date(started);
+      expires.setFullYear(expires.getFullYear() + 1);
+      return [
+        {
+          user_id: context.userId,
+          plan: p.slug,
+          price: Number(p.price),
+          status: "active",
+          started_at: started.toISOString(),
+          expires_at: expires.toISOString(),
+        },
+      ];
+    });
+    if (subs.length > 0) await sb.from("subscriptions").insert(subs);
+
+    return {
+      orderId: order.id,
+      total,
+      currency: order.currency,
+      provider,
+      reference,
+      lines,
+      status: orderStatus,
+    };
   });
 
 /** طلبات المستخدم الحالي مع حالة الدفع. */
