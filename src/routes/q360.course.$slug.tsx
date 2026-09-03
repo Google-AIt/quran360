@@ -444,11 +444,17 @@ function Page() {
   );
 }
 
-type PhaseReport = NonNullable<Awaited<ReturnType<typeof getQ360State>>> extends { report: infer R }
-  ? R extends Record<string, infer V>
-    ? V
-    : never
-  : never;
+type PhaseReport = {
+  selfScore: number | null;
+  othersScore: number | null;
+  overall: number | null;
+  gap: number | null;
+  raters: number;
+  selfDone: boolean;
+  competencies: { id: string; title: string; self: number | null; others: number | null; overall: number | null }[];
+  groups: { group: string; label: string; count: number; hidden: boolean; score: number | null }[];
+  comments: string[];
+};
 
 function Analysis({
   pre,
