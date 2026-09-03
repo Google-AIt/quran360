@@ -718,6 +718,45 @@ export type Database = {
         }
         Relationships: []
       }
+      q360_answers: {
+        Row: {
+          created_at: string
+          id: string
+          item_id: string
+          score: number | null
+          submission_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          item_id: string
+          score?: number | null
+          submission_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          item_id?: string
+          score?: number | null
+          submission_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "q360_answers_item_id_fkey"
+            columns: ["item_id"]
+            isOneToOne: false
+            referencedRelation: "q360_items"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "q360_answers_submission_id_fkey"
+            columns: ["submission_id"]
+            isOneToOne: false
+            referencedRelation: "q360_submissions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       q360_assessments: {
         Row: {
           average_score: number | null
@@ -752,6 +791,164 @@ export type Database = {
             columns: ["bag_id"]
             isOneToOne: false
             referencedRelation: "quran_bags"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      q360_competencies: {
+        Row: {
+          created_at: string
+          description: string | null
+          id: string
+          program_id: string
+          sort_order: number
+          title: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          program_id: string
+          sort_order?: number
+          title: string
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          id?: string
+          program_id?: string
+          sort_order?: number
+          title?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "q360_competencies_program_id_fkey"
+            columns: ["program_id"]
+            isOneToOne: false
+            referencedRelation: "q360_programs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      q360_invitations: {
+        Row: {
+          created_at: string
+          expires_at: string
+          id: string
+          rater_label: string | null
+          relation: string
+          responded_at: string | null
+          run_id: string
+          status: string
+          token: string
+        }
+        Insert: {
+          created_at?: string
+          expires_at?: string
+          id?: string
+          rater_label?: string | null
+          relation: string
+          responded_at?: string | null
+          run_id: string
+          status?: string
+          token: string
+        }
+        Update: {
+          created_at?: string
+          expires_at?: string
+          id?: string
+          rater_label?: string | null
+          relation?: string
+          responded_at?: string | null
+          run_id?: string
+          status?: string
+          token?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "q360_invitations_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "q360_runs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      q360_items: {
+        Row: {
+          competency_id: string
+          created_at: string
+          id: string
+          sort_order: number
+          text: string
+        }
+        Insert: {
+          competency_id: string
+          created_at?: string
+          id?: string
+          sort_order?: number
+          text: string
+        }
+        Update: {
+          competency_id?: string
+          created_at?: string
+          id?: string
+          sort_order?: number
+          text?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "q360_items_competency_id_fkey"
+            columns: ["competency_id"]
+            isOneToOne: false
+            referencedRelation: "q360_competencies"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      q360_programs: {
+        Row: {
+          course_id: string
+          created_at: string
+          enabled: boolean
+          followup_days: number
+          id: string
+          intro: string | null
+          invite_valid_days: number
+          min_group_raters: number
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          course_id: string
+          created_at?: string
+          enabled?: boolean
+          followup_days?: number
+          id?: string
+          intro?: string | null
+          invite_valid_days?: number
+          min_group_raters?: number
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          course_id?: string
+          created_at?: string
+          enabled?: boolean
+          followup_days?: number
+          id?: string
+          intro?: string | null
+          invite_valid_days?: number
+          min_group_raters?: number
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "q360_programs_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: true
+            referencedRelation: "courses"
             referencedColumns: ["id"]
           },
         ]
@@ -826,6 +1023,108 @@ export type Database = {
             columns: ["question_id"]
             isOneToOne: false
             referencedRelation: "q360_questions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      q360_runs: {
+        Row: {
+          completed_at: string | null
+          course_id: string
+          created_at: string
+          id: string
+          others_score: number | null
+          phase: string
+          program_id: string
+          self_score: number | null
+          status: string
+          user_id: string
+        }
+        Insert: {
+          completed_at?: string | null
+          course_id: string
+          created_at?: string
+          id?: string
+          others_score?: number | null
+          phase: string
+          program_id: string
+          self_score?: number | null
+          status?: string
+          user_id: string
+        }
+        Update: {
+          completed_at?: string | null
+          course_id?: string
+          created_at?: string
+          id?: string
+          others_score?: number | null
+          phase?: string
+          program_id?: string
+          self_score?: number | null
+          status?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "q360_runs_course_id_fkey"
+            columns: ["course_id"]
+            isOneToOne: false
+            referencedRelation: "courses"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "q360_runs_program_id_fkey"
+            columns: ["program_id"]
+            isOneToOne: false
+            referencedRelation: "q360_programs"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      q360_submissions: {
+        Row: {
+          average_score: number | null
+          created_at: string
+          id: string
+          invitation_id: string | null
+          qualitative: Json
+          rater_kind: string
+          relation: string
+          run_id: string
+        }
+        Insert: {
+          average_score?: number | null
+          created_at?: string
+          id?: string
+          invitation_id?: string | null
+          qualitative?: Json
+          rater_kind: string
+          relation: string
+          run_id: string
+        }
+        Update: {
+          average_score?: number | null
+          created_at?: string
+          id?: string
+          invitation_id?: string | null
+          qualitative?: Json
+          rater_kind?: string
+          relation?: string
+          run_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "q360_submissions_invitation_id_fkey"
+            columns: ["invitation_id"]
+            isOneToOne: false
+            referencedRelation: "q360_invitations"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "q360_submissions_run_id_fkey"
+            columns: ["run_id"]
+            isOneToOne: false
+            referencedRelation: "q360_runs"
             referencedColumns: ["id"]
           },
         ]
