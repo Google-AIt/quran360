@@ -176,32 +176,32 @@ function Page() {
 
   return (
     <div className="bg-background">
-      {/* شريط علوي داكن على نمط منصات التعلم */}
-      <div className="bg-primary-deep text-primary-foreground">
-        <div className="mx-auto flex max-w-7xl flex-wrap items-center justify-between gap-4 px-4 py-5">
-          <div>
-            <nav className="text-xs text-primary-foreground/70">
-              <Link to="/academy" className="hover:text-accent">
-                الأكاديمية
-              </Link>
-              <span className="mx-2">/</span>
-              <span>{course.title}</span>
-            </nav>
-            <h1 className="mt-2 font-display text-2xl font-bold sm:text-3xl">{course.title}</h1>
+      <div className="mx-auto max-w-7xl px-4 pt-8">
+        <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
+          <nav className="text-xs text-muted-foreground">
+            <Link to="/academy" className="hover:text-primary">
+              الأكاديمية
+            </Link>
+            <span className="mx-2">/</span>
+            <span>{course.title}</span>
+          </nav>
+          <div className="mt-3 flex flex-wrap items-center justify-between gap-4">
+            <h1 className="font-display text-2xl font-bold text-primary-deep sm:text-3xl">
+              {course.title}
+            </h1>
+            <span className="font-display text-sm font-bold text-primary">{percent}% مكتمل</span>
           </div>
-          <div className="flex items-center gap-4">
-            <div className="text-left">
-              <p className="text-xs text-primary-foreground/70">نسبة الإنجاز</p>
-              <p className="font-display text-xl font-bold text-accent">{percent}%</p>
-            </div>
-            <div className="h-2 w-32 overflow-hidden rounded-full bg-primary-foreground/20">
-              <div className="h-full rounded-full bg-accent transition-all" style={{ width: `${percent}%` }} />
-            </div>
+          <div className="mt-4 h-3 w-full overflow-hidden rounded-full bg-secondary">
+            <div
+              className="h-full rounded-full bg-gradient-to-l from-primary to-accent transition-all duration-500"
+              style={{ width: `${percent}%` }}
+            />
           </div>
         </div>
       </div>
 
-      <div className="mx-auto max-w-7xl gap-8 px-4 py-8 lg:grid lg:grid-cols-[1fr_340px]">
+
+      <div className="mx-auto max-w-7xl gap-8 px-4 py-8 lg:grid lg:grid-cols-[1fr_360px]">
         {/* المشغّل والمحتوى */}
         <div>
           {lesson ? (
@@ -223,16 +223,23 @@ function Page() {
                     allowFullScreen
                   />
                 ) : (
-                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-3 bg-primary-deep/75 p-6 text-center text-primary-foreground">
+                  <div className="absolute inset-0 z-10 flex flex-col items-center justify-center gap-4 bg-gradient-to-b from-primary-deep/60 to-primary-deep/95 p-8 text-center text-primary-foreground">
                     {unlocked ? (
                       <p className="text-sm">فيديو الدرس يُضاف قريبًا من لوحة الإدارة.</p>
                     ) : (
                       <>
-                        <span className="text-3xl">🔒</span>
-                        <p className="text-sm">محتوى الدورة متاح بعد الشراء.</p>
+                        <span className="flex size-20 items-center justify-center rounded-full bg-gold-soft text-3xl shadow-[0_0_36px_rgba(197,160,89,0.35)]">
+                          🔒
+                        </span>
+                        <h3 className="font-display text-2xl font-bold">
+                          هذا المحتوى مخصص للمشتركين
+                        </h3>
+                        <p className="max-w-md text-sm leading-7 text-primary-foreground/85">
+                          انضم إلى الدورة الآن لتتمكن من مشاهدة كافة الدروس والحصول على الشهادة.
+                        </p>
                         <Link
                           to="/store"
-                          className="rounded-xl bg-accent px-5 py-2.5 text-sm font-medium text-accent-foreground"
+                          className="mt-2 rounded-xl bg-gradient-to-l from-accent to-gold px-8 py-3 text-sm font-bold text-accent-foreground shadow-lg transition-transform hover:-translate-y-0.5"
                         >
                           اشترِ الدورة من المتجر
                         </Link>
@@ -241,6 +248,7 @@ function Page() {
                   </div>
                 )}
               </div>
+
 
               <div className="p-6 md:p-8">
                 <div className="flex flex-wrap items-center justify-between gap-3">
@@ -306,15 +314,15 @@ function Page() {
                 </div>
 
                 {/* التبويبات التفاعلية */}
-                <div className="mt-8 flex flex-wrap gap-2 border-b border-border pb-3">
+                <div className="mt-8 flex gap-8 overflow-x-auto border-b border-border">
                   {TABS.map((t) => (
                     <button
                       key={t.id}
                       onClick={() => setTab(t.id)}
-                      className={`rounded-full px-4 py-2 text-sm transition-colors ${
+                      className={`shrink-0 border-b-2 pb-4 text-sm whitespace-nowrap transition-colors ${
                         tab === t.id
-                          ? "bg-primary text-primary-foreground"
-                          : "bg-secondary/70 text-primary-deep hover:bg-secondary"
+                          ? "border-accent font-bold text-primary-deep"
+                          : "border-transparent font-medium text-muted-foreground hover:text-primary"
                       }`}
                     >
                       {t.label}
@@ -327,21 +335,32 @@ function Page() {
                     <div>
                       <p className="leading-8 text-muted-foreground">{lesson.description ?? stage?.caption}</p>
                       <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                        <div className="rounded-xl bg-secondary/70 p-5">
-                          <h3 className="font-display font-bold text-primary-deep">النشاط التطبيقي</h3>
-                          <p className="mt-2 text-sm leading-7 text-muted-foreground">
+                        <div className="rounded-2xl border border-border bg-secondary/50 p-5">
+                          <h3 className="flex items-center gap-2 font-display font-bold text-primary-deep">
+                            <span className="flex size-8 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                              ✦
+                            </span>
+                            النشاط التطبيقي
+                          </h3>
+                          <p className="mt-3 text-sm leading-7 text-muted-foreground">
                             {lesson.activity ?? "نشاط تطبيقي يُضاف مع محتوى الدرس."}
                           </p>
                         </div>
-                        <div className="rounded-xl bg-accent/15 p-5">
-                          <h3 className="font-display font-bold text-primary-deep">التحدي العملي</h3>
-                          <p className="mt-2 text-sm leading-7 text-muted-foreground">
+                        <div className="rounded-2xl border border-accent/30 bg-gradient-to-br from-gold-soft to-accent/15 p-5">
+                          <h3 className="flex items-center gap-2 font-display font-bold text-accent-foreground">
+                            <span className="flex size-8 items-center justify-center rounded-lg bg-accent/20">
+                              🏆
+                            </span>
+                            التحدي العملي
+                          </h3>
+                          <p className="mt-3 text-sm leading-7 text-accent-foreground/80">
                             {lesson.challenge ?? "تحدٍ عملي يُضاف مع محتوى الدرس."}
                           </p>
                         </div>
                       </div>
                     </div>
                   )}
+
 
                   {tab !== "overview" && tab !== "reviews" && !unlocked && (
                     <p className="rounded-2xl bg-secondary/70 p-5 text-sm text-muted-foreground">
@@ -441,19 +460,22 @@ function Page() {
         </div>
 
         {/* قائمة الدروس الجانبية */}
-        <aside className="mt-8 space-y-4 lg:mt-0">
-          <div className="rounded-2xl border border-border bg-card p-5">
+        <aside className="mt-8 space-y-6 lg:mt-0">
+          <div className="rounded-2xl border border-border bg-card p-6 shadow-sm">
             <div className="flex items-center justify-between text-sm">
               <span className="text-muted-foreground">
                 {done.length} من {lessons.length} دروس
               </span>
               <span className="font-display text-lg font-bold text-primary">{percent}%</span>
             </div>
-            <div className="mt-3 h-2 w-full overflow-hidden rounded-full bg-secondary">
-              <div className="h-full rounded-full bg-primary transition-all" style={{ width: `${percent}%` }} />
+            <div className="mt-3 h-3 w-full overflow-hidden rounded-full bg-secondary">
+              <div
+                className="h-full rounded-full bg-gradient-to-l from-primary to-accent transition-all duration-500"
+                style={{ width: `${percent}%` }}
+              />
             </div>
             {percent === 100 && (
-              <div className="mt-4 rounded-xl bg-accent/20 p-3 text-sm text-primary-deep">
+              <div className="mt-4 rounded-xl border border-accent/30 bg-gold-soft p-4 text-sm text-accent-foreground">
                 <p>
                   أتممت الدورة.{" "}
                   <Link to="/q360/course/$slug" params={{ slug }} className="text-primary underline">
@@ -483,41 +505,56 @@ function Page() {
             )}
           </div>
 
-          <div className="overflow-hidden rounded-2xl border border-border bg-card">
-            <p className="border-b border-border bg-secondary/60 px-5 py-3 font-display font-bold text-primary-deep">
-              محتوى الدورة
-            </p>
-            <ol>
-              {lessons.map((l, i) => (
-                <li key={l.id} className="border-b border-border last:border-0">
-                  <button
-                    onClick={() => {
-                      setActive(i);
-                      setTab("overview");
-                    }}
-                    className={`flex w-full items-start gap-3 px-4 py-3 text-right text-sm transition-colors ${
-                      i === active ? "bg-primary/5" : "hover:bg-secondary/60"
-                    }`}
-                  >
-                    <span
-                      className={`mt-0.5 flex size-6 shrink-0 items-center justify-center rounded-full text-xs ${
-                        done.includes(l.id) ? "bg-primary text-primary-foreground" : "bg-secondary text-primary-deep"
-                      }`}
+          <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+            <div className="flex items-center justify-between border-b border-border bg-secondary/60 px-5 py-4">
+              <p className="font-display font-bold text-primary-deep">قائمة الدروس</p>
+              <span className="rounded-full bg-card px-3 py-1 text-xs text-muted-foreground">
+                {lessons.length} دروس
+              </span>
+            </div>
+            <ol className="divide-y divide-border">
+              {lessons.map((l, i) => {
+                const isCompleted = done.includes(l.id);
+                return (
+                  <li key={l.id}>
+                    <button
+                      onClick={() => {
+                        setActive(i);
+                        setTab("overview");
+                      }}
+                      className={`flex w-full items-start gap-4 px-4 py-4 text-right text-sm transition-colors ${
+                        i === active
+                          ? "border-r-4 border-accent bg-primary/5"
+                          : "hover:bg-secondary/50"
+                      } ${unlocked || isCompleted ? "" : "opacity-80"}`}
                     >
-                      {done.includes(l.id) ? "✓" : l.lesson_number}
-                    </span>
-                    <span className="text-primary-deep">
-                      <span className="block font-medium">{l.title}</span>
-                      <span className="mt-1 block text-xs text-primary">{lessonStage(l.lesson_number).label}</span>
-                      <span className="mt-1 block text-xs text-muted-foreground">
-                        {l.duration_minutes} دقيقة {unlocked ? "" : "• 🔒"}
+                      <span
+                        className={`mt-0.5 flex size-9 shrink-0 items-center justify-center rounded-full text-xs font-bold ${
+                          isCompleted
+                            ? "bg-primary text-primary-foreground"
+                            : i === active
+                              ? "bg-primary-deep text-primary-foreground"
+                              : "border-2 border-border bg-card text-muted-foreground"
+                        }`}
+                      >
+                        {isCompleted ? "✓" : unlocked ? l.lesson_number : "🔒"}
                       </span>
-                    </span>
-                  </button>
-                </li>
-              ))}
+                      <span className="flex-1 text-primary-deep">
+                        <span className="block font-bold">{l.title}</span>
+                        <span className="mt-1 block text-xs text-primary">
+                          {lessonStage(l.lesson_number).label}
+                        </span>
+                        <span className="mt-1 block text-xs text-muted-foreground">
+                          {l.duration_minutes} دقيقة
+                        </span>
+                      </span>
+                    </button>
+                  </li>
+                );
+              })}
             </ol>
           </div>
+
 
           {data!.bag && (
             <Link
