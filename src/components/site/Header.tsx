@@ -21,9 +21,20 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const { count } = useCart();
 
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
   return (
-    <header dir="rtl" className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur">
+    <>
+      <header dir="rtl" className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3">
+
         {/* أقصى اليمين: زر القائمة منفرداً */}
         <button
           aria-label="القائمة"
