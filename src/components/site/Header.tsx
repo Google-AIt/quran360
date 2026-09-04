@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, UserRound, ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/cart";
-import logoAsset from "@/assets/logo/quran-step-logo.png.asset.json";
+import logoDark from "@/assets/logo/quran-step-logo-dark.png";
 
 const links = [
   { to: "/", label: "الرئيسية" },
@@ -23,19 +23,19 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
-        <Link to="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
+      <div className="mx-auto flex max-w-7xl flex-row-reverse items-center justify-between gap-4 px-4 py-3">
+        <Link to="/" className="flex shrink-0 items-center gap-3" onClick={() => setOpen(false)}>
           <img
-            src={logoAsset.url}
+            src={logoDark}
             alt="القرآن خطوة بخطوة"
             width={188}
             height={49}
-            className="h-auto w-40 object-contain sm:w-48"
+            className="h-auto w-32 object-contain sm:w-44 xl:w-48"
           />
           <span className="sr-only">القرآن خطوة بخطوة</span>
         </Link>
 
-        <nav className="hidden items-center gap-1 xl:flex">
+        <nav dir="rtl" className="hidden items-center gap-1 xl:flex">
           {links.map((l) => (
             <Link
               key={l.to}
@@ -57,7 +57,7 @@ export function Header() {
           >
             <ShoppingCart className="size-5" />
             {count > 0 && (
-              <span className="absolute -top-1.5 -left-1.5 flex min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[11px] font-bold text-accent-foreground">
+              <span className="absolute -top-1.5 -end-1.5 flex min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[11px] font-bold text-accent-foreground">
                 {count}
               </span>
             )}
