@@ -23,19 +23,19 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
-        <Link to="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
+      <div className="mx-auto flex max-w-7xl flex-row-reverse items-center justify-between gap-4 px-4 py-3">
+        <Link to="/" className="flex shrink-0 items-center gap-3" onClick={() => setOpen(false)}>
           <img
-            src={logoAsset.url}
+            src={logoDark}
             alt="القرآن خطوة بخطوة"
             width={188}
             height={49}
-            className="h-auto w-40 object-contain sm:w-48"
+            className="h-auto w-32 object-contain sm:w-44 xl:w-48"
           />
           <span className="sr-only">القرآن خطوة بخطوة</span>
         </Link>
 
-        <nav className="hidden items-center gap-1 xl:flex">
+        <nav dir="rtl" className="me-auto hidden items-center gap-1 xl:flex">
           {links.map((l) => (
             <Link
               key={l.to}
