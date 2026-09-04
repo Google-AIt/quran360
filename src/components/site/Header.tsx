@@ -98,17 +98,18 @@ export function Header() {
           <span className="sr-only">القرآن خطوة بخطوة</span>
         </Link>
       </div>
+      </header>
 
       {open && (
         <>
           <div
-            className="fixed inset-0 z-40 bg-foreground/40 backdrop-blur-sm"
+            className="fixed inset-0 z-[60] bg-foreground/40"
             onClick={() => setOpen(false)}
             aria-hidden
           />
           <nav
             dir="rtl"
-            className="fixed inset-y-0 right-0 z-50 flex w-72 max-w-[85vw] flex-col gap-1 overflow-y-auto border-s border-border bg-card px-4 py-4 text-right shadow-xl"
+            className="fixed inset-y-0 right-0 z-[70] flex w-72 max-w-[85vw] flex-col gap-1 overflow-y-auto border-s border-border bg-card px-4 py-4 text-right shadow-xl"
           >
             <div className="mb-2 flex items-center justify-between">
               <span className="text-sm font-semibold text-primary-deep">القائمة</span>
@@ -147,7 +148,8 @@ export function Header() {
           </nav>
         </>
       )}
-    </header>
+    </>
   );
 }
+
 
