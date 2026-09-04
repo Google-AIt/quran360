@@ -22,34 +22,19 @@ export function Header() {
   const { count } = useCart();
 
   return (
-    <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl flex-row-reverse items-center justify-between gap-4 px-4 py-3">
-        <Link to="/" className="flex shrink-0 items-center gap-3" onClick={() => setOpen(false)}>
-          <img
-            src={logoDark}
-            alt="القرآن خطوة بخطوة"
-            width={188}
-            height={49}
-            className="h-auto w-32 object-contain sm:w-44 xl:w-48"
-          />
-          <span className="sr-only">القرآن خطوة بخطوة</span>
-        </Link>
+    <header dir="rtl" className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur">
+      <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3">
+        {/* أقصى اليمين: زر القائمة منفرداً */}
+        <button
+          aria-label="القائمة"
+          aria-expanded={open}
+          onClick={() => setOpen((v) => !v)}
+          className="order-1 inline-flex size-10 shrink-0 items-center justify-center rounded-lg border border-border text-foreground/80 hover:bg-secondary"
+        >
+          {open ? <X className="size-5" /> : <Menu className="size-5" />}
+        </button>
 
-        <nav dir="rtl" className="hidden items-center gap-1 xl:flex">
-          {links.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              activeOptions={{ exact: l.to === "/" }}
-              activeProps={{ className: "bg-secondary text-primary-deep" }}
-              className="rounded-lg px-3 py-2 text-sm text-foreground/80 transition-colors hover:bg-secondary hover:text-primary-deep"
-            >
-              {l.label}
-            </Link>
-          ))}
-        </nav>
-
-        <div className="flex items-center gap-2">
+        <div className="order-2 flex shrink-0 items-center gap-2 border-e border-border/70 pe-3">
           <Link
             to="/cart"
             aria-label="سلة المشتريات"
@@ -64,42 +49,94 @@ export function Header() {
           </Link>
           <Link
             to="/account"
-            className="hidden items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:inline-flex"
+            aria-label="حسابي"
+            className="inline-flex items-center gap-2 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:px-4"
           >
             <UserRound className="size-4" />
-            حسابي
+            <span className="hidden sm:inline">حسابي</span>
           </Link>
-          <button
-            aria-label="القائمة"
-            onClick={() => setOpen((v) => !v)}
-            className="inline-flex size-10 items-center justify-center rounded-lg border border-border xl:hidden"
-          >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
-          </button>
         </div>
-      </div>
 
-      {open && (
-        <nav className="grid gap-1 border-t border-border bg-card px-4 py-3 xl:hidden">
+        <nav className="order-3 hidden min-w-0 flex-1 items-center justify-start gap-1 xl:flex">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
-              onClick={() => setOpen(false)}
-              className="rounded-lg px-3 py-2 text-sm text-foreground/85 hover:bg-secondary"
+              activeOptions={{ exact: l.to === "/" }}
+              activeProps={{ className: "bg-secondary text-primary-deep" }}
+              className="rounded-lg px-3 py-2 text-sm whitespace-nowrap text-foreground/80 transition-colors hover:bg-secondary hover:text-primary-deep"
             >
               {l.label}
             </Link>
           ))}
-          <Link
-            to="/account"
-            onClick={() => setOpen(false)}
-            className="rounded-lg bg-primary px-3 py-2 text-center text-sm font-medium text-primary-foreground"
-          >
-            حسابي
-          </Link>
         </nav>
+
+        {/* أقصى اليسار: الشعار */}
+        <Link
+          to="/"
+          className="order-4 ms-auto flex shrink-0 items-center gap-3 xl:ms-0"
+          onClick={() => setOpen(false)}
+        >
+          <img
+            src={logoDark}
+            alt="القرآن خطوة بخطوة"
+            width={188}
+            height={49}
+            className="h-auto w-28 object-contain sm:w-40 xl:w-48"
+          />
+          <span className="sr-only">القرآن خطوة بخطوة</span>
+        </Link>
+      </div>
+
+      {open && (
+        <>
+          <div
+            className="fixed inset-0 z-40 bg-foreground/40 backdrop-blur-sm"
+            onClick={() => setOpen(false)}
+            aria-hidden
+          />
+          <nav
+            dir="rtl"
+            className="fixed inset-y-0 right-0 z-50 flex w-72 max-w-[85vw] flex-col gap-1 overflow-y-auto border-s border-border bg-card px-4 py-4 text-right shadow-xl"
+          >
+            <div className="mb-2 flex items-center justify-between">
+              <span className="text-sm font-semibold text-primary-deep">القائمة</span>
+              <button
+                aria-label="إغلاق القائمة"
+                onClick={() => setOpen(false)}
+                className="inline-flex size-9 items-center justify-center rounded-lg border border-border"
+              >
+                <X className="size-5" />
+              </button>
+            </div>
+            {links.map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                onClick={() => setOpen(false)}
+                className="rounded-lg px-3 py-2 text-right text-sm text-foreground/85 hover:bg-secondary"
+              >
+                {l.label}
+              </Link>
+            ))}
+            <Link
+              to="/cart"
+              onClick={() => setOpen(false)}
+              className="rounded-lg px-3 py-2 text-right text-sm text-foreground/85 hover:bg-secondary"
+            >
+              سلة المشتريات
+            </Link>
+            <Link
+              to="/account"
+              onClick={() => setOpen(false)}
+              className="mt-2 rounded-lg bg-primary px-3 py-2 text-center text-sm font-medium text-primary-foreground"
+            >
+              حسابي
+            </Link>
+          </nav>
+        </>
       )}
     </header>
   );
 }
+
