@@ -57,7 +57,7 @@ export function Header() {
           >
             <ShoppingCart className="size-5" />
             {count > 0 && (
-              <span className="absolute -top-1.5 -left-1.5 flex min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[11px] font-bold text-accent-foreground">
+              <span className="absolute -top-1.5 -end-1.5 flex min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[11px] font-bold text-accent-foreground">
                 {count}
               </span>
             )}
