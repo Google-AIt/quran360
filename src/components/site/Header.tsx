@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { Menu, X, UserRound, ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/cart";
-import logoAsset from "@/assets/logo/quran-step-logo.png.asset.json";
+import logoDark from "@/assets/logo/quran-step-logo-dark.png";
 
 const links = [
   { to: "/", label: "الرئيسية" },
