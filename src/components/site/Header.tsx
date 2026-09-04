@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X, UserRound, ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/cart";
 import logoDark from "@/assets/logo/quran-step-logo-dark.png";
@@ -21,9 +21,20 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const { count } = useCart();
 
+  useEffect(() => {
+    if (!open) return;
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      document.body.style.overflow = prev;
+    };
+  }, [open]);
+
   return (
-    <header dir="rtl" className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur">
+    <>
+      <header dir="rtl" className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3">
+
         {/* أقصى اليمين: زر القائمة منفرداً */}
         <button
           aria-label="القائمة"
@@ -87,17 +98,18 @@ export function Header() {
           <span className="sr-only">القرآن خطوة بخطوة</span>
         </Link>
       </div>
+      </header>
 
       {open && (
         <>
           <div
-            className="fixed inset-0 z-40 bg-foreground/40 backdrop-blur-sm"
+            className="fixed inset-0 z-[60] bg-foreground/40"
             onClick={() => setOpen(false)}
             aria-hidden
           />
           <nav
             dir="rtl"
-            className="fixed inset-y-0 right-0 z-50 flex w-72 max-w-[85vw] flex-col gap-1 overflow-y-auto border-s border-border bg-card px-4 py-4 text-right shadow-xl"
+            className="fixed inset-y-0 right-0 z-[70] flex w-72 max-w-[85vw] flex-col gap-1 overflow-y-auto border-s border-border bg-card px-4 py-4 text-right shadow-xl"
           >
             <div className="mb-2 flex items-center justify-between">
               <span className="text-sm font-semibold text-primary-deep">القائمة</span>
@@ -136,7 +148,8 @@ export function Header() {
           </nav>
         </>
       )}
-    </header>
+    </>
   );
 }
+
 
