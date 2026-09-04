@@ -66,6 +66,25 @@ function Page() {
         }
       />
 
+      <section className="mt-14">
+        <SectionTitle
+          title="تعرّف على المنهجية في فيديو"
+          subtitle="شرح مختصر لفكرة المنهجية التطبيقية وكيف تنتقل بالقرآن من الفهم إلى السلوك."
+        />
+        <div className="mt-8 overflow-hidden rounded-[2rem] border border-border bg-card p-2 shadow-lg md:p-3">
+          <div className="relative aspect-video w-full overflow-hidden rounded-[1.5rem] bg-primary-deep">
+            <iframe
+              className="absolute inset-0 size-full"
+              src="https://www.youtube-nocookie.com/embed/-feJn4g0Zfk?rel=0"
+              title="المنهجية التطبيقية للقرآن الكريم"
+              loading="lazy"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              referrerPolicy="strict-origin-when-cross-origin"
+              allowFullScreen
+            />
+          </div>
+        </div>
+      </section>
 
 
       <section className="mt-16">
