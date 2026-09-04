@@ -23,29 +23,53 @@ export function Header() {
 
   useEffect(() => {
     if (!open) return;
-    const prev = document.body.style.overflow;
-    document.body.style.overflow = "hidden";
+    const closeOnEscape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", closeOnEscape);
     return () => {
-      document.body.style.overflow = prev;
+      window.removeEventListener("keydown", closeOnEscape);
     };
   }, [open]);
 
   return (
     <>
-      <header dir="rtl" className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur">
-      <div className="mx-auto flex max-w-7xl items-center gap-3 px-4 py-3">
+      <header dir="rtl" className="sticky top-0 z-50 border-b border-border/70 bg-background/95 backdrop-blur">
+      <div dir="ltr" className="mx-auto flex max-w-7xl items-center gap-2 px-4 py-3 sm:gap-3">
 
-        {/* أقصى اليمين: زر القائمة منفرداً */}
-        <button
-          aria-label="القائمة"
-          aria-expanded={open}
-          onClick={() => setOpen((v) => !v)}
-          className="order-1 inline-flex size-10 shrink-0 items-center justify-center rounded-lg border border-border text-foreground/80 hover:bg-secondary"
+        {/* أقصى اليسار: الشعار */}
+        <Link
+          to="/"
+          className="flex shrink-0 items-center"
+          onClick={() => setOpen(false)}
         >
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
-        </button>
+          <img
+            src={logoDark}
+            alt="القرآن خطوة بخطوة"
+            width={188}
+            height={49}
+            className="h-auto w-28 object-contain sm:w-40 xl:w-48"
+          />
+          <span className="sr-only">القرآن خطوة بخطوة</span>
+        </Link>
 
-        <div className="order-2 flex shrink-0 items-center gap-2 border-e border-border/70 pe-3">
+        <nav dir="rtl" className="hidden min-w-0 flex-1 items-center justify-center gap-1 2xl:flex">
+          {links.map((l) => (
+            <Link
+              key={l.to}
+              to={l.to}
+              activeOptions={{ exact: l.to === "/" }}
+              activeProps={{ className: "bg-secondary text-primary-deep" }}
+              className="rounded-lg px-2.5 py-2 text-sm whitespace-nowrap text-foreground/80 transition-colors hover:bg-secondary hover:text-primary-deep"
+            >
+              {l.label}
+            </Link>
+          ))}
+        </nav>
+
+        <div className="min-w-0 flex-1 2xl:hidden" />
+
+        <div dir="rtl" className="flex shrink-0 items-center gap-2 border-s border-border/70 ps-2 sm:ps-3">
           <Link
             to="/cart"
             aria-label="سلة المشتريات"
@@ -68,86 +92,50 @@ export function Header() {
           </Link>
         </div>
 
-        <nav className="order-3 hidden min-w-0 flex-1 items-center justify-start gap-1 xl:flex">
-          {links.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              activeOptions={{ exact: l.to === "/" }}
-              activeProps={{ className: "bg-secondary text-primary-deep" }}
-              className="rounded-lg px-3 py-2 text-sm whitespace-nowrap text-foreground/80 transition-colors hover:bg-secondary hover:text-primary-deep"
-            >
-              {l.label}
-            </Link>
-          ))}
-        </nav>
-
-        {/* أقصى اليسار: الشعار */}
-        <Link
-          to="/"
-          className="order-4 ms-auto flex shrink-0 items-center gap-3 xl:ms-0"
-          onClick={() => setOpen(false)}
+        {/* أقصى اليمين: زر القائمة منفرداً */}
+        <button
+          type="button"
+          aria-label={open ? "إغلاق القائمة" : "فتح القائمة"}
+          aria-expanded={open}
+          aria-controls="site-navigation-menu"
+          onClick={() => setOpen((value) => !value)}
+          className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg border border-border text-foreground/80 transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
-          <img
-            src={logoDark}
-            alt="القرآن خطوة بخطوة"
-            width={188}
-            height={49}
-            className="h-auto w-28 object-contain sm:w-40 xl:w-48"
-          />
-          <span className="sr-only">القرآن خطوة بخطوة</span>
-        </Link>
+          {open ? <X className="size-5" /> : <Menu className="size-5" />}
+        </button>
       </div>
-      </header>
 
       {open && (
         <>
           <div
-            className="fixed inset-0 z-[60] bg-foreground/40"
+            className="fixed inset-0 top-[65px] z-[-1] bg-foreground/30"
             onClick={() => setOpen(false)}
             aria-hidden
           />
           <nav
+            id="site-navigation-menu"
             dir="rtl"
-            className="fixed inset-y-0 right-0 z-[70] flex w-72 max-w-[85vw] flex-col gap-1 overflow-y-auto border-s border-border bg-card px-4 py-4 text-right shadow-xl"
+            aria-label="التنقل الرئيسي"
+            className="absolute inset-x-0 top-full z-10 border-b border-border bg-card text-right shadow-xl"
           >
-            <div className="mb-2 flex items-center justify-between">
-              <span className="text-sm font-semibold text-primary-deep">القائمة</span>
-              <button
-                aria-label="إغلاق القائمة"
-                onClick={() => setOpen(false)}
-                className="inline-flex size-9 items-center justify-center rounded-lg border border-border"
-              >
-                <X className="size-5" />
-              </button>
+            <div className="mx-auto grid max-h-[calc(100vh-65px)] max-w-7xl grid-cols-1 gap-1 overflow-y-auto px-4 py-4 sm:grid-cols-2 lg:grid-cols-3">
+              {links.map((l) => (
+                <Link
+                  key={l.to}
+                  to={l.to}
+                  onClick={() => setOpen(false)}
+                  activeOptions={{ exact: l.to === "/" }}
+                  activeProps={{ className: "bg-secondary text-primary-deep" }}
+                  className="rounded-lg px-4 py-3 text-right text-sm font-medium text-foreground/85 transition-colors hover:bg-secondary"
+                >
+                  {l.label}
+                </Link>
+              ))}
             </div>
-            {links.map((l) => (
-              <Link
-                key={l.to}
-                to={l.to}
-                onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-2 text-right text-sm text-foreground/85 hover:bg-secondary"
-              >
-                {l.label}
-              </Link>
-            ))}
-            <Link
-              to="/cart"
-              onClick={() => setOpen(false)}
-              className="rounded-lg px-3 py-2 text-right text-sm text-foreground/85 hover:bg-secondary"
-            >
-              سلة المشتريات
-            </Link>
-            <Link
-              to="/account"
-              onClick={() => setOpen(false)}
-              className="mt-2 rounded-lg bg-primary px-3 py-2 text-center text-sm font-medium text-primary-foreground"
-            >
-              حسابي
-            </Link>
           </nav>
         </>
       )}
+      </header>
     </>
   );
 }
