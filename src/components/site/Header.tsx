@@ -35,7 +35,7 @@ export function Header() {
           <span className="sr-only">القرآن خطوة بخطوة</span>
         </Link>
 
-        <nav dir="rtl" className="me-auto hidden items-center gap-1 xl:flex">
+        <nav dir="rtl" className="hidden items-center gap-1 xl:flex">
           {links.map((l) => (
             <Link
               key={l.to}
