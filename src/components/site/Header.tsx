@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Menu, X, UserRound, ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/cart";
 import logoDark from "@/assets/logo/quran-step-logo-dark.png";
@@ -21,28 +21,10 @@ export function Header() {
   const [open, setOpen] = useState(false);
   const { count } = useCart();
 
-  useEffect(() => {
-    if (!open) return;
-    const closeOnEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") setOpen(false);
-    };
-    window.addEventListener("keydown", closeOnEscape);
-    return () => {
-      window.removeEventListener("keydown", closeOnEscape);
-    };
-  }, [open]);
-
   return (
-    <>
-      <header dir="rtl" className="sticky top-0 z-50 border-b border-border/70 bg-background/95 backdrop-blur">
-      <div dir="ltr" className="mx-auto flex max-w-7xl items-center gap-2 px-4 py-3 sm:gap-3">
-
-        {/* أقصى اليسار: الشعار */}
-        <Link
-          to="/"
-          className="flex shrink-0 items-center"
-          onClick={() => setOpen(false)}
-        >
+    <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur">
+      <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
+        <Link to="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
           <img
             src={logoDark}
             alt="القرآن خطوة بخطوة"
@@ -53,23 +35,21 @@ export function Header() {
           <span className="sr-only">القرآن خطوة بخطوة</span>
         </Link>
 
-        <nav dir="rtl" className="hidden min-w-0 flex-1 items-center justify-center gap-1 2xl:flex">
+        <nav className="hidden items-center gap-1 xl:flex">
           {links.map((l) => (
             <Link
               key={l.to}
               to={l.to}
               activeOptions={{ exact: l.to === "/" }}
               activeProps={{ className: "bg-secondary text-primary-deep" }}
-              className="rounded-lg px-2.5 py-2 text-sm whitespace-nowrap text-foreground/80 transition-colors hover:bg-secondary hover:text-primary-deep"
+              className="rounded-lg px-3 py-2 text-sm text-foreground/80 transition-colors hover:bg-secondary hover:text-primary-deep"
             >
               {l.label}
             </Link>
           ))}
         </nav>
 
-        <div className="min-w-0 flex-1 2xl:hidden" />
-
-        <div dir="rtl" className="flex shrink-0 items-center gap-2 border-s border-border/70 ps-2 sm:ps-3">
+        <div className="flex items-center gap-2">
           <Link
             to="/cart"
             aria-label="سلة المشتريات"
@@ -77,67 +57,49 @@ export function Header() {
           >
             <ShoppingCart className="size-5" />
             {count > 0 && (
-              <span className="absolute -top-1.5 -end-1.5 flex min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[11px] font-bold text-accent-foreground">
+              <span className="absolute -top-1.5 -left-1.5 flex min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[11px] font-bold text-accent-foreground">
                 {count}
               </span>
             )}
           </Link>
           <Link
             to="/account"
-            aria-label="حسابي"
-            className="inline-flex items-center gap-2 rounded-lg bg-primary px-3 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:px-4"
+            className="hidden items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:inline-flex"
           >
             <UserRound className="size-4" />
-            <span className="hidden sm:inline">حسابي</span>
+            حسابي
           </Link>
+          <button
+            aria-label="القائمة"
+            onClick={() => setOpen((v) => !v)}
+            className="inline-flex size-10 items-center justify-center rounded-lg border border-border xl:hidden"
+          >
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
         </div>
-
-        {/* أقصى اليمين: زر القائمة منفرداً */}
-        <button
-          type="button"
-          aria-label={open ? "إغلاق القائمة" : "فتح القائمة"}
-          aria-expanded={open}
-          aria-controls="site-navigation-menu"
-          onClick={() => setOpen((value) => !value)}
-          className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg border border-border text-foreground/80 transition-colors hover:bg-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-        >
-          {open ? <X className="size-5" /> : <Menu className="size-5" />}
-        </button>
       </div>
 
       {open && (
-        <>
-          <div
-            className="fixed inset-0 top-[65px] z-[-1] bg-foreground/30"
+        <nav className="grid gap-1 border-t border-border bg-card px-4 py-3 xl:hidden">
+          {links.map((l) => (
+            <Link
+              key={l.to}
+              to={l.to}
+              onClick={() => setOpen(false)}
+              className="rounded-lg px-3 py-2 text-sm text-foreground/85 hover:bg-secondary"
+            >
+              {l.label}
+            </Link>
+          ))}
+          <Link
+            to="/account"
             onClick={() => setOpen(false)}
-            aria-hidden
-          />
-          <nav
-            id="site-navigation-menu"
-            dir="rtl"
-            aria-label="التنقل الرئيسي"
-            className="absolute inset-x-0 top-full z-10 border-b border-border bg-card text-right shadow-xl"
+            className="rounded-lg bg-primary px-3 py-2 text-center text-sm font-medium text-primary-foreground"
           >
-            <div className="mx-auto grid max-h-[calc(100vh-65px)] max-w-7xl grid-cols-1 gap-1 overflow-y-auto px-4 py-4 sm:grid-cols-2 lg:grid-cols-3">
-              {links.map((l) => (
-                <Link
-                  key={l.to}
-                  to={l.to}
-                  onClick={() => setOpen(false)}
-                  activeOptions={{ exact: l.to === "/" }}
-                  activeProps={{ className: "bg-secondary text-primary-deep" }}
-                  className="rounded-lg px-4 py-3 text-right text-sm font-medium text-foreground/85 transition-colors hover:bg-secondary"
-                >
-                  {l.label}
-                </Link>
-              ))}
-            </div>
-          </nav>
-        </>
+            حسابي
+          </Link>
+        </nav>
       )}
-      </header>
-    </>
+    </header>
   );
 }
-
-
