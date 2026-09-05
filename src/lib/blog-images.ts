@@ -13,6 +13,12 @@ import quranInFamily from "@/assets/blog/quran-in-family.jpg";
 import quranAtWork from "@/assets/blog/quran-at-work.jpg";
 import quranRelationships from "@/assets/blog/quran-relationships.jpg";
 import knowledgeToChange from "@/assets/blog/knowledge-to-change.jpg";
+import understandQuran from "@/assets/blog/understand-quran.jpg";
+import tadabburToPractice from "@/assets/blog/tadabbur-to-practice.jpg";
+import learnToApply from "@/assets/blog/learn-to-apply.jpg";
+import ayaToBehavior from "@/assets/blog/aya-to-behavior.jpg";
+import impactOfPractice from "@/assets/blog/impact-of-practice.jpg";
+import reviewImpact from "@/assets/blog/review-impact.jpg";
 
 type OfficialBlogSource = {
   image: string;
@@ -54,18 +60,18 @@ export const officialBlogSources: Record<string, OfficialBlogSource> = {
   // سلسلة «من الفهم إلى التطبيق»
   "limadha-nataallam-alquran": { image: whyLearnQuran },
   "altasawwur-alsahih-an-alquran": { image: correctPerception },
-  "kayfa-nafham-alquran": { image: quranRules },
+  "kayfa-nafham-alquran": { image: understandQuran },
   "alquran-walsunnah-manhaj-mutakamil": { image: quranSunnah },
-  "min-altadabbur-ila-altatbiq": { image: quranReflection },
-  "taallam-litutabbiq": { image: fromKnowledgeToPractice },
-  "kayfa-nuhawwil-alaya-ila-suluk": { image: quranWalks },
+  "min-altadabbur-ila-altatbiq": { image: tadabburToPractice },
+  "taallam-litutabbiq": { image: learnToApply },
+  "kayfa-nuhawwil-alaya-ila-suluk": { image: ayaToBehavior },
   "bina-aladat-alquraniyya": { image: quranicHabits },
   "tatbiq-alquran-fi-alusra": { image: quranInFamily },
   "tatbiq-alquran-fi-alamal": { image: quranAtWork },
   "tatbiq-alquran-fi-alalaqat": { image: quranRelationships },
-  "qiyas-athar-tatbiq-alquran": { image: impactMeasurement },
+  "qiyas-athar-tatbiq-alquran": { image: impactOfPractice },
   "min-almarifa-ila-altaghyir": { image: knowledgeToChange },
-  "murajaat-athar-altatbiq": { image: saadiDirection },
+  "murajaat-athar-altatbiq": { image: reviewImpact },
 };
 
 export function officialBlogSource(slug: string) {
