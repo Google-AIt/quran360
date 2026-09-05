@@ -11,7 +11,7 @@ import { BagObjectives, ObjectiveChips } from "@/components/site/BagObjectives";
 import { useCart } from "@/lib/cart";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { PageHero, SectionTitle } from "@/components/site/PageHero";
+import { SectionTitle } from "@/components/site/PageHero";
 
 const q = queryOptions({
   queryKey: ["store"],
