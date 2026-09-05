@@ -5,6 +5,14 @@ import quranReflection from "@/assets/blog/quran-reflection.jpg";
 import fromKnowledgeToPractice from "@/assets/blog/from-knowledge-to-practice.jpg";
 import mentalConcept from "@/assets/blog/mental-concept.jpg";
 import impactMeasurement from "@/assets/blog/impact-measurement.jpg";
+import whyLearnQuran from "@/assets/blog/why-learn-quran.jpg";
+import correctPerception from "@/assets/blog/correct-perception.jpg";
+import quranSunnah from "@/assets/blog/quran-sunnah.jpg";
+import quranicHabits from "@/assets/blog/quranic-habits.jpg";
+import quranInFamily from "@/assets/blog/quran-in-family.jpg";
+import quranAtWork from "@/assets/blog/quran-at-work.jpg";
+import quranRelationships from "@/assets/blog/quran-relationships.jpg";
+import knowledgeToChange from "@/assets/blog/knowledge-to-change.jpg";
 
 type OfficialBlogSource = {
   image: string;
@@ -42,6 +50,22 @@ export const officialBlogSources: Record<string, OfficialBlogSource> = {
     sourceUrl: "https://quranstepbystep.com/%d8%aa%d8%af%d8%a8%d8%b1-%d8%a7%d9%84%d9%82%d8%b1%d8%a2%d9%86-%d8%a7%d9%84%d9%83%d8%b1%d9%8a%d9%85/",
     sourceLabel: "منقول من الموقع الرسمي",
   },
+
+  // سلسلة «من الفهم إلى التطبيق»
+  "limadha-nataallam-alquran": { image: whyLearnQuran },
+  "altasawwur-alsahih-an-alquran": { image: correctPerception },
+  "kayfa-nafham-alquran": { image: quranRules },
+  "alquran-walsunnah-manhaj-mutakamil": { image: quranSunnah },
+  "min-altadabbur-ila-altatbiq": { image: quranReflection },
+  "taallam-litutabbiq": { image: fromKnowledgeToPractice },
+  "kayfa-nuhawwil-alaya-ila-suluk": { image: quranWalks },
+  "bina-aladat-alquraniyya": { image: quranicHabits },
+  "tatbiq-alquran-fi-alusra": { image: quranInFamily },
+  "tatbiq-alquran-fi-alamal": { image: quranAtWork },
+  "tatbiq-alquran-fi-alalaqat": { image: quranRelationships },
+  "qiyas-athar-tatbiq-alquran": { image: impactMeasurement },
+  "min-almarifa-ila-altaghyir": { image: knowledgeToChange },
+  "murajaat-athar-altatbiq": { image: saadiDirection },
 };
 
 export function officialBlogSource(slug: string) {
