@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { queryOptions, useSuspenseQuery } from "@tanstack/react-query";
-import { useState } from "react";
+
 import {
   Building2,
   ArrowLeft,
@@ -205,11 +205,6 @@ const closingPhases = [
 function Page() {
   const { data } = useSuspenseQuery(q);
   const minTeachers = Number(data["school_min_teachers"] ?? 20);
-  const teacherPrice = Number(data["price_school_teacher"] ?? 2400);
-  const studentPrice = Number(data["price_school_student"] ?? 240);
-  const [teachers, setTeachers] = useState(minTeachers);
-  const [students, setStudents] = useState(1000);
-  const total = teachers * teacherPrice + students * studentPrice;
 
   return (
     <div className="mx-auto max-w-6xl px-4 py-10 md:py-16">
@@ -503,52 +498,6 @@ function Page() {
               ← «الطلاب تعلموا وطبقوا وقسنا أثر تعلمهم.»
             </p>
           </div>
-        </div>
-      </section>
-
-      {/* ===== حاسبة الاشتراك ===== */}
-      <section className="mt-20 rounded-3xl border border-border bg-card p-8 shadow-sm">
-        <SectionTitle
-          title="حاسبة اشتراك المدرسة"
-          subtitle="قدّر التكلفة السنوية وفق عدد المعلمين والطلاب في مدرستك."
-        />
-        <div className="mt-6 grid gap-5 md:grid-cols-2">
-          <label className="text-sm">
-            عدد المعلمين (الحد الأدنى {minTeachers})
-            <input
-              type="number"
-              min={minTeachers}
-              value={teachers}
-              onChange={(e) =>
-                setTeachers(Math.max(minTeachers, Number(e.target.value) || minTeachers))
-              }
-              className="mt-2 w-full rounded-xl border border-input bg-background px-4 py-3"
-            />
-            <span className="mt-1 block text-xs text-muted-foreground">
-              {teacherPrice} ريال سنويًا لكل معلم
-            </span>
-          </label>
-          <label className="text-sm">
-            عدد الطلاب
-            <input
-              type="number"
-              min={0}
-              value={students}
-              onChange={(e) => setStudents(Math.max(0, Number(e.target.value) || 0))}
-              className="mt-2 w-full rounded-xl border border-input bg-background px-4 py-3"
-            />
-            <span className="mt-1 block text-xs text-muted-foreground">
-              {studentPrice} ريال سنويًا لكل طالب
-            </span>
-          </label>
-        </div>
-        <div className="mt-6 rounded-2xl bg-hero p-6 text-primary-foreground">
-          <p className="text-sm text-primary-foreground/80">
-            {teachers} × {teacherPrice} + {students} × {studentPrice}
-          </p>
-          <p className="mt-1 font-display text-3xl font-bold">
-            {total.toLocaleString("ar-EG")} ريال سنويًا
-          </p>
         </div>
       </section>
 

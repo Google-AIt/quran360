@@ -11,7 +11,7 @@ import { BagObjectives, ObjectiveChips } from "@/components/site/BagObjectives";
 import { useCart } from "@/lib/cart";
 import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
-import { PageHero, SectionTitle } from "@/components/site/PageHero";
+import { SectionTitle } from "@/components/site/PageHero";
 
 const q = queryOptions({
   queryKey: ["store"],
@@ -90,12 +90,17 @@ function Page() {
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10 md:py-16">
-      <PageHero
-        eyebrow="المتجر | القرآن خطوة بخطوة"
-        title="تعلّم القرآن… طبّقه… واجعله أسلوب حياة"
-        description="دورات وحقائب وبرامج قرآنية تطبيقية، صُممت لتساعدك على الانتقال من فهم الآية ← إلى اكتساب المهارة ← إلى التطبيق ← إلى قياس الأثر."
-        actions={
-          <>
+      <section className="overflow-hidden rounded-3xl bg-hero px-6 py-10 text-primary-foreground md:px-12 md:py-14">
+        <div className="max-w-3xl">
+          <p className="text-sm font-medium text-gold">المتجر | القرآن خطوة بخطوة</p>
+          <h1 className="mt-3 font-display text-4xl font-bold md:text-5xl">
+            تعلّم القرآن… طبّقه… واجعله أسلوب حياة
+          </h1>
+          <p className="mt-5 text-base leading-9 text-primary-foreground/85 md:text-lg">
+            دورات وحقائب وبرامج قرآنية تطبيقية، صُممت لتساعدك على الانتقال من فهم الآية ← إلى
+            اكتساب المهارة ← إلى التطبيق ← إلى قياس الأثر.
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
             <Button asChild variant="secondary">
               <a href="#courses">استكشف الدورات</a>
             </Button>
@@ -107,9 +112,24 @@ function Page() {
                 <ShoppingBag /> السلة{count > 0 ? ` (${count})` : ""}
               </Link>
             </Button>
-          </>
-        }
-      />
+          </div>
+        </div>
+        <div className="mt-10 grid gap-3 border-t border-primary-foreground/20 pt-6 sm:grid-cols-3">
+          {[
+            ["01", "فهم الآية", "مفهوم قرآني صحيح"],
+            ["02", "اكتساب المهارة", "خطوات عملية للتطبيق"],
+            ["03", "قياس الأثر", "تقرير يوثّق ما تغيّر فيك"],
+          ].map(([number, title, text]) => (
+            <div key={number} className="flex gap-3">
+              <span className="font-display text-sm text-gold">{number}</span>
+              <div>
+                <p className="font-display font-bold">{title}</p>
+                <p className="mt-1 text-sm text-primary-foreground/70">{text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
 
       <section className="mt-14">
         <BagObjectives title="منهجية كل منتج" />
