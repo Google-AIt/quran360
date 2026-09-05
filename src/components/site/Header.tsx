@@ -4,14 +4,15 @@ import { Menu, X, UserRound, ShoppingCart } from "lucide-react";
 import { useCart } from "@/lib/cart";
 import logoDark from "@/assets/logo/quran-step-logo-dark.png";
 
+// الترتيب من اليمين إلى اليسار كما في واجهة RTL
 const links = [
   { to: "/", label: "الرئيسية" },
-  { to: "/methodology", label: "المنهجية التطبيقية" },
-  { to: "/bags", label: "الحقائب القرآنية" },
-  { to: "/academy", label: "الأكاديمية" },
-  { to: "/facilitators", label: "الميسّرون" },
-  { to: "/schools", label: "المدارس" },
   { to: "/store", label: "المتجر" },
+  { to: "/schools", label: "المدارس" },
+  { to: "/facilitators", label: "الميسّرون" },
+  { to: "/academy", label: "الأكاديمية" },
+  { to: "/bags", label: "الحقائب القرآنية" },
+  { to: "/methodology", label: "المنهجية التطبيقية" },
   { to: "/blog", label: "المدونة" },
   { to: "/impact", label: "الأثر" },
   { to: "/contact", label: "تواصل معنا" },
@@ -24,15 +25,40 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
-        {/* في RTL أول عنصر يظهر في أقصى اليمين: القائمة ثم السلة ثم حسابي */}
-        <div className="flex items-center gap-2">
+        {/* الجهة اليمنى: زر القائمة (جوال) ثم روابط التنقل — أول عنصر DOM هو الأقصى يمينًا في RTL */}
+        <div className="flex min-w-0 items-center gap-1">
           <button
             aria-label="القائمة"
             onClick={() => setOpen((v) => !v)}
-            className="inline-flex size-10 items-center justify-center rounded-lg border border-border xl:hidden"
+            className="inline-flex size-10 shrink-0 items-center justify-center rounded-lg border border-border xl:hidden"
           >
             {open ? <X className="size-5" /> : <Menu className="size-5" />}
           </button>
+
+          <nav className="hidden items-center gap-1 xl:flex">
+            {links.map((l) => (
+              <Link
+                key={l.to}
+                to={l.to}
+                activeOptions={{ exact: l.to === "/" }}
+                activeProps={{ className: "bg-secondary text-primary-deep" }}
+                className="whitespace-nowrap rounded-lg px-3 py-2 text-sm text-foreground/80 transition-colors hover:bg-secondary hover:text-primary-deep"
+              >
+                {l.label}
+              </Link>
+            ))}
+          </nav>
+        </div>
+
+        {/* الجهة اليسرى: حسابي ثم السلة ثم الشعار في أقصى اليسار */}
+        <div className="flex shrink-0 items-center gap-2">
+          <Link
+            to="/account"
+            className="hidden items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:inline-flex"
+          >
+            <UserRound className="size-4" />
+            حسابي
+          </Link>
           <Link
             to="/cart"
             aria-label="سلة المشتريات"
@@ -45,43 +71,21 @@ export function Header() {
               </span>
             )}
           </Link>
-          <Link
-            to="/account"
-            className="hidden items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:inline-flex"
-          >
-            <UserRound className="size-4" />
-            حسابي
+          <Link to="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
+            <img
+              src={logoDark}
+              alt="القرآن خطوة بخطوة"
+              width={188}
+              height={49}
+              className="h-auto w-28 object-contain sm:w-40 xl:w-48"
+            />
+            <span className="sr-only">القرآن خطوة بخطوة</span>
           </Link>
         </div>
-
-        <nav className="hidden items-center gap-1 xl:flex">
-          {links.map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              activeOptions={{ exact: l.to === "/" }}
-              activeProps={{ className: "bg-secondary text-primary-deep" }}
-              className="rounded-lg px-3 py-2 text-sm text-foreground/80 transition-colors hover:bg-secondary hover:text-primary-deep"
-            >
-              {l.label}
-            </Link>
-          ))}
-        </nav>
-
-        <Link to="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <img
-            src={logoDark}
-            alt="القرآن خطوة بخطوة"
-            width={188}
-            height={49}
-            className="h-auto w-28 object-contain sm:w-40 xl:w-48"
-          />
-          <span className="sr-only">القرآن خطوة بخطوة</span>
-        </Link>
       </div>
 
       {open && (
-        <nav className="grid gap-1 border-t border-border bg-card px-4 py-3 xl:hidden">
+        <nav className="grid gap-1 border-t border-border bg-card px-4 py-3 text-start xl:hidden">
           {links.map((l) => (
             <Link
               key={l.to}
