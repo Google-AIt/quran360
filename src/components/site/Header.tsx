@@ -24,35 +24,17 @@ export function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/70 bg-background/90 backdrop-blur">
       <div className="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-3">
-        {/* في RTL أول عنصر يظهر في أقصى اليمين: القائمة ثم السلة ثم حسابي */}
-        <div className="flex items-center gap-2">
-          <button
-            aria-label="القائمة"
-            onClick={() => setOpen((v) => !v)}
-            className="inline-flex size-10 items-center justify-center rounded-lg border border-border xl:hidden"
-          >
-            {open ? <X className="size-5" /> : <Menu className="size-5" />}
-          </button>
-          <Link
-            to="/cart"
-            aria-label="سلة المشتريات"
-            className="relative inline-flex size-10 items-center justify-center rounded-lg border border-border text-foreground/80 hover:bg-secondary"
-          >
-            <ShoppingCart className="size-5" />
-            {count > 0 && (
-              <span className="absolute -top-1.5 -end-1.5 flex min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[11px] font-bold text-accent-foreground">
-                {count}
-              </span>
-            )}
-          </Link>
-          <Link
-            to="/account"
-            className="hidden items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:inline-flex"
-          >
-            <UserRound className="size-4" />
-            حسابي
-          </Link>
-        </div>
+        {/* في RTL أول عنصر يظهر في أقصى اليمين: الشعار */}
+        <Link to="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
+          <img
+            src={logoDark}
+            alt="القرآن خطوة بخطوة"
+            width={188}
+            height={49}
+            className="h-auto w-28 object-contain sm:w-40 xl:w-48"
+          />
+          <span className="sr-only">القرآن خطوة بخطوة</span>
+        </Link>
 
         <nav className="hidden items-center gap-1 xl:flex">
           {links.map((l) => (
@@ -68,16 +50,35 @@ export function Header() {
           ))}
         </nav>
 
-        <Link to="/" className="flex items-center gap-3" onClick={() => setOpen(false)}>
-          <img
-            src={logoDark}
-            alt="القرآن خطوة بخطوة"
-            width={188}
-            height={49}
-            className="h-auto w-28 object-contain sm:w-40 xl:w-48"
-          />
-          <span className="sr-only">القرآن خطوة بخطوة</span>
-        </Link>
+        {/* في RTL آخر عنصر يظهر في أقصى اليسار: حسابي ثم السلة ثم القائمة */}
+        <div className="flex items-center gap-2">
+          <Link
+            to="/account"
+            className="hidden items-center gap-2 rounded-lg bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-opacity hover:opacity-90 sm:inline-flex"
+          >
+            <UserRound className="size-4" />
+            حسابي
+          </Link>
+          <Link
+            to="/cart"
+            aria-label="سلة المشتريات"
+            className="relative inline-flex size-10 items-center justify-center rounded-lg border border-border text-foreground/80 hover:bg-secondary"
+          >
+            <ShoppingCart className="size-5" />
+            {count > 0 && (
+              <span className="absolute -top-1.5 -end-1.5 flex min-w-5 items-center justify-center rounded-full bg-accent px-1 text-[11px] font-bold text-accent-foreground">
+                {count}
+              </span>
+            )}
+          </Link>
+          <button
+            aria-label="القائمة"
+            onClick={() => setOpen((v) => !v)}
+            className="inline-flex size-10 items-center justify-center rounded-lg border border-border xl:hidden"
+          >
+            {open ? <X className="size-5" /> : <Menu className="size-5" />}
+          </button>
+        </div>
       </div>
 
       {open && (
