@@ -13,6 +13,12 @@ import quranInFamily from "@/assets/blog/quran-in-family.jpg";
 import quranAtWork from "@/assets/blog/quran-at-work.jpg";
 import quranRelationships from "@/assets/blog/quran-relationships.jpg";
 import knowledgeToChange from "@/assets/blog/knowledge-to-change.jpg";
+import understandQuran from "@/assets/blog/understand-quran.jpg";
+import tadabburToPractice from "@/assets/blog/tadabbur-to-practice.jpg";
+import learnToApply from "@/assets/blog/learn-to-apply.jpg";
+import ayaToBehavior from "@/assets/blog/aya-to-behavior.jpg";
+import impactOfPractice from "@/assets/blog/impact-of-practice.jpg";
+import reviewImpact from "@/assets/blog/review-impact.jpg";
 
 type OfficialBlogSource = {
   image: string;
