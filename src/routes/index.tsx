@@ -11,7 +11,7 @@ import {
 import { getBags, getSettings, getStories } from "@/lib/public.functions";
 import { bagImage } from "@/lib/bag-images";
 import { HeroSlider } from "@/components/site/HeroSlider";
-import introVideo from "@/assets/video/intro.mp4.asset.json";
+import introVideo from "@/assets/video/platform-intro.mp4.asset.json";
 
 
 const homeQuery = queryOptions({
