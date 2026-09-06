@@ -11,6 +11,8 @@ import {
 import { getBags, getSettings, getStories } from "@/lib/public.functions";
 import { bagImage } from "@/lib/bag-images";
 import { HeroSlider } from "@/components/site/HeroSlider";
+import introVideo from "@/assets/video/intro.mp4.asset.json";
+
 
 const homeQuery = queryOptions({
   queryKey: ["home"],
@@ -103,6 +105,25 @@ function Home() {
           ))}
         </div>
       </section>
+
+      {/* Intro video */}
+      <section className="mx-auto max-w-5xl px-4 py-16">
+        <SectionHeading
+          title="تعرّف على المنصة"
+          subtitle="شاهد الفيديو التعريفي لرحلة تطبيق القرآن خطوة بخطوة."
+        />
+        <div className="mt-10 overflow-hidden rounded-3xl border border-gold/40 bg-card p-2 shadow-soft">
+          <video
+            src={introVideo.url}
+            controls
+            playsInline
+            preload="metadata"
+            className="aspect-video w-full rounded-2xl bg-black object-contain"
+          />
+        </div>
+      </section>
+
+
 
 
       {/* Journey */}
